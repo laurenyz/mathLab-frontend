@@ -13,23 +13,21 @@ import NewPostForm from './components/NewPostForm';
 
 
 function App() {
-  return (
-    
-    <div>
-      This is the mathLab app component
-      <Navbar />
-        <Switch>
-          <Route exact path = "/" component = {Homescreen} />
-          <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
-          <Route exact path = "/posts" component = {PostsContainer} />
-          <Route exact path = "/posts/new" component = {NewPostForm} />
-          <Route exact path = "/posts/:id" component = {PostShowPage} />
-          <Route exact path = "/profile" component = {ProfilePage} />
-          <Route exact path = "/users/new" component = {NewUserForm} />
-          <Route exact path = "/login" component = {LoginForm} />
-        </Switch>
-      </div>
-  );
+    return ( 
+      <div>
+        <Navbar />
+          <Switch>
+            <Route exact path = "/" component = {Homescreen} />
+            <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
+            <Route exact path = "/posts" component = {PostsContainer} />
+            <Route exact path = "/posts/new" component = {NewPostForm} />
+            <Route exact path = "/posts/:id" component = {PostShowPage} />
+            <Route exact path = "/profile" component = {ProfilePage} />
+            <Route exact path = "/users/new" component = {NewUserForm} />
+            <Route exact path = "/login" component = {LoginForm} />
+          </Switch>
+        </div>
+    );
 }
 
 export default App;
