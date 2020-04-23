@@ -1,15 +1,23 @@
 import React from 'react'
-import SearchBar from '../components/SearchBar'
-import SubjectFilter from '../components/SubjectFilter'
 import PostCard from '../components/PostCard'
+import NewPostForm from '../components/NewPostForm'
+import {connect} from 'react-redux'
 
-const PostsContainer = () => {
+
+const PostsContainer = (props) => {
     return(<div>
-        PostsContainer 
-        <SearchBar />
-        <SubjectFilter />
-        <PostCard />
+        <NewPostForm />
+        <h1>Posts:</h1>
+        {props.posts.map(post => <PostCard post={post} key={post.id}/>)}
     </div>)
 }
 
-export default PostsContainer
+const mapStateToProps = state => {
+    return {
+        posts: state.posts
+    }
+}
+
+export default connect(mapStateToProps)(PostsContainer)
+
+
