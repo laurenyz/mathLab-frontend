@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar'
 import Homescreen from './components/Homescreen'
@@ -10,25 +10,31 @@ import ProfilePage from './containers/ProfilePage';
 import NewUserForm from './components/NewUserForm';
 import LoginForm from './components/LoginForm';
 import NewPostForm from './components/NewPostForm';
+import {connect} from 'react-redux'
 
 
-function App() {
-    return ( 
-      <div>
-        <Navbar />
-          <Switch>
-            <Route exact path = "/" component = {Homescreen} />
-            <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
-            <Route exact path = "/posts" component = {PostsContainer} />
-            <Route exact path = "/posts/new" component = {NewPostForm} />
-            <Route exact path = "/posts/:id" component = {PostShowPage} />
-            <Route exact path = "/profile" component = {ProfilePage} />
-            <Route exact path = "/users/new" component = {NewUserForm} />
-            <Route exact path = "/login" component = {LoginForm} />
-          </Switch>
-        </div>
-    );
+class App extends React.Component {
+
+  render() {return ( 
+    <div>
+      <Navbar />
+        <Switch>
+          <Route exact path = "/" component = {Homescreen} />
+          <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
+          <Route exact path = "/posts" component = {PostsContainer} />
+          <Route exact path = "/posts/new" component = {NewPostForm} />
+          <Route exact path = "/posts/:id" component = {PostShowPage} />
+          <Route exact path = "/profile" component = {ProfilePage} />
+          <Route exact path = "/users/new" component = {NewUserForm} />
+          <Route exact path = "/login" component = {LoginForm} />
+        </Switch>
+      </div>
+  )}
 }
 
-export default App;
+const mapStateToProps = state => {
+  return ({})
+}
+
+export default withRouter(connect(mapStateToProps)(App))
 
