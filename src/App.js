@@ -11,9 +11,14 @@ import NewUserForm from './components/NewUserForm';
 import LoginForm from './components/LoginForm';
 import NewPostForm from './components/NewPostForm';
 import {connect} from 'react-redux'
+import {fetchingPosts} from './redux/actions'
 
 
 class App extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchingPosts()
+  }
 
   render() {return ( 
     <div>
@@ -32,9 +37,11 @@ class App extends React.Component {
   )}
 }
 
-const mapStateToProps = state => {
-  return ({})
+const mapDispatchToProps = dispatch => {
+  return ({
+    fetchingPosts: () => {dispatch(fetchingPosts())}
+  })
 }
 
-export default withRouter(connect(mapStateToProps)(App))
+export default withRouter(connect(null, mapDispatchToProps)(App))
 
