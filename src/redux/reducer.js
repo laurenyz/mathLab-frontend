@@ -4,8 +4,10 @@ const postsReducer = (state = [], action) => {
   switch(action.type){
     case "FETCHED_POSTS":
       return action.payload
-    case "ADD_POST":
-      return [...state, {post_text: action.payload.text, id: action.payload.id}]
+    case "ADDED_POST":
+      let newPostArray = [...state]
+      newPostArray.unshift(action.payload)
+      return newPostArray
     default: return state
   }
 }

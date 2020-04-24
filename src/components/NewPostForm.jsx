@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addPost} from '../redux/actions'
-import uuid from "uuid"
+import {addingPost} from '../redux/actions'
+import {withRouter} from "react-router-dom"
 
 class NewPostForm extends React.Component {
     
@@ -10,6 +10,7 @@ class NewPostForm extends React.Component {
         this.state = {
             text: "",
             subject: "",
+            tags: "",
             availableSubjects: [{name: "Algebra", id: 1}, {name: "Trigonometry", id: 2}, {name: "Geometry", id: 3}, {name: "Pre-Calculus", id: 4}, {name: "Pre-Algebra", id: 5}, {name: "Other", id: 6}]
         }
     }
@@ -20,11 +21,16 @@ class NewPostForm extends React.Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault()
-        this.props.addPost({text: this.state.text, id: uuid()})
+        this.props.addingPost({user_id: this.props.user.id, 
+            post_text: this.state.text, 
+            subject: this.state.subject,
+            tags: this.state.tags})
         this.setState(
             {text: "", 
-            subject: ""
+            subject: "",
+            tags: ""
         })
+        this.props.history.push("/posts")
     }
 
     render() {
@@ -36,6 +42,7 @@ class NewPostForm extends React.Component {
                     name = "text"
                     onChange = {this.handleOnChange}>
                 </textarea>
+                <input type = "text" name = "tags" placeholder = "add taglines with #" value = {this.state.tags} onChange = {this.handleOnChange}></input>
                 <select name="subject" value = {this.state.subject} onChange = {this.handleOnChange}>
                     <option value="">SUBJECT</option>
                     {this.state.availableSubjects.map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
@@ -47,11 +54,17 @@ class NewPostForm extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        addPost: post => dispatch(addPost(post))
+        user: state.user
     }
 }
 
-export default connect(null, mapDispatchToProps)(NewPostForm)
+const mapDispatchToProps = dispatch => {
+    return {
+        addingPost: post => dispatch(addingPost(post))
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewPostForm))
 

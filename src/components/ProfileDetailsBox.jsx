@@ -3,7 +3,7 @@ import React from 'react'
 const ProfileDetailsBox = (props) => {
     return(<div>
         <h1>Username: {props.user.username}</h1>
-        <h1>TotalUpvotes: {props.userUpvotes}</h1>
+        <h1>Total Upvotes: {props.userUpvotes}</h1>
 
         <br>
         </br>

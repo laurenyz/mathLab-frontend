@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {loggingIn} from '../redux/actions'
+import { Link, withRouter } from 'react-router-dom'
 
 class LoginForm extends React.Component {
 
@@ -31,6 +32,8 @@ class LoginForm extends React.Component {
                     <input name = "password" type = "password" placeholder = "Password..." onChange = {this.handleOnChange} value = {this.state.password}></input>
                     <input type = "submit"></input>
                 </form>
+                <br></br>
+                <Link to="/users/new">Sign up for a mat+hLab account</Link>
             </div>)
     }
     
@@ -42,4 +45,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+export default withRouter(connect(null, mapDispatchToProps)(LoginForm))

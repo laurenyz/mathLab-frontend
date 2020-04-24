@@ -6,14 +6,16 @@ import ProfileRepliesBox from './ProfileRepliesBox'
 import {connect} from 'react-redux'
 
 const ProfilePage = (props) => {
+    if(props.user){
     return(<div>
         ProfilePage
         <ProfileImageBox />
         <ProfileDetailsBox user = {props.user} userUpvotes = {props.userUpvotes}/>
         <ProfilePostsBox userPosts = {props.userPosts}/>
         <ProfileRepliesBox userReplies = {props.userReplies}/>
-        
-    </div>)
+    </div>)} else {
+        return null
+    }
 }
 
 const mapStateToProps = state => {

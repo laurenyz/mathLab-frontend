@@ -1,15 +1,15 @@
-import React from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
-import './App.css';
+import React from 'react'
+import {Route, Switch, withRouter, Redirect} from "react-router-dom"
+import './App.css'
 import Navbar from './components/Navbar'
 import Homescreen from './components/Homescreen'
-import ScratchPadContainer from './containers/ScratchPadContainer';
-import PostsContainer from './containers/PostsContainer';
-import PostShowPage from './containers/PostShowPage';
-import ProfilePage from './containers/ProfilePage';
-import NewUserForm from './components/NewUserForm';
-import LoginForm from './components/LoginForm';
-import NewPostForm from './components/NewPostForm';
+import ScratchPadContainer from './containers/ScratchPadContainer'
+import PostsContainer from './containers/PostsContainer'
+import PostShowPage from './containers/PostShowPage'
+import ProfilePage from './containers/ProfilePage'
+import NewUserForm from './components/NewUserForm'
+import LoginForm from './components/LoginForm'
+import NewPostForm from './components/NewPostForm'
 import {connect} from 'react-redux'
 import {fetchingPosts, fetchUser} from './redux/actions'
 
@@ -17,6 +17,7 @@ import {fetchingPosts, fetchUser} from './redux/actions'
 class App extends React.Component {
 
   componentDidMount() {
+    console.log("app is mounting")
     this.props.fetchingPosts()
     if (localStorage.getItem('jwt')) {
       this.props.fetchUser()
@@ -33,11 +34,17 @@ class App extends React.Component {
           <Route exact path = "/posts/new" component = {NewPostForm} />
           <Route exact path = "/posts/:id" component = {PostShowPage} />
           <Route exact path = "/profile" component = {ProfilePage} />
-          <Route exact path = "/users/new" component = {NewUserForm} />
-          <Route exact path = "/login" component = {LoginForm} />
+          <Route exact path = "/users/new" render= {() => (this.props.user ? <Redirect to="/profile"/> : <NewUserForm /> )}/>
+          <Route exact path = "/login" render= {() => (this.props.user ? <Redirect to="/profile"/> : <LoginForm /> )}/>
         </Switch>
       </div>
   )}
+}
+
+const mapStateToProps = state => {
+  return ({
+    user: state.user
+  })
 }
 
 const mapDispatchToProps = dispatch => {
@@ -47,5 +54,5 @@ const mapDispatchToProps = dispatch => {
   })
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 

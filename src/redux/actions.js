@@ -1,7 +1,27 @@
-function addPost(post) {
+function addedPost(post) {
     return {
-        type: "ADD_POST",
-        payload: {text: post.text, id:post.id}
+        type: "ADDED_POST",
+        payload: post
+    }
+}
+
+function addingPost(post) {
+    return (dispatch) => {
+        fetch('http://localhost:3000/posts',{
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(post)
+    })
+    .then(resp => resp.json())
+    .then(post => {
+        if (post.error){
+        alert(post.message)
+        } else {
+            dispatch(addedPost(post))
+        }})
     }
 }
 
@@ -94,22 +114,6 @@ function loggingIn(credentials){
     })   
 }}
 
-// need user
-function addingPost(post) {
-    return (dispatch) => {
-        fetch('http://localhost:3000/posts',{
-        method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(post)
-    })
-    .then(resp => resp.json())
-    .then(post => console.log(post))
-    }
-}
-
 function fetchedPosts(posts){
     return{
         type: "FETCHED_POSTS",
@@ -121,13 +125,13 @@ function fetchingPosts() {
     return(dispatch) => {
         fetch('http://localhost:3000/posts')
         .then(resp => resp.json())
-        .then(posts => dispatch(fetchedPosts(posts)))
+        .then(posts => dispatch(fetchedPosts(posts.reverse())))
     }
 }
 
 function fetchUser() {
     return(dispatch) => {
-        fetch("http://localhost:3000/profile",{
+        fetch("http://localhost:3000/profile", {
         headers: {
           "Authentication": localStorage.getItem('jwt')
         }
@@ -141,6 +145,31 @@ function fetchUser() {
     }
 }
 
-export {addPost, fetchingPosts, loggingIn, logoutUser, fetchUser}
+function createUser(userInfo){
+    return(dispatch) => {
+        fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({name: userInfo.name, username: userInfo.username, email: userInfo.email, password: userInfo.password, password_confirmation: userInfo.password_confirmation})
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.error){
+                alert(json.message)
+                } else {
+                localStorage.setItem('jwt', json.token)
+                dispatch(loginUser(json.user))
+                dispatch(fetchedUserPosts(json.posts))
+                dispatch(fetchedUserReplies(json.replies))
+                dispatch(fetchedUserUpvotes(json.upvotes))
+                }
+        })
+    }
+}
 
+
+export {addingPost, fetchingPosts, loggingIn, logoutUser, fetchUser, createUser}
 
