@@ -27,7 +27,6 @@ class NewPostForm extends React.Component {
         })
     }
 
-
     render() {
         return(<div>
             NewPostForm:
