@@ -5,6 +5,22 @@ function addPost(post) {
     }
 }
 
+// need user
+function addingPost(post) {
+    return (dispatch) => {
+        fetch('http://localhost:3000/posts',{
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(post)
+    })
+    .then(resp => resp.json())
+    .then(post => console.log(post))
+    }
+}
+
 function fetchedPosts(posts){
     return{
         type: "FETCHED_POSTS",

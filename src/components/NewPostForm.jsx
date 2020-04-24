@@ -8,21 +8,25 @@ class NewPostForm extends React.Component {
     constructor() {
         super()
         this.state = {
-            text: ""
+            text: "",
+            subject: "",
+            availableSubjects: [{name: "Algebra", id: 1}, {name: "Trigonometry", id: 2}, {name: "Geometry", id: 3}, {name: "Pre-Calculus", id: 4}, {name: "Pre-Algebra", id: 5}, {name: "Other", id: 6}]
         }
     }
 
     handleOnChange = event => {
-        this.setState({text: event.target.value})
+        this.setState({[event.target.name]: event.target.value})
     }
 
-    handleOnSubmit = event => {
+    handleOnSubmit = (event) => {
         event.preventDefault()
         this.props.addPost({text: this.state.text, id: uuid()})
         this.setState(
-            {text: ""}
-        )
+            {text: "", 
+            subject: ""
+        })
     }
+
 
     render() {
         return(<div>
@@ -30,8 +34,13 @@ class NewPostForm extends React.Component {
             <form onSubmit = {this.handleOnSubmit}>
                 <textarea placeholder = "Post Content..." 
                     value = {this.state.text} 
+                    name = "text"
                     onChange = {this.handleOnChange}>
                 </textarea>
+                <select name="subject" value = {this.state.subject} onChange = {this.handleOnChange}>
+                    <option value="">SUBJECT</option>
+                    {this.state.availableSubjects.map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
+                </select>
                 <input type = "submit">
                 </input>
             </form>
