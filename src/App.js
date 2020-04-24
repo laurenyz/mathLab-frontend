@@ -11,13 +11,16 @@ import NewUserForm from './components/NewUserForm';
 import LoginForm from './components/LoginForm';
 import NewPostForm from './components/NewPostForm';
 import {connect} from 'react-redux'
-import {fetchingPosts} from './redux/actions'
+import {fetchingPosts, fetchUser} from './redux/actions'
 
 
 class App extends React.Component {
 
   componentDidMount() {
     this.props.fetchingPosts()
+    if (localStorage.getItem('jwt')) {
+      this.props.fetchUser()
+    }
   }
 
   render() {return ( 
@@ -39,7 +42,8 @@ class App extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return ({
-    fetchingPosts: () => {dispatch(fetchingPosts())}
+    fetchingPosts: () => {dispatch(fetchingPosts())},
+    fetchUser: () => {dispatch(fetchUser())}
   })
 }
 

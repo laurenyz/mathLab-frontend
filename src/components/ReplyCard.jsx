@@ -1,8 +1,8 @@
 import React from 'react'
 
-const ReplyCard = () => {
+const ReplyCard = (props) => {
     return(<div>
-        ReplyCard
+         <h3>{props.reply.reply_text}</h3>
     </div>)
 }
 

@@ -5,6 +5,40 @@ function addPost(post) {
     }
 }
 
+function removeUserUpvotes() {
+    return{
+        type: "REMOVE_USER_UPVOTES"
+    }
+}
+
+function removeUserReplies() {
+    return{
+        type: "REMOVE_USER_REPLIES"
+    }
+}
+
+function removeUserPosts() {
+    return {
+        type: "REMOVE_USER_POSTS"
+    }
+}
+
+function removeUser() {
+return {
+    type: "REMOVE_USER"
+    }
+}
+
+function logoutUser() {
+   return (dispatch) => {
+       localStorage.removeItem("jwt")
+       dispatch(removeUser())
+       dispatch(removeUserPosts())
+       dispatch(removeUserReplies())
+       dispatch(removeUserUpvotes())
+   } 
+}
+
 function loginUser(user) {
     return {
         type: "LOGIN_USER",
@@ -12,8 +46,15 @@ function loginUser(user) {
     }
 }
 
+function fetchedUserUpvotes (upvotes) {
+    return {
+        type: "FETCHED_USER_UPVOTES",
+        payload: upvotes
+    }
+}
+
 function fetchedUserReplies(replies) {
-    return{
+    return {
         type: "FETCHED_USER_REPLIES",
         payload: replies
     }
@@ -48,11 +89,10 @@ function loggingIn(credentials){
             dispatch(loginUser(json.user))
             dispatch(fetchedUserPosts(json.posts))
             dispatch(fetchedUserReplies(json.replies))
+            dispatch(fetchedUserUpvotes(json.upvotes))
             }
-    })
-    
-}
-}
+    })   
+}}
 
 // need user
 function addingPost(post) {
@@ -78,13 +118,29 @@ function fetchedPosts(posts){
 }
 
 function fetchingPosts() {
-    return (dispatch) => {
+    return(dispatch) => {
         fetch('http://localhost:3000/posts')
         .then(resp => resp.json())
         .then(posts => dispatch(fetchedPosts(posts)))
     }
 }
 
-export {addPost, fetchingPosts, loggingIn}
+function fetchUser() {
+    return(dispatch) => {
+        fetch("http://localhost:3000/profile",{
+        headers: {
+          "Authentication": localStorage.getItem('jwt')
+        }
+      }).then(resp => resp.json())
+      .then(json => {
+        dispatch(loginUser(json.user))
+        dispatch(fetchedUserPosts(json.posts))
+        dispatch(fetchedUserReplies(json.replies))
+        dispatch(fetchedUserUpvotes(json.upvotes))
+      })
+    }
+}
+
+export {addPost, fetchingPosts, loggingIn, logoutUser, fetchUser}
 
 

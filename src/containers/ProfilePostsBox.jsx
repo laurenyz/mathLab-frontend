@@ -1,10 +1,10 @@
 import React from 'react'
 import PostCard from '../components/PostCard'
 
-const ProfilePostsBox = () => {
+const ProfilePostsBox = (props) => {
     return(<div>
-        ProfilePostsBox
-        <PostCard />
+        <h1>Posts:</h1>
+        {props.userPosts.map(post => <PostCard post={post} key={post.id}/>)}
     </div>)
 }
 

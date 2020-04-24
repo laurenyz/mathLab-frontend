@@ -1,80 +1,100 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Link, NavLink, withRouter } from "react-router-dom";
+// import React from 'react'
+// import {connect} from 'react-redux'
+// import {logoutUser} from '../redux/actions'
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//   },
-//   title: {
-//     flexGrow: 1,
-//   },
-// }));
 
-// function ButtonAppBar() {
-//   const classes = useStyles();
+// class Navbar extends React.Component {
 
-//   return (
-//     <div className={classes.root}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Typography variant="h6" className={classes.title}>
-//             ma+hLab
-//           </Typography>
-//           <NavLink to = "/scratchpads/new">
-//             <Button onClick = {handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-//           </NavLink>
-//           <NavLink to = "/posts">
-//             <Button color="inherit">Connect()</Button>
-//           </NavLink>
-//           <NavLink to = "/login">
-//             <Button color="inherit">Login</Button>
-//           </NavLink>
-//         </Toolbar>
-//       </AppBar>
-//     </div>
-//   );
+// handleOnClickConnect = () => {
+//     window.location = 'http://localhost:3001/posts'
 // }
 
-// export default withRouter(ButtonAppBar)
+// handleOnClickScratchPad = () => {
+//     window.location = `http://localhost:3001/scratchpads/new`
+// }
+
+// handleOnClickMathLab = () => {
+//     window.location = 'http://localhost:3001/'
+// }
+
+// handleOnClickLogin = () => {
+//     window.location = 'http://localhost:3001/login'
+// }
+
+// handleOnClickMyAccount = () => {
+//     window.location = 'http://localhost:3001/profile'
+// }
+
+// handleOnClickLogout = () => {
+//     window.location = 'http://localhost:3001/'
+//     this.props.logoutUser(this.props.user)
+// }
+
+// render() {
+//     return(
+//         <div>
+//             <button onClick = {this.handleOnClickConnect}>Connect()</button>
+//             <button onClick = {this.handleOnClickScratchPad}>ScratchPad</button>
+//             <button onClick = {this.handleOnClickMathLab}>ma+hLab</button>
+//             {this.props.user?  <button onClick = {this.handleOnClickMyAccount}>MyAccount</button> : null}
+//             {this.props.user?  <button onClick = {this.handleOnClickLogout}>Logout</button> : <button onClick = {this.handleOnClickLogin}>Login</button>}
+//         </div>
+// )}
+// }
+
+// const mapStateToProps = state => {
+//     return {
+//         user: state.user
+//     }
+// }
+
+// export default connect(mapStateToProps, {logoutUser})(Navbar)
+
+import React from 'react'
+import {connect} from 'react-redux'
+import {logoutUser} from '../redux/actions'
+import { Link, NavLink, withRouter } from 'react-router-dom'
+
 
 class Navbar extends React.Component {
 
-handleOnClickConnect = () => {
-    window.location = 'http://localhost:3001/posts'
-}
 
-handleOnClickScratchPad = () => {
-    window.location = `http://localhost:3001/scratchpads/new`
+handleOnClickLogout = () => {
+    this.props.logoutUser()
 }
-
-handleOnClickMathLab = () => {
-    window.location = 'http://localhost:3001/'
-}
-
-handleOnClickLogin = () => {
-    window.location = 'http://localhost:3001/login'
-}
-
+      
 render() {
     return(
-        <div>
-            <button onClick = {this.handleOnClickConnect}>Connect()</button>
-            <button onClick = {this.handleOnClickScratchPad}>ScratchPad</button>
-            <button onClick = {this.handleOnClickMathLab}>ma+hLab</button>
-            <button onClick = {this.handleOnClickLogin}>Login</button>
-        </div>
+        <div className={`ui inverted teal menu`}>
+                <Link to="/" className="item">
+                <h2 className="ui header">
+                <i className={`paint brush icon`} />
+                <div className="content">ma+hLab</div>
+                </h2>
+            </Link>
+            <NavLink to="/posts" activeClassName="active item" className="item">
+            <h3 className="ui header">Connect()</h3>
+            </NavLink>
+            <NavLink exact to="/scratchpads/new" activeClassName="active item" className="item">
+            <h3 className="ui header">ScratchPad</h3>
+            </NavLink>
+            <NavLink exact to="/login" activeClassName="active item" className="item">
+            <h3 className="ui header">Login</h3>
+            </NavLink>
+            <NavLink exact to="/" activeClassName="active item" className="item" onClick = {this.handleOnClickLogout}>
+            <h3 className="ui header">Logout</h3>
+            </NavLink>
+            <NavLink exact to="/profile" activeClassName="active item" className="item">
+            <h3 className="ui header">MyAccount</h3>
+            </NavLink>
+    </div>
 )}
-
 }
 
-export default Navbar
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default withRouter(connect(mapStateToProps,{logoutUser})(Navbar))
