@@ -1,6 +1,6 @@
 import React from 'react'
 import PostCard from '../components/PostCard'
-import NewPostForm from '../components/NewPostForm'
+
 import {connect} from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 

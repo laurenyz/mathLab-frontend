@@ -30,7 +30,6 @@ class NewPostForm extends React.Component {
             subject: "",
             tags: ""
         })
-        this.props.history.push("/posts")
     }
 
     render() {

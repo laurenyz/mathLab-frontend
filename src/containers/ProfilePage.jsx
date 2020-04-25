@@ -11,7 +11,7 @@ const ProfilePage = (props) => {
         ProfilePage
         <ProfileImageBox />
         <ProfileDetailsBox user = {props.user} userUpvotes = {props.userUpvotes}/>
-        <ProfilePostsBox userPosts = {props.userPosts}/>
+        <ProfilePostsBox userPosts = {props.posts.filter(post => post.user.id === props.user.id)}/>
         <ProfileRepliesBox userReplies = {props.userReplies}/>
     </div>)} else {
         return null
@@ -20,6 +20,7 @@ const ProfilePage = (props) => {
 
 const mapStateToProps = state => {
     return {
+        posts: state.posts,
         user: state.user,
         userReplies: state.userReplies,
         userPosts: state.userPosts,

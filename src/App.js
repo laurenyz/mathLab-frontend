@@ -20,6 +20,7 @@ class App extends React.Component {
     console.log("app is mounting")
     this.props.fetchingPosts()
     if (localStorage.getItem('jwt')) {
+      console.log("getting user")
       this.props.fetchUser()
     }
   }
@@ -32,8 +33,13 @@ class App extends React.Component {
           <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
           <Route exact path = "/posts" component = {PostsContainer} />
           <Route exact path = "/posts/new" component = {NewPostForm} />
-          <Route exact path = "/posts/:id" component = {PostShowPage} />
-          <Route exact path = "/profile" component = {ProfilePage} />
+          <Route exact path = "/posts/:id" render= {(props) => {
+            debugger
+                let postId = parseInt(props.match.params.id)
+                let foundPost = this.props.posts.find(p => p.id === postId)
+                return <PostShowPage post = {foundPost} />
+          }} />
+          <Route exact path = "/profile" render= {() => (this.props.user ? <ProfilePage /> :<Redirect to="/" /> )}/>
           <Route exact path = "/users/new" render= {() => (this.props.user ? <Redirect to="/profile"/> : <NewUserForm /> )}/>
           <Route exact path = "/login" render= {() => (this.props.user ? <Redirect to="/profile"/> : <LoginForm /> )}/>
         </Switch>
@@ -43,6 +49,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return ({
+    posts: state.posts,
     user: state.user
   })
 }

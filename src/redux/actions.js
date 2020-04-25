@@ -21,6 +21,7 @@ function addingPost(post) {
         alert(post.message)
         } else {
             dispatch(addedPost(post))
+        alert("Your post has been submitted.")
         }})
     }
 }
@@ -37,12 +38,6 @@ function removeUserReplies() {
     }
 }
 
-function removeUserPosts() {
-    return {
-        type: "REMOVE_USER_POSTS"
-    }
-}
-
 function removeUser() {
 return {
     type: "REMOVE_USER"
@@ -53,7 +48,6 @@ function logoutUser() {
    return (dispatch) => {
        localStorage.removeItem("jwt")
        dispatch(removeUser())
-       dispatch(removeUserPosts())
        dispatch(removeUserReplies())
        dispatch(removeUserUpvotes())
    } 
@@ -80,13 +74,6 @@ function fetchedUserReplies(replies) {
     }
 }
 
-function fetchedUserPosts(posts) {
-    return {
-        type: "FETCHED_USER_POSTS",
-        payload: posts
-    }
-}
-
 function loggingIn(credentials){
     return (dispatch) => {
     fetch('http://localhost:3000/login', {
@@ -107,7 +94,6 @@ function loggingIn(credentials){
             } else {
             localStorage.setItem('jwt', json.token)
             dispatch(loginUser(json.user))
-            dispatch(fetchedUserPosts(json.posts))
             dispatch(fetchedUserReplies(json.replies))
             dispatch(fetchedUserUpvotes(json.upvotes))
             }
@@ -138,7 +124,6 @@ function fetchUser() {
       }).then(resp => resp.json())
       .then(json => {
         dispatch(loginUser(json.user))
-        dispatch(fetchedUserPosts(json.posts))
         dispatch(fetchedUserReplies(json.replies))
         dispatch(fetchedUserUpvotes(json.upvotes))
       })
@@ -162,7 +147,6 @@ function createUser(userInfo){
                 } else {
                 localStorage.setItem('jwt', json.token)
                 dispatch(loginUser(json.user))
-                dispatch(fetchedUserPosts(json.posts))
                 dispatch(fetchedUserReplies(json.replies))
                 dispatch(fetchedUserUpvotes(json.upvotes))
                 }

@@ -7,7 +7,7 @@ const PostShowPage = () => {
     return(<div>
         PostShowPage
         <PostDetailsBox />
-        <PostShowRepliesBox />
+        {/* <PostShowRepliesBox /> */}
         <ReplyForm />
     </div>)
 }
