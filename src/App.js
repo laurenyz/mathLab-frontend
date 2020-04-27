@@ -34,9 +34,17 @@ class App extends React.Component {
           <Route exact path = "/posts" component = {PostsContainer} />
           <Route exact path = "/posts/new" component = {NewPostForm} />
           <Route exact path = "/posts/:id" render= {(props) => {
+            if (this.props.posts.length>0){
                 let postId = parseInt(props.match.params.id)
                 let foundPost = this.props.posts.find(p => p.id === postId)
-                return <PostShowPage post = {foundPost} />
+                if (foundPost) {
+                  return<PostShowPage post = {foundPost} />
+                } else {
+                  alert("This post has been removed.")
+                  return<Redirect to="/posts" />
+                }
+            } else {
+              return null}
           }} />
           <Route exact path = "/profile" render= {() => (this.props.user ? <ProfilePage /> :<Redirect to="/" /> )}/>
           <Route exact path = "/users/new" render= {() => (this.props.user ? <Redirect to="/profile"/> : <NewUserForm /> )}/>

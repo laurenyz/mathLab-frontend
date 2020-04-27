@@ -1,5 +1,4 @@
 import React from 'react'
-import PostDetailsBox from '../components/PostDetailsBox'
 import PostShowRepliesBox from './PostShowRepliesBox'
 import NewReplyForm from '../components/NewReplyForm'
 import PostCard from '../components/PostCard'

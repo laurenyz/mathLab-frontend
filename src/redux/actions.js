@@ -11,7 +11,7 @@ function deletingPost(post){
             method: "DELETE"
         })
         .then(resp => resp.json())
-        .then(json => console.log(json.message))
+        .then(dispatch(deletedPost(post)))
     }
 }
 
@@ -39,7 +39,7 @@ function addedPost(post) {
     }
 }
 
-function addingPost(post) {
+function addingPost(info) {
     return (dispatch) => {
         fetch('http://localhost:3000/posts', {
         method: "POST",
@@ -47,7 +47,7 @@ function addingPost(post) {
             'Content-Type': "application/json",
             "Accept": "application/json"
         },
-        body: JSON.stringify(post)
+        body: JSON.stringify(info.post)
     })
     .then(resp => resp.json())
     .then(post => {
@@ -55,7 +55,7 @@ function addingPost(post) {
         alert(post.message)
         } else {
             dispatch(addedPost(post))
-        alert("Your post has been submitted.")
+        info.history.push(`/posts/${post.id}`)
         }})
     }
 }
@@ -82,18 +82,6 @@ function addingReply(reply){
     }
 }
 
-function removeUserUpvotes() {
-    return{
-        type: "REMOVE_USER_UPVOTES"
-    }
-}
-
-function removeUserReplies() {
-    return{
-        type: "REMOVE_USER_REPLIES"
-    }
-}
-
 function removeUser() {
 return {
     type: "REMOVE_USER"
@@ -104,8 +92,6 @@ function logoutUser() {
    return (dispatch) => {
        localStorage.removeItem("jwt")
        dispatch(removeUser())
-       dispatch(removeUserReplies())
-       dispatch(removeUserUpvotes())
    } 
 }
 
@@ -113,20 +99,6 @@ function loginUser(user) {
     return {
         type: "LOGIN_USER",
         payload: user
-    }
-}
-
-function fetchedUserUpvotes (upvotes) {
-    return {
-        type: "FETCHED_USER_UPVOTES",
-        payload: upvotes
-    }
-}
-
-function fetchedUserReplies(replies) {
-    return {
-        type: "FETCHED_USER_REPLIES",
-        payload: replies
     }
 }
 
@@ -150,8 +122,6 @@ function loggingIn(credentials){
             } else {
             localStorage.setItem('jwt', json.token)
             dispatch(loginUser(json.user))
-            dispatch(fetchedUserReplies(json.replies))
-            dispatch(fetchedUserUpvotes(json.upvotes))
             }
     })   
 }}
@@ -180,8 +150,6 @@ function fetchingUser() {
       }).then(resp => resp.json())
       .then(json => {
         dispatch(loginUser(json.user))
-        dispatch(fetchedUserReplies(json.replies))
-        dispatch(fetchedUserUpvotes(json.upvotes))
       })
     }
 }
@@ -203,8 +171,6 @@ function createUser(userInfo){
                 } else {
                 localStorage.setItem('jwt', json.token)
                 dispatch(loginUser(json.user))
-                dispatch(fetchedUserReplies(json.replies))
-                dispatch(fetchedUserUpvotes(json.upvotes))
                 }
         })
     }

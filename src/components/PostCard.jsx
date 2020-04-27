@@ -19,7 +19,6 @@ const PostCard = (props) => {
     }
 
     function handleDeleteOnClick(){
-        console.log("deleting post")
         deletingPost(post)
     }
 }

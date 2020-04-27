@@ -36,31 +36,9 @@ const userReducer = (state = null, action) => {
   }
 }
 
-const userUpvotesReducer = (state = null, action) =>{
-  switch(action.type){
-    case "FETCHED_USER_UPVOTES":
-      return action.payload
-    case "REMOVE_USER_UPVOTES":
-      return null
-    default: return state
-  }
-}
-
-const userRepliesReducer = (state = [], action) => {
-  switch(action.type){
-    case "FETCHED_USER_REPLIES":
-      return action.payload
-    case "REMOVE_USER_REPLIES":
-      return []
-    default: return state
-  }
-}
-
 const rootReducer = combineReducers({
     user: userReducer,  
-    posts: postsReducer,
-    userReplies: userRepliesReducer,
-    userUpvotes: userUpvotesReducer
+    posts: postsReducer
   });
   
   export default rootReducer;

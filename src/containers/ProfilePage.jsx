@@ -19,10 +19,7 @@ const ProfilePage = (props) => {
 const mapStateToProps = state => {
     return {
         posts: state.posts,
-        user: state.user,
-        userReplies: state.userReplies,
-        userPosts: state.userPosts,
-        userUpvotes: state.userUpvotes
+        user: state.user
     }
 }
 

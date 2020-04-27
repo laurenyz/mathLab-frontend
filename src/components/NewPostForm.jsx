@@ -21,15 +21,18 @@ class NewPostForm extends React.Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault()
-        this.props.addingPost({user_id: this.props.user.id, 
+        if(this.state.subject !== ""){
+        this.props.addingPost({history: this.props.history, post: {user_id: this.props.user.id, 
             post_text: this.state.text, 
             subject: this.state.subject,
-            tags: this.state.tags})
+            tags: this.state.tags}})
         this.setState(
             {text: "", 
             subject: "",
             tags: ""
-        })
+        })} else {
+            alert ("Subject cannot be blank.")
+        }
     }
 
     render() {
