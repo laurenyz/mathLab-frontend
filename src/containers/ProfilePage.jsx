@@ -2,7 +2,6 @@ import React from 'react'
 import ProfileImageBox from '../components/ProfileImageBox'
 import ProfileDetailsBox from '../components/ProfileDetailsBox'
 import ProfilePostsBox from './ProfilePostsBox'
-import ProfileRepliesBox from './ProfileRepliesBox'
 import {connect} from 'react-redux'
 
 const ProfilePage = (props) => {
@@ -12,7 +11,6 @@ const ProfilePage = (props) => {
         <ProfileImageBox />
         <ProfileDetailsBox user = {props.user} userUpvotes = {props.userUpvotes}/>
         <ProfilePostsBox userPosts = {props.posts.filter(post => post.user.id === props.user.id)}/>
-        <ProfileRepliesBox userReplies = {props.userReplies}/>
     </div>)} else {
         return null
     }

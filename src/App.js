@@ -34,7 +34,6 @@ class App extends React.Component {
           <Route exact path = "/posts" component = {PostsContainer} />
           <Route exact path = "/posts/new" component = {NewPostForm} />
           <Route exact path = "/posts/:id" render= {(props) => {
-            debugger
                 let postId = parseInt(props.match.params.id)
                 let foundPost = this.props.posts.find(p => p.id === postId)
                 return <PostShowPage post = {foundPost} />
