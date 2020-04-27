@@ -1,3 +1,37 @@
+function deletedPost(post){
+    return{
+        type: "DELETED_POST",
+        payload: post
+    }
+}
+
+function deletingPost(post){
+    return (dispatch) => {
+        fetch(`http://localhost:3000/posts/${post.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(json => console.log(json.message))
+    }
+}
+
+function deletedReply(reply){
+    return {
+        type: "DELETED_REPLY",
+        payload: reply
+    }
+}
+
+function deletingReply(reply){
+    return (dispatch) => {
+        fetch(`http://localhost:3000/replies/${reply.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(dispatch(deletedReply(reply)))
+    }
+}
+
 function addedPost(post) {
     return {
         type: "ADDED_POST",
@@ -7,7 +41,7 @@ function addedPost(post) {
 
 function addingPost(post) {
     return (dispatch) => {
-        fetch('http://localhost:3000/posts',{
+        fetch('http://localhost:3000/posts', {
         method: "POST",
         headers: {
             'Content-Type': "application/json",
@@ -23,6 +57,28 @@ function addingPost(post) {
             dispatch(addedPost(post))
         alert("Your post has been submitted.")
         }})
+    }
+}
+
+function addedReply(reply){
+    return {
+        type: "ADDED_REPLY",
+        payload: reply
+    }
+}
+
+function addingReply(reply){
+    return(dispatch) => {
+        fetch('http://localhost:3000/replies', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(reply)
+    })
+    .then(resp => resp.json())
+    .then(reply => dispatch(addedReply(reply)))
     }
 }
 
@@ -115,7 +171,7 @@ function fetchingPosts() {
     }
 }
 
-function fetchUser() {
+function fetchingUser() {
     return(dispatch) => {
         fetch("http://localhost:3000/profile", {
         headers: {
@@ -155,5 +211,5 @@ function createUser(userInfo){
 }
 
 
-export {addingPost, fetchingPosts, loggingIn, logoutUser, fetchUser, createUser}
+export {deletingReply, deletingPost, addingPost, addingReply, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
 

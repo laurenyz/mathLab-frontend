@@ -15,7 +15,7 @@ class NewPostForm extends React.Component {
         }
     }
 
-    handleOnChange = event => {
+    handleOnChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }
 
