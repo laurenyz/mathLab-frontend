@@ -2,14 +2,22 @@ import React from 'react'
 import PostDetailsBox from '../components/PostDetailsBox'
 import PostShowRepliesBox from './PostShowRepliesBox'
 import ReplyForm from '../components/ReplyForm'
+import PostCard from '../components/PostCard'
+import {connect} from 'react-redux'
 
-const PostShowPage = () => {
+const PostShowPage = ({post}) => {
     return(<div>
-        PostShowPage
-        <PostDetailsBox />
-        {/* <PostShowRepliesBox /> */}
-        <ReplyForm />
+        Original Post:
+        <PostCard post = {post} />
+        <PostShowRepliesBox post = {post}/>
+        <ReplyForm post = {post} />
     </div>)
 }
 
-export default PostShowPage
+const mapStateToProps = state => {
+    return{
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(PostShowPage)

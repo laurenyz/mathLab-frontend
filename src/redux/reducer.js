@@ -43,8 +43,8 @@ const userRepliesReducer = (state = [], action) => {
 }
 
 const rootReducer = combineReducers({
+    user: userReducer,  
     posts: postsReducer,
-    user: userReducer,
     userReplies: userRepliesReducer,
     userUpvotes: userUpvotesReducer
   });

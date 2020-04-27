@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostDetailsBox = () => {
+const PostDetailsBox = ({post}) => {
     return(<div>
         PostDetailsBox
     </div>)
