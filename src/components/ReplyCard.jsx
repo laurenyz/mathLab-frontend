@@ -14,7 +14,11 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
     function handleOnClickUpvote(){
         if(user.id === reply.replier.id){
             alert("Hold on there partner, you can't upvote your own reply!")
-        } else {
+        } 
+        // else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
+        //     alert("Woah there, you've already liked this reply!")
+        // }
+         else {
         console.log("upvoting!")
         addingUpvote({reply_id: reply.id, voter_id: user.id})
         }
