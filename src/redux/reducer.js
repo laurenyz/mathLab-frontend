@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 const postsReducer = (state = [], action) => {
+  let newPosts
   switch(action.type){
     case "FETCHED_POSTS":
       return action.payload
@@ -9,27 +10,34 @@ const postsReducer = (state = [], action) => {
       newPostArray.unshift(action.payload)
       return newPostArray
     case "ADDED_REPLY":
-      const foundPost = state.find(p => p.id === action.payload.post_id)
-      foundPost.replies.push(action.payload)
-      return [...state, foundPost]
-    case "ADDED_UPVOTE":
-        let newPosts = [...state]
-        newPosts.map( post => {
-          if (post.replies.find(r=>r.id === action.payload.reply_id)){
-            let newReplies = []
-            post.replies.forEach(r=>{
-              if(r.id === action.payload.reply_id){
-                r = {...r, upvotes: [...r.upvotes, action.payload]}
-              }
-              newReplies.push(r)
-              return newReplies
-            })
-            return post.replies = newReplies
+      newPosts = state.map(p => {
+        if(p.id !== action.payload.post_id){
+          return p
+        }else{
+          return {
+            ...p,
+            replies: [...p.replies, action.payload]
           }
-          return post
+      }})
+      return newPosts
+    case "ADDED_UPVOTE":
+      newPosts = [...state]
+      newPosts.map( post => {
+        if (post.replies.find(r=>r.id === action.payload.reply_id)){
+          let newReplies = []
+          post.replies.forEach(r=>{
+            if(r.id === action.payload.reply_id){
+              r = {...r, upvotes: [...r.upvotes, action.payload]}
+            }
+            newReplies.push(r)
+            return newReplies
+          })
+          return post.replies = newReplies
         }
-        )
-       return newPosts
+        return post
+      }
+      )
+      return newPosts
     case "DELETED_POST":
       const postArray = state.filter(p => p.id !== action.payload.id)
       return postArray
