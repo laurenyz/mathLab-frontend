@@ -42,12 +42,17 @@ const postsReducer = (state = [], action) => {
       const postArray = state.filter(p => p.id !== action.payload.id)
       return postArray
     case "DELETED_REPLY":
-      const postWithResponse = state.find(p => p.id === action.payload.post_id)
-      const repliesArray = postWithResponse.replies
-      const foundReply = repliesArray.find(r => r.id === action.payload.id)
-      const remainingReplies = repliesArray.filter(r => r.id !== foundReply.id)
-      postWithResponse.replies = remainingReplies
-      return [...state, postWithResponse]
+
+      newPosts = state.map(p=>{
+        if(p.id !== action.payload.post_id){
+          return p
+        } else {
+          return {
+            ...p,
+            replies: p.replies.filter(r => r.id!== action.payload.id)
+          }
+      }})
+        return newPosts
     default: return state
   }
 }

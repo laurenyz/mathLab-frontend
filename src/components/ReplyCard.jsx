@@ -5,6 +5,7 @@ import {deletingReply, addingUpvote} from '../redux/actions'
 const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
     return(<div className = "card">
         <h4>{reply.replier.username}:</h4>
+        <h5>{getCreatedMonth() + "/" + getCreatedDay() + "/" + getCreatedYear() + " " + getCreatedTime()}</h5>
         <h3>{reply.reply_text}</h3>
         {(user && user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
         <h4>Upvotes: {reply.upvotes.length}</h4>
@@ -27,6 +28,44 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
             alert("You must be signed in to upvote a reply!")
         }
         
+    }
+
+    function getCreatedTime() {
+    let date = new Date(reply.created_at)
+    let hour = date.getHours() 
+    let minutes = date.getMinutes() 
+    let timeOfDay
+        if (hour>11){
+            timeOfDay = "PM"
+            if(hour > 12){
+                hour -= 12
+            }
+        } else if (hour === 0) {
+            timeOfDay = "AM"
+            hour = 12
+        } else {
+            timeOfDay = "AM"
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+          }
+
+        return `${hour}:${minutes} ${timeOfDay}`
+    }
+
+    function getCreatedMonth() {
+        let date = new Date(reply.created_at)
+        return (date.getMonth()+1)
+    }
+
+    function getCreatedDay() {
+        let date = new Date(reply.created_at)
+        return date.getDate()
+    }
+
+    function getCreatedYear(){
+        let date = new Date(reply.created_at)
+        return date.getFullYear()
     }
 
     function handleOnClick() {
