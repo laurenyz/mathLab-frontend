@@ -82,6 +82,28 @@ function addingReply(reply){
     }
 }
 
+function addedUpvote(upvote){
+    return {
+        type: "ADDED_UPVOTE",
+        payload: upvote
+    }
+}
+
+function addingUpvote(upvote){
+    return(dispatch) => {
+        fetch('http://localhost:3000/upvotes', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(upvote)
+        })
+        .then(resp => resp.json())
+        .then(upvote => dispatch(addedUpvote(upvote)))
+    }
+}
+
 function removeUser() {
 return {
     type: "REMOVE_USER"
@@ -177,5 +199,5 @@ function createUser(userInfo){
 }
 
 
-export {deletingReply, deletingPost, addingPost, addingReply, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
+export {deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
 

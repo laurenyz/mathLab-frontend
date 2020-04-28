@@ -1,25 +1,41 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deletingReply} from '../redux/actions'
+import {deletingReply, addingUpvote} from '../redux/actions'
 
-const ReplyCard = ({reply, deletingReply}) => {
+const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
     return(<div className = "card">
         <h4>{reply.replier.username}:</h4>
         <h3>{reply.reply_text}</h3>
-        <button onClick = {handleOnClick}>Delete Reply</button>
+        {(user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
         <h4>Upvotes: {reply.upvotes.length}</h4>
-        <button>Upvote Icon</button>
+        <button onClick = {handleOnClickUpvote}>Upvote Icon</button>
     </div>)
+
+    function handleOnClickUpvote(){
+        if(user.id === reply.replier.id){
+            alert("Hold on there partner, you can't upvote your own reply!")
+        } else {
+        console.log("upvoting!")
+        addingUpvote({reply_id: reply.id, voter_id: user.id})
+        }
+    }
 
     function handleOnClick() {
         deletingReply(reply)
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        deletingReply: reply => dispatch(deletingReply(reply))
+const mapStateToProps = state => {
+    return{
+        user: state.user
     }
 }
 
-export default connect(null, mapDispatchToProps)(ReplyCard)
+const mapDispatchToProps = dispatch => {
+    return {
+        deletingReply: reply => dispatch(deletingReply(reply)),
+        addingUpvote: upvote => dispatch(addingUpvote(upvote))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReplyCard)

@@ -12,6 +12,44 @@ const postsReducer = (state = [], action) => {
       const foundPost = state.find(p => p.id === action.payload.post_id)
       foundPost.replies.push(action.payload)
       return [...state, foundPost]
+    case "ADDED_UPVOTE":
+
+        // let newPaintings = oldState.map(p => {
+        //   if(p.id !== action.payload){
+        //     return p
+        //   }else{
+        //     return {
+        //       ...p,
+        //       votes: p.votes + 1
+        //     }
+        //   }
+        // })
+
+      let newPosts = state.map(p => {
+        if(p.replies.find(r => r.id === action.payload.reply_id)){
+          let arr = p.replies.map(r=>{
+            if(r.id !== action.payload.reply_id){
+              return r
+            } else {
+              return {
+                ...r,
+                upvotes: [...r.upvotes, action.payload]
+              }
+            }
+          })
+          return {...p, replies: arr}
+        } else {
+          return{
+            p
+          }
+        }
+      })
+      return newPosts
+      // const oldState = [...state]
+      // post = oldState.find(p => p.replies.find(r => r.id === action.payload.reply_id))
+      // reply = post.replies.find(r => r.id === action.payload.reply_id)
+      // reply.upvotes.push(action.payload)
+      // return [...oldState]
     case "DELETED_POST":
       const postArray = state.filter(p => p.id !== action.payload.id)
       return postArray
