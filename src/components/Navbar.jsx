@@ -65,28 +65,20 @@ handleOnClickLogout = () => {
       
 render() {
     return(
-        <div className={`ui inverted teal menu`}>
-                <Link to="/" className="item">
-                <h2 className="ui header">
-                <i className={`paint brush icon`} />
-                <div className="content">ma+hLab</div>
-                </h2>
-            </Link>
-            <NavLink to="/posts" activeClassName="active item" className="item">
-            <h3 className="ui header">Connect()</h3>
-            </NavLink>
-            <NavLink exact to="/scratchpads/new" activeClassName="active item" className="item">
-            <h3 className="ui header">ScratchPad</h3>
-            </NavLink>
+        <div>
+            <Link to="/"><h2>ma+hLab</h2></Link>
+
+            <NavLink to="/posts"><h3 >Connect()</h3></NavLink>
+
+            <NavLink exact to="/scratchpads/new"><h3>ScratchPad</h3></NavLink>
+
+            {this.props.user? <NavLink exact to="/profile"><h3>MyAccount</h3></NavLink>: null}
+           
+            {this.props.user? <NavLink exact to="/" onClick = {this.handleOnClickLogout}><h3 className="ui header">Logout</h3></NavLink>: 
             <NavLink exact to="/login" activeClassName="active item" className="item">
             <h3 className="ui header">Login</h3>
-            </NavLink>
-            <NavLink exact to="/" activeClassName="active item" className="item" onClick = {this.handleOnClickLogout}>
-            <h3 className="ui header">Logout</h3>
-            </NavLink>
-            <NavLink exact to="/profile" activeClassName="active item" className="item">
-            <h3 className="ui header">MyAccount</h3>
-            </NavLink>
+            </NavLink>}
+            
     </div>
 )}
 }
