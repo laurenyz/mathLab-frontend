@@ -13,13 +13,13 @@ const ProfileDetailsBox = (props) => {
     </div>)
     }else{return null}
 
-function calculateVotes(){
-    let totalUpvotes = 0
-    props.user.replies.forEach(reply =>{
-        totalUpvotes += reply.upvotes.length
-    })
-    return totalUpvotes
-}
+// function calculateVotes(){
+//     let totalUpvotes = 0
+//     props.user.replies.forEach(reply =>{
+//         totalUpvotes += reply.upvotes.length
+//     })
+//     return totalUpvotes
+// }
 }
 
 export default ProfileDetailsBox

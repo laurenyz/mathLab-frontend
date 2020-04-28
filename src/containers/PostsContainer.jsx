@@ -12,14 +12,15 @@ const PostsContainer = (props) => {
         <SearchBar />
         {props.user? <Link to="/posts/new">Add Post+</Link> : null }
         <h1>Posts:</h1>
-        {props.posts.map(post => <PostCard post={post} key={post.id}/>)}
+        {props.posts.filter(post => post.post_text.toLowerCase().includes(props.searchTerm)).map(post => <PostCard post={post} key={post.id}/>)}
     </div>)
 }
 
 const mapStateToProps = state => {
     return {
         user: state.user,
-        posts: state.posts
+        posts: state.posts,
+        searchTerm: state.searchTerm
     }
 }
 

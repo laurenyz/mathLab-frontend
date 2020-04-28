@@ -63,9 +63,18 @@ const userReducer = (state = null, action) => {
   }
 }
 
+const searchTermReducer = (state = "", action) => {
+  switch(action.type){
+    case "UPDATE_SEARCH_TERM":
+      return action.payload
+    default: return state
+  }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,  
-    posts: postsReducer
+    posts: postsReducer,
+    searchTerm: searchTermReducer
   });
   
   export default rootReducer;

@@ -1,3 +1,10 @@
+function updateSearchTerm(searchTerm){
+    return{
+        type: "UPDATE_SEARCH_TERM",
+        payload: searchTerm
+    }
+}
+
 function deletedPost(post){
     return{
         type: "DELETED_POST",
@@ -199,5 +206,5 @@ function createUser(userInfo){
 }
 
 
-export {deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
+export {updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
 
