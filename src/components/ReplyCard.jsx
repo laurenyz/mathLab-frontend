@@ -6,22 +6,27 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
     return(<div className = "card">
         <h4>{reply.replier.username}:</h4>
         <h3>{reply.reply_text}</h3>
-        {(user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
+        {(user && user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
         <h4>Upvotes: {reply.upvotes.length}</h4>
         <button onClick = {handleOnClickUpvote}>Upvote Icon</button>
     </div>)
 
     function handleOnClickUpvote(){
-        if(user.id === reply.replier.id){
-            alert("Hold on there partner, you can't upvote your own reply!")
-        } 
-        // else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
-        //     alert("Woah there, you've already liked this reply!")
-        // }
-         else {
-        console.log("upvoting!")
-        addingUpvote({reply_id: reply.id, voter_id: user.id})
+        if (user){
+            if(user.id === reply.replier.id){
+                alert("Hold on there partner, you can't upvote your own reply!")
+            } 
+            else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
+                alert("Woah there, you've already liked this reply!")
+            }
+             else {
+            console.log("upvoting!")
+            addingUpvote({reply_id: reply.id, voter_id: user.id})
+            }
+        } else {
+            alert("You must be signed in to upvote a reply!")
         }
+        
     }
 
     function handleOnClick() {

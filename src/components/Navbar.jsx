@@ -52,7 +52,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {logoutUser} from '../redux/actions'
+import {logoutUser, updateFilterSubject, updateSearchTerm} from '../redux/actions'
 import { Link, NavLink, withRouter } from 'react-router-dom'
 
 
@@ -62,13 +62,18 @@ class Navbar extends React.Component {
 handleOnClickLogout = () => {
     this.props.logoutUser()
 }
+
+handleOnClickConnect = () => {
+    this.props.updateFilterSubject("")
+    this.props.updateSearchTerm("")
+}
       
 render() {
     return(
         <div>
             <Link to="/"><h2>ma+hLab</h2></Link>
 
-            <NavLink to="/posts"><h3 >Connect()</h3></NavLink>
+            <NavLink to="/posts" onClick = {this.handleOnClickConnect}><h3 >Connect()</h3></NavLink>
 
             <NavLink exact to="/scratchpads/new"><h3>ScratchPad</h3></NavLink>
 
@@ -89,4 +94,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withRouter(connect(mapStateToProps,{logoutUser})(Navbar))
+export default withRouter(connect(mapStateToProps,{logoutUser, updateFilterSubject, updateSearchTerm})(Navbar))
