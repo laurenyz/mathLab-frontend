@@ -8,7 +8,6 @@ import { Link, withRouter } from 'react-router-dom'
 
 
 const PostsContainer = (props) => {
-
     return(<div>
         <SearchBar />
         <SubjectFilter />

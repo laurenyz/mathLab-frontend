@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 const ProfilePage = (props) => {
     if(props.user){
     return(<div>
-        ProfilePage
         <ProfileImageBox />
         <ProfileDetailsBox user = {props.user} userUpvotes = {props.userUpvotes}/>
         <ProfilePostsBox userPosts = {props.posts.filter(post => post.user.id === props.user.id)}/>
