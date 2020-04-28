@@ -19,6 +19,7 @@ const postsReducer = (state = [], action) => {
             replies: [...p.replies, action.payload]
           }
       }})
+      debugger
       return newPosts
     case "ADDED_UPVOTE":
       newPosts = [...state]
