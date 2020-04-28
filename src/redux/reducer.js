@@ -19,7 +19,6 @@ const postsReducer = (state = [], action) => {
             replies: [...p.replies, action.payload]
           }
       }})
-      debugger
       return newPosts
     case "ADDED_UPVOTE":
       newPosts = [...state]
@@ -71,10 +70,19 @@ const searchTermReducer = (state = "", action) => {
   }
 }
 
+const filterSubjectReducer = (state = "", action) => {
+  switch(action.type){
+    case "UPDATE_FILTER_SUBJECT":
+      return action.payload
+    default: return state
+  }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,  
     posts: postsReducer,
-    searchTerm: searchTermReducer
+    searchTerm: searchTermReducer,
+    filterSubject: filterSubjectReducer
   });
   
   export default rootReducer;

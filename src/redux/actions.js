@@ -1,3 +1,10 @@
+function updateFilterSubject(subject){
+    return{
+        type: 'UPDATE_FILTER_SUBJECT',
+        payload: subject
+    }
+}
+
 function updateSearchTerm(searchTerm){
     return{
         type: "UPDATE_SEARCH_TERM",
@@ -206,5 +213,5 @@ function createUser(userInfo){
 }
 
 
-export {updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
+export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
 

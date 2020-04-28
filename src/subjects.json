@@ -1,0 +1,27 @@
+{
+    "subjects": [
+        {
+            "name": "Algebra", 
+            "id": 1
+        }, 
+        {
+            "name": "Trigonometry", 
+            "id": 2
+        }, 
+        {
+            "name": "Geometry", 
+            "id": 3
+        },
+        {
+            "name": "Pre-Calculus", 
+            "id": 4
+        }, 
+        {
+            "name": "Pre-Algebra", 
+            "id": 5
+        }, 
+        {   "name": "Other", 
+            "id": 6
+        }
+    ]
+}

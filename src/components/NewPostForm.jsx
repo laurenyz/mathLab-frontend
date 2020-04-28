@@ -1,4 +1,5 @@
 import React from 'react'
+import subjectsData from '../subjects.json'
 import {connect} from 'react-redux'
 import {addingPost} from '../redux/actions'
 import {withRouter} from "react-router-dom"
@@ -10,8 +11,7 @@ class NewPostForm extends React.Component {
         this.state = {
             text: "",
             subject: "",
-            tags: "",
-            availableSubjects: [{name: "Algebra", id: 1}, {name: "Trigonometry", id: 2}, {name: "Geometry", id: 3}, {name: "Pre-Calculus", id: 4}, {name: "Pre-Algebra", id: 5}, {name: "Other", id: 6}]
+            tags: ""
         }
     }
 
@@ -47,7 +47,7 @@ class NewPostForm extends React.Component {
                 <input type = "text" name = "tags" placeholder = "add taglines with #" value = {this.state.tags} onChange = {this.handleOnChange}></input>
                 <select name="subject" value = {this.state.subject} onChange = {this.handleOnChange}>
                     <option value="">SUBJECT</option>
-                    {this.state.availableSubjects.map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
+                    {subjectsData.subjects.map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
                 </select>
                 <input type = "submit">
                 </input>

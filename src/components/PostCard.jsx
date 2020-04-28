@@ -11,6 +11,7 @@ const PostCard = (props) => {
         <h4>Replies: {post.replies.length}</h4>
         <h3>{post.post_text}</h3>
         {post.tags.length !==0 ? <h5>#{post.tags[0].tagline}</h5>: null}
+        <div>{post.subject}</div>
         {(user && user.id === post.user.id?<button onClick = {handleDeleteOnClick}>Delete Post</button>: null)}
         
     </div>)
