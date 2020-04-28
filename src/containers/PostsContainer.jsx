@@ -14,8 +14,15 @@ const PostsContainer = (props) => {
         <SubjectFilter />
         {props.user? <Link to="/posts/new">Add Post+</Link> : null }
         <h1>Posts:</h1>
-        {(props.posts.filter(post => post.post_text.toLowerCase().includes(props.searchTerm))).filter(post => (props.filterSubject !== "" ? post.subject === props.filterSubject: post)).map(post => <PostCard post={post} key={post.id}/>)}
+        {filterFunction().map(post => <PostCard post={post} key={post.id}/>)}
     </div>)
+
+    function filterFunction(){
+        let filteredPosts = 
+            (props.posts.filter(post => post.post_text.toLowerCase().includes(props.searchTerm)))
+            .filter(post => (props.filterSubject !== "" ? post.subject === props.filterSubject: post))
+        return filteredPosts
+    }
 }
 
 const mapStateToProps = state => {
