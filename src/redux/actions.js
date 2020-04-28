@@ -1,6 +1,13 @@
+function fetchedUserUpvotes(upvotes){
+    return{
+        type: "FETCHED_USER_UPVOTES",
+        payload: upvotes
+    }
+}
+
 function updateFilterSubject(subject){
     return{
-        type: 'UPDATE_FILTER_SUBJECT',
+        type: "UPDATE_FILTER_SUBJECT",
         payload: subject
     }
 }
@@ -158,6 +165,7 @@ function loggingIn(credentials){
             } else {
             localStorage.setItem('jwt', json.token)
             dispatch(loginUser(json.user))
+            dispatch(fetchedUserUpvotes(json.upvotes))
             }
     })   
 }}
@@ -186,6 +194,7 @@ function fetchingUser() {
       }).then(resp => resp.json())
       .then(json => {
         dispatch(loginUser(json.user))
+        dispatch(fetchedUserUpvotes(json.upvotes))
       })
     }
 }
@@ -207,6 +216,7 @@ function createUser(userInfo){
                 } else {
                 localStorage.setItem('jwt', json.token)
                 dispatch(loginUser(json.user))
+                dispatch(fetchedUserUpvotes(json.upvotes))
                 }
         })
     }

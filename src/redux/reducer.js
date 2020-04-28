@@ -78,11 +78,20 @@ const filterSubjectReducer = (state = "", action) => {
   }
 }
 
+const userUpvotesReducer = (state = null, action) => {
+  switch(action.type){
+    case "FETCHED_USER_UPVOTES":
+      return action.payload
+    default: return state
+  }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,  
     posts: postsReducer,
     searchTerm: searchTermReducer,
-    filterSubject: filterSubjectReducer
+    filterSubject: filterSubjectReducer,
+    userUpvotes: userUpvotesReducer
   });
   
   export default rootReducer;

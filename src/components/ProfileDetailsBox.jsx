@@ -4,7 +4,7 @@ const ProfileDetailsBox = (props) => {
     if (props.user){
     return(<div>
         <h1>Username: {props.user.username}</h1>
-        {/* <h1>Total Upvotes: {calculateVotes()}</h1> */}
+        <h1>Total Upvotes: {props.userUpvotes}</h1>
         <br>
         </br>
         <h3>Name: {props.user.name}</h3>
@@ -64,14 +64,6 @@ const ProfileDetailsBox = (props) => {
         }
         return month 
     }
-
-// function calculateVotes(){
-//     let totalUpvotes = 0
-//     props.user.replies.forEach(reply =>{
-//         totalUpvotes += reply.upvotes.length
-//     })
-//     return totalUpvotes
-// }
 }
 
 export default ProfileDetailsBox
