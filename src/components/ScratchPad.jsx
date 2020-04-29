@@ -18,11 +18,11 @@ class ScratchPad extends React.Component {
         .then(resp => resp.json())
         .then(scratchpad => {
           console.log(scratchpad)
-          this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})})
-
-        const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
-        this.subscription = cable.subscriptions.create('ScratchpadsChannel', {
-          received: this.handleReceiveNewText
+          this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})
+          const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+          this.subscription = cable.subscriptions.create({ channel: 'ScratchpadsChannel', room: scratchpad.id }, {
+            received: this.handleReceiveNewText
+          })
         })
     }
 
