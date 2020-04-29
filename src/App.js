@@ -29,7 +29,7 @@ class App extends React.Component {
       <Navbar />
         <Switch>
           <Route exact path = "/" component = {Homescreen} />
-          <Route exact path = "/scratchpads/:id" component = {ScratchPadContainer} />
+          <Route exact path = "/scratchpads/:url" component = {ScratchPadContainer} />
           <Route exact path = "/posts" component = {PostsContainer} />
           <Route exact path = "/posts/new" component = {NewPostForm} />
           <Route exact path = "/posts/:id" render= {(props) => {

@@ -53,7 +53,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {logoutUser, updateFilterSubject, updateSearchTerm} from '../redux/actions'
-import { Link, NavLink, withRouter } from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 
 
 class Navbar extends React.Component {
@@ -67,6 +67,30 @@ handleOnClickConnect = () => {
     this.props.updateFilterSubject("")
     this.props.updateSearchTerm("")
 }
+
+handleOnClickScratchPad = () => {
+
+        fetch("http://localhost:3000/scratchpads", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({scratchpad_text: "", url: Date.now().toString()})
+        })
+        .then(resp => resp.json())
+        .then(scratchpad => {
+            if (scratchpad.error){
+                alert(scratchpad.message)
+                } else {
+                console.log(scratchpad)
+                this.props.history.push(`/scratchpads/${scratchpad.url}`)
+                }
+        })
+    
+
+    // <NavLink exact to={`/scratchpads/${Date.now()}`}></NavLink>
+}
       
 render() {
     return(
@@ -75,7 +99,7 @@ render() {
 
             <NavLink to="/posts" onClick = {this.handleOnClickConnect}><h3 >Connect()</h3></NavLink>
 
-            <NavLink exact to={`/scratchpads/${Date.now()}`}><h3>ScratchPad</h3></NavLink>
+            <div onClick = {this.handleOnClickScratchPad}><h3>ScratchPad</h3></div>
 
             {this.props.user? <NavLink exact to="/profile"><h3>MyAccount</h3></NavLink>: null}
            
@@ -84,8 +108,8 @@ render() {
             <h3 className="ui header">Login</h3>
             </NavLink>}
             
-    </div>
-)}
+        </div>
+    )}
 }
 
 const mapStateToProps = state => {

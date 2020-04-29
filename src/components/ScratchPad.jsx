@@ -8,14 +8,17 @@ class ScratchPad extends React.Component {
     constructor() {
         super()
         this.state = {
-            text: ""
+            text: "",
+            scratchpadId: null
         }
     }
 
     componentDidMount(){
-        fetch('http://localhost:3000/scratchpads/1')
+        fetch(`http://localhost:3000/scratchpads/${this.props.match.params.url}`)
         .then(resp => resp.json())
-        .then(scratchpad => this.setState({text: scratchpad.scratchpad_text}))
+        .then(scratchpad => {
+          console.log(scratchpad)
+          this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})})
 
         const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
         this.subscription = cable.subscriptions.create('ScratchpadsChannel', {
@@ -31,7 +34,7 @@ class ScratchPad extends React.Component {
 
     handleOnChange = event => {
       this.setState({ text: event.target.value })
-      this.subscription.send({ text: event.target.value, id: 1 })
+      this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
     }
     
     render() {
