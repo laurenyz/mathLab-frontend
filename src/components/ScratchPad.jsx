@@ -1,5 +1,7 @@
 import React from 'react'
 import '../ScratchPad.css'
+import ActionCable from 'actioncable'
+import {withRouter} from 'react-router-dom'
 
 class ScratchPad extends React.Component {
 
@@ -14,13 +16,26 @@ class ScratchPad extends React.Component {
         fetch('http://localhost:3000/scratchpads/1')
         .then(resp => resp.json())
         .then(scratchpad => this.setState({text: scratchpad.scratchpad_text}))
+
+        const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+        this.subscription = cable.subscriptions.create('ScratchpadsChannel', {
+          received: this.handleReceiveNewText
+        })
+    }
+
+    handleReceiveNewText = ({ text }) => {
+      if (text !== this.state.text) {
+        this.setState({ text })
+      }
     }
 
     handleOnChange = event => {
-        this.setState({text: event.target.value})
+      this.setState({ text: event.target.value })
+      this.subscription.send({ text: event.target.value, id: 1 })
     }
     
     render() {
+      console.log(this.props)
           return (
             <textarea
               value={this.state.text}
@@ -31,36 +46,4 @@ class ScratchPad extends React.Component {
 
 }
 
-export default ScratchPad
-
-// import React, { Component } from 'react'
-// import '../ScratchPad.css'
-
-// class ScratchPad extends Component {
-//   state = { text: '' }
-
-//   componentDidMount() {
-//     fetch('http://localhost:3000/scratchpads/1')
-//     .then(data => {data.json()
-//     .then(res => {
-//           console.log(res)
-//         this.setState({ text: res.scratchpad_text })
-//       })
-//     })
-//   }
-  
-//   handleChange = e => {
-//     this.setState({ text: e.target.value })
-//   }
-
-//   render() {
-//     return (
-//       <textarea
-//         value={this.state.text}
-//         onChange={this.handleChange}
-//       />
-//     )
-//   }
-// }
-
-// export default ScratchPad
+export default withRouter(ScratchPad)

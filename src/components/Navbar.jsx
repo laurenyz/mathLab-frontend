@@ -75,7 +75,7 @@ render() {
 
             <NavLink to="/posts" onClick = {this.handleOnClickConnect}><h3 >Connect()</h3></NavLink>
 
-            <NavLink exact to="/scratchpads/new"><h3>ScratchPad</h3></NavLink>
+            <NavLink exact to={`/scratchpads/${Date.now()}`}><h3>ScratchPad</h3></NavLink>
 
             {this.props.user? <NavLink exact to="/profile"><h3>MyAccount</h3></NavLink>: null}
            
