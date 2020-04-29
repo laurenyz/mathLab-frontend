@@ -10,6 +10,10 @@ const PostShowRepliesBox = ({post}) => {
     } else{
         return null
     }
+
+    function arrangeRepliesByUpvotes(){
+        return post.replies.sort((a,b) =>(a.upvotes>b.upvotes? -1 : b.upvtes>a.upvotes? 1: 0))
+    }
 }
 
 export default PostShowRepliesBox

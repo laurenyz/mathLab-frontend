@@ -5,7 +5,7 @@ import {deletingReply, addingUpvote} from '../redux/actions'
 const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
     return(<div className = "card">
         <h4>{reply.replier.username}:</h4>
-        <h5>{getCreatedMonth() + "/" + getCreatedDay() + "/" + getCreatedYear() + " " + getCreatedTime()}</h5>
+        <h5>{getCreatedDate()} {getCreatedTime()}</h5>
         <h3>{reply.reply_text}</h3>
         {(user && user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
         <h4>Upvotes: {reply.upvotes.length}</h4>
@@ -17,9 +17,9 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
             if(user.id === reply.replier.id){
                 alert("Hold on there partner, you can't upvote your own reply!")
             } 
-            else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
-                alert("Woah there, you've already liked this reply!")
-            }
+            // else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
+            //     alert("Woah there, you've already liked this reply!")
+            // }
              else {
             console.log("upvoting!")
             addingUpvote({reply_id: reply.id, voter_id: user.id})
@@ -53,19 +53,13 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
         return `${hour}:${minutes} ${timeOfDay}`
     }
 
-    function getCreatedMonth() {
+    function getCreatedDate() {
         let date = new Date(reply.created_at)
-        return (date.getMonth()+1)
-    }
+        let month = date.getMonth()+1
+        let day = date.getDate()
+        let year = date.getFullYear()
+        return `${month}/${day}/${year}`
 
-    function getCreatedDay() {
-        let date = new Date(reply.created_at)
-        return date.getDate()
-    }
-
-    function getCreatedYear(){
-        let date = new Date(reply.created_at)
-        return date.getFullYear()
     }
 
     function handleOnClick() {

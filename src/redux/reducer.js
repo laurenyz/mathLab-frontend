@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 
 const postsReducer = (state = [], action) => {
-  let newPosts
+  let posts
   switch(action.type){
     case "FETCHED_POSTS":
       return action.payload
     case "ADDED_POST":
-      const newPostArray = [...state]
-      newPostArray.unshift(action.payload)
-      return newPostArray
+      posts = [...state]
+      posts.unshift(action.payload)
+      return posts
     case "ADDED_REPLY":
-      newPosts = state.map(p => {
+      posts = state.map(p => {
         if(p.id !== action.payload.post_id){
           return p
         }else{
@@ -19,31 +19,28 @@ const postsReducer = (state = [], action) => {
             replies: [...p.replies, action.payload]
           }
       }})
-      return newPosts
+      return posts
     case "ADDED_UPVOTE":
-      newPosts = [...state]
-      newPosts.map( post => {
-        if (post.replies.find(r=>r.id === action.payload.reply_id)){
-          let newReplies = []
-          post.replies.forEach(r=>{
-            if(r.id === action.payload.reply_id){
-              r = {...r, upvotes: [...r.upvotes, action.payload]}
+      posts = state.map(p=> {
+        if (p.replies.find(r => r.id === action.payload.reply_id)){
+          const replies = p.replies.map(r => {
+            if (r.id === action.payload.reply_id){
+              return {...r, upvotes: [...r.upvotes, action.payload]}
+            } else {
+              return r
             }
-            newReplies.push(r)
-            return newReplies
           })
-          return post.replies = newReplies
+          return {...p, replies: replies}
+        } else {
+          return p
         }
-        return post
-      }
-      )
-      return newPosts
+      })
+      return posts
     case "DELETED_POST":
-      const postArray = state.filter(p => p.id !== action.payload.id)
-      return postArray
+      posts = state.filter(p => p.id !== action.payload.id)
+      return posts
     case "DELETED_REPLY":
-
-      newPosts = state.map(p=>{
+      posts = state.map(p=>{
         if(p.id !== action.payload.post_id){
           return p
         } else {
@@ -52,7 +49,7 @@ const postsReducer = (state = [], action) => {
             replies: p.replies.filter(r => r.id!== action.payload.id)
           }
       }})
-        return newPosts
+        return posts
     default: return state
   }
 }
