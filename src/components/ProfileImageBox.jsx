@@ -1,8 +1,10 @@
 import React from 'react'
+import {deleteUser} from '../redux/actions'
+import {connect} from 'react-redux'
 
-const ProfileImageBox = () => {
+const ProfileImageBox = (props) => {
     return(<div>
-        ProfileImageBox,
+        <div>IMAGE</div>
         <button onClick = {handleEditOnClick}>Edit Profile</button>
         <button onClick = {handleDeleteOnClick}>Delete Profile</button>
     </div>)
@@ -12,8 +14,15 @@ const ProfileImageBox = () => {
     }
 
     function handleDeleteOnClick(){
-        console.log("deleting profile")
+        props.deleteUser(props.user)
+
     }
 }
 
-export default ProfileImageBox
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, {deleteUser})(ProfileImageBox)

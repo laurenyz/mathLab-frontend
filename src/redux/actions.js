@@ -203,6 +203,29 @@ function fetchingUser() {
     }
 }
 
+function deleteUser(user){
+    return (dispatch, getState) => {
+        fetch(`http://localhost:3000/users/${user.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(() => {
+            dispatch(logoutUser())
+            const userPosts = getState().posts.filter(p => p.user_id === user.id)
+            userPosts.forEach(post => dispatch(deletedPost(post)))
+            const userReplies = [] 
+            getState().posts.forEach(post =>{
+                post.replies.forEach(reply => {
+                    if(reply.replier_id === user.id) {
+                        userReplies.push(reply)
+                    }
+                })
+            })
+            userReplies.forEach(reply => dispatch(deletedReply(reply)))
+        })
+    }
+}
+
 function createUser(userInfo){
     return(dispatch) => {
         fetch("http://localhost:3000/users", {
@@ -227,5 +250,5 @@ function createUser(userInfo){
 }
 
 
-export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser}
+export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, deleteUser}
 
