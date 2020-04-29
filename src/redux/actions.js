@@ -226,6 +226,28 @@ function deleteUser(user){
     }
 }
 
+function editingUser(userInfo){
+    const {id, name, username, email, history} = userInfo
+    return(dispatch) => {
+        fetch(`http://localhost:3000/users/${userInfo.id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({id, name, username, email})
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.error){
+              alert(json.message)
+            } else {
+              dispatch(loginUser(json.user))
+              dispatch(fetchingPosts())
+              history.push('/profile')
+    }})
+}}
+
 function createUser(userInfo){
     return(dispatch) => {
         fetch("http://localhost:3000/users", {
@@ -250,5 +272,5 @@ function createUser(userInfo){
 }
 
 
-export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, deleteUser}
+export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
 

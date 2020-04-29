@@ -1,6 +1,7 @@
 import React from 'react'
 import {deleteUser} from '../redux/actions'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 const ProfileImageBox = (props) => {
     return(<div>
@@ -10,7 +11,7 @@ const ProfileImageBox = (props) => {
     </div>)
 
     function handleEditOnClick(){
-        console.log("editing profile")
+        props.history.push("/profile/edit")
     }
 
     function handleDeleteOnClick(){
@@ -25,4 +26,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {deleteUser})(ProfileImageBox)
+export default withRouter(connect(mapStateToProps, {deleteUser})(ProfileImageBox))
