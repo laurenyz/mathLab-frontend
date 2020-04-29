@@ -54,7 +54,7 @@ function getCreatedTime() {
     }
 
     function handleDeleteOnClick(){
-        deletingPost(post)
+        deletingPost({post: post, history: history})
     }
 }
 
@@ -66,7 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deletingPost: post => dispatch(deletingPost(post))
+        deletingPost: info => dispatch(deletingPost(info))
     }
 }
 

@@ -26,13 +26,17 @@ function deletedPost(post){
     }
 }
 
-function deletingPost(post){
+function deletingPost({post, history}){
     return (dispatch) => {
         fetch(`http://localhost:3000/posts/${post.id}`,{
             method: "DELETE"
         })
         .then(resp => resp.json())
-        .then(dispatch(deletedPost(post)))
+        .then(() => {
+            history.push("/posts")
+            alert("Deleting post...")
+            dispatch(deletedPost(post))
+        })
     }
 }
 
