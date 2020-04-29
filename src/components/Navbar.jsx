@@ -100,6 +100,7 @@ render() {
             <NavLink to="/posts" onClick = {this.handleOnClickConnect}><h3 >Connect()</h3></NavLink>
 
             <div onClick = {this.handleOnClickScratchPad}><h3>ScratchPad</h3></div>
+            <NavLink exact to="/calculator"><h3>Calculator</h3></NavLink>
 
             {this.props.user? <NavLink exact to="/profile"><h3>MyAccount</h3></NavLink>: null}
            
