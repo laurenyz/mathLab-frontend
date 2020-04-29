@@ -17,10 +17,8 @@ import {fetchingPosts, fetchingUser} from './redux/actions'
 class App extends React.Component {
 
   componentDidMount() {
-    console.log("app is mounting")
     this.props.fetchingPosts()
     if (localStorage.getItem('jwt')) {
-      console.log("getting user")
       this.props.fetchingUser()
     }
   }

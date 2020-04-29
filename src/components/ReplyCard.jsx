@@ -21,7 +21,6 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
                 alert("Woah there, you've already liked this reply!")
             }
              else {
-            console.log("upvoting!")
             addingUpvote({reply_id: reply.id, voter_id: user.id})
             }
         } else {
