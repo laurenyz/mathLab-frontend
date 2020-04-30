@@ -69,7 +69,6 @@ handleOnClickConnect = () => {
 }
 
 handleOnClickScratchPad = () => {
-
         fetch("http://localhost:3000/scratchpads", {
         method: "POST",
         headers: {
@@ -84,7 +83,7 @@ handleOnClickScratchPad = () => {
                 alert(scratchpad.message)
                 } else {
                 console.log(scratchpad)
-                this.props.history.push(`/scratchpads/${scratchpad.url}`)
+                window.open(`/scratchpads/${scratchpad.url}`)
                 }
         })
     

@@ -17,7 +17,7 @@ class ScratchPad extends React.Component {
         fetch(`http://localhost:3000/scratchpads/${this.props.match.params.url}`)
         .then(resp => resp.json())
         .then(scratchpad => {
-          console.log(scratchpad)
+          console.log("hitting component did mount")
           this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})
           const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
           this.subscription = cable.subscriptions.create({ channel: 'ScratchpadsChannel', room: scratchpad.id }, {
@@ -38,14 +38,20 @@ class ScratchPad extends React.Component {
     }
     
     render() {
-      console.log(this.props)
+      console.log(this.subscription)
           return (
             <textarea
               value={this.state.text}
               onChange={this.handleOnChange}
+
+              // this.setState({ mathField.latex() }, () => {})
             />
           )
         }
+
+    componentWillUnmount(){
+      // this.subscription.unsubscribe()
+    }
 
 }
 
