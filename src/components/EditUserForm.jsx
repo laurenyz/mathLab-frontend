@@ -8,10 +8,18 @@ class EditUserForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            name: "",
+            username: "",
+            email: ""
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
             name: this.props.user.name,
             username: this.props.user.username,
             email: this.props.user.email
-        }
+        })
     }
 
     handleOnChange = (event) => {
