@@ -14,6 +14,7 @@ import EditUserForm from './components/EditUserForm'
 import {connect} from 'react-redux'
 import {fetchingPosts, fetchingUser} from './redux/actions'
 import CalculatorContainer from './containers/CalculatorContainer'
+import EditProfilePicture from './components/EditProfilePicture'
 
 
 class App extends React.Component {
@@ -29,6 +30,7 @@ class App extends React.Component {
     <div>
       <Navbar />
         <Switch>
+          <Route exact path = '/profile/image/edit' component = {EditProfilePicture} />
           <Route exact path = '/calculator' component = {CalculatorContainer} />
           <Route exact path = "/" component = {Homescreen} />
           <Route exact path = "/scratchpads/:url" component = {ScratchPadContainer} />
@@ -71,4 +73,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
-

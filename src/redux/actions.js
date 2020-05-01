@@ -1,276 +1,322 @@
-function fetchedUserUpvotes(upvotes){
-    return{
-        type: "FETCHED_USER_UPVOTES",
-        payload: upvotes
-    }
-}
 
-function updateFilterSubject(subject){
-    return{
-        type: "UPDATE_FILTER_SUBJECT",
-        payload: subject
-    }
-}
+// export const uploadProfilePicture = (formData, userId) => {
+//     console.log("hit action creator", userId)
+//     return dispatch => {
+//       const configurationObject = {
+//         credentials: "include",
+//         method: "POST",
+//         body: formData
+//       }
 
-function updateSearchTerm(searchTerm){
-    return{
-        type: "UPDATE_SEARCH_TERM",
-        payload: searchTerm
-    }
-}
+// return fetch(`${baseUrl}/api/v1/users/${userId}/upload_photo`, configurationObject)
+// .then(r => r.json())
+// .then(photo => {
+//   if (photo.error) {
+//     alert(photo.error)
+//   } else {
+//     dispatch(setProfilePicture(photo.profile_picture.image_url))
+//     dispatch(setFormStateToInactive())
+//   }
+// })
+// .catch(error => console.log(error))
+// }
 
-function deletedPost(post){
-    return{
-        type: "DELETED_POST",
-        payload: post
-    }
-}
-
-function deletingPost({post, history}){
+function uploadingProfilePicture(formData, userId){
     return (dispatch) => {
-        fetch(`http://localhost:3000/posts/${post.id}`,{
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(() => {
-            history.push("/posts")
-            alert("Deleting post...")
-            dispatch(deletedPost(post))
-        })
-    }
-}
-
-function deletedReply(reply){
-    return {
-        type: "DELETED_REPLY",
-        payload: reply
-    }
-}
-
-function deletingReply(reply){
+     fetch(`http://localhost:3000/users/${userId}/upload_image`, {
+     method: "POST",
+     // credentials: "include",
+     headers: {
+         "Accept": "application/json"
+     },
+     body: formData
+ })
+ .then(resp => resp.json())
+ .then(photo => {
+       if (photo.error) {
+         alert(photo.error)
+       } else {
+           console.log(photo)}})}
+     //     dispatch(setProfilePicture(photo.profile_picture.image_url))
+     //     dispatch(setFormStateToInactive())
+     //   }
+     // })
+     // .catch(error => console.log(error))
+     // }
+ }
+ 
+ function fetchedUserUpvotes(upvotes){
+     return{
+         type: "FETCHED_USER_UPVOTES",
+         payload: upvotes
+     }
+ }
+ 
+ function updateFilterSubject(subject){
+     return{
+         type: "UPDATE_FILTER_SUBJECT",
+         payload: subject
+     }
+ }
+ 
+ function updateSearchTerm(searchTerm){
+     return{
+         type: "UPDATE_SEARCH_TERM",
+         payload: searchTerm
+     }
+ }
+ 
+ function deletedPost(post){
+     return{
+         type: "DELETED_POST",
+         payload: post
+     }
+ }
+ 
+ function deletingPost({post, history}){
+     return (dispatch) => {
+         fetch(`http://localhost:3000/posts/${post.id}`,{
+             method: "DELETE"
+         })
+         .then(resp => resp.json())
+         .then(() => {
+             history.push("/posts")
+             alert("Deleting post...")
+             dispatch(deletedPost(post))
+         })
+     }
+ }
+ 
+ function deletedReply(reply){
+     return {
+         type: "DELETED_REPLY",
+         payload: reply
+     }
+ }
+ 
+ function deletingReply(reply){
+     return (dispatch) => {
+         fetch(`http://localhost:3000/replies/${reply.id}`,{
+             method: "DELETE"
+         })
+         .then(resp => resp.json())
+         .then(dispatch(deletedReply(reply)))
+     }
+ }
+ 
+ function addedPost(post) {
+     return {
+         type: "ADDED_POST",
+         payload: post
+     }
+ }
+ 
+ function addingPost(info) {
+     return (dispatch) => {
+         fetch('http://localhost:3000/posts', {
+         method: "POST",
+         headers: {
+             'Content-Type': "application/json",
+             "Accept": "application/json"
+         },
+         body: JSON.stringify(info.post)
+     })
+     .then(resp => resp.json())
+     .then(post => {
+         if (post.error){
+         alert(post.message)
+         } else {
+             dispatch(addedPost(post))
+         info.history.push(`/posts/${post.id}`)
+         }})
+     }
+ }
+ 
+ function addedReply(reply){
+     return {
+         type: "ADDED_REPLY",
+         payload: reply
+     }
+ }
+ 
+ function addingReply(reply){
+     return(dispatch) => {
+         fetch('http://localhost:3000/replies', {
+         method: "POST",
+         headers: {
+             'Content-Type': "application/json",
+             "Accept": "application/json"
+         },
+         body: JSON.stringify(reply)
+     })
+     .then(resp => resp.json())
+     .then(reply => dispatch(addedReply(reply)))
+     }
+ }
+ 
+ function addedUpvote(upvote){
+     return {
+         type: "ADDED_UPVOTE",
+         payload: upvote
+     }
+ }
+ 
+ function addingUpvote(upvote){
+     return(dispatch) => {
+         fetch('http://localhost:3000/upvotes', {
+             method: "POST",
+             headers: {
+                 'Content-Type': "application/json",
+                 "Accept": "application/json"
+             },
+             body: JSON.stringify(upvote)
+         })
+         .then(resp => resp.json())
+         .then(upvote => dispatch(addedUpvote(upvote)))
+     }
+ }
+ 
+ function removeUser() {
+ return {
+     type: "REMOVE_USER"
+     }
+ }
+ 
+ function logoutUser() {
     return (dispatch) => {
-        fetch(`http://localhost:3000/replies/${reply.id}`,{
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(dispatch(deletedReply(reply)))
-    }
-}
-
-function addedPost(post) {
-    return {
-        type: "ADDED_POST",
-        payload: post
-    }
-}
-
-function addingPost(info) {
-    return (dispatch) => {
-        fetch('http://localhost:3000/posts', {
-        method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(info.post)
-    })
-    .then(resp => resp.json())
-    .then(post => {
-        if (post.error){
-        alert(post.message)
-        } else {
-            dispatch(addedPost(post))
-        info.history.push(`/posts/${post.id}`)
-        }})
-    }
-}
-
-function addedReply(reply){
-    return {
-        type: "ADDED_REPLY",
-        payload: reply
-    }
-}
-
-function addingReply(reply){
-    return(dispatch) => {
-        fetch('http://localhost:3000/replies', {
-        method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(reply)
-    })
-    .then(resp => resp.json())
-    .then(reply => dispatch(addedReply(reply)))
-    }
-}
-
-function addedUpvote(upvote){
-    return {
-        type: "ADDED_UPVOTE",
-        payload: upvote
-    }
-}
-
-function addingUpvote(upvote){
-    return(dispatch) => {
-        fetch('http://localhost:3000/upvotes', {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(upvote)
-        })
-        .then(resp => resp.json())
-        .then(upvote => dispatch(addedUpvote(upvote)))
-    }
-}
-
-function removeUser() {
-return {
-    type: "REMOVE_USER"
-    }
-}
-
-function logoutUser() {
-   return (dispatch) => {
-       localStorage.removeItem("jwt")
-       dispatch(removeUser())
-   } 
-}
-
-function loginUser(user) {
-    return {
-        type: "LOGIN_USER",
-        payload: user
-    }
-}
-
-function loggingIn(credentials){
-    return (dispatch) => {
-    fetch('http://localhost:3000/login', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password
-      })
-    })
-    .then(resp=>resp.json())
-    .then(json => {
-        if (json.error){
-            alert(json.message)
-            } else {
-            localStorage.setItem('jwt', json.token)
-            dispatch(loginUser(json.user))
-            dispatch(fetchedUserUpvotes(json.upvotes))
-            }
-    })   
-}}
-
-function fetchedPosts(posts){
-    return{
-        type: "FETCHED_POSTS",
-        payload: posts
-    }
-}
-
-function fetchingPosts() {
-    return(dispatch) => {
-        fetch('http://localhost:3000/posts')
-        .then(resp => resp.json())
-        .then(posts => dispatch(fetchedPosts(posts.reverse())))
-    }
-}
-
-function fetchingUser() {
-    return(dispatch) => {
-        fetch("http://localhost:3000/profile", {
-        headers: {
-          "Authentication": localStorage.getItem('jwt')
-        }
-      }).then(resp => resp.json())
-      .then(json => {
-        dispatch(loginUser(json.user))
-        dispatch(fetchedUserUpvotes(json.upvotes))
-      })
-    }
-}
-
-function deleteUser(user){
-    return (dispatch, getState) => {
-        fetch(`http://localhost:3000/users/${user.id}`,{
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(() => {
-            dispatch(logoutUser())
-            const userPosts = getState().posts.filter(p => p.user_id === user.id)
-            userPosts.forEach(post => dispatch(deletedPost(post)))
-            const userReplies = [] 
-            getState().posts.forEach(post =>{
-                post.replies.forEach(reply => {
-                    if(reply.replier_id === user.id) {
-                        userReplies.push(reply)
-                    }
-                })
-            })
-            userReplies.forEach(reply => dispatch(deletedReply(reply)))
-        })
-    }
-}
-
-function editingUser(userInfo){
-    const {id, name, username, email, history} = userInfo
-    return(dispatch) => {
-        fetch(`http://localhost:3000/users/${userInfo.id}`, {
-            method: "PATCH",
-            headers: {
-                'Content-Type': "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({id, name, username, email})
-        })
-        .then(resp => resp.json())
-        .then(json => {
-            if (json.error){
-              alert(json.message)
-            } else {
-              dispatch(loginUser(json.user))
-              dispatch(fetchingPosts())
-              history.push('/profile')
-    }})
-}}
-
-function createUser(userInfo){
-    return(dispatch) => {
-        fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({name: userInfo.name, username: userInfo.username, email: userInfo.email, password: userInfo.password, password_confirmation: userInfo.password_confirmation})
-        })
-        .then(resp => resp.json())
-        .then(json => {
-            if (json.error){
-                alert(json.message)
-                } else {
-                localStorage.setItem('jwt', json.token)
-                dispatch(loginUser(json.user))
-                dispatch(fetchedUserUpvotes(json.upvotes))
-                }
-        })
-    }
-}
-
-
-export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
-
+        localStorage.removeItem("jwt")
+        dispatch(removeUser())
+    } 
+ }
+ 
+ function loginUser(user) {
+     return {
+         type: "LOGIN_USER",
+         payload: user
+     }
+ }
+ 
+ function loggingIn(credentials){
+     return (dispatch) => {
+     fetch('http://localhost:3000/login', {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+         "Accept": "application/json"
+       },
+       body: JSON.stringify({
+         email: credentials.email,
+         password: credentials.password
+       })
+     })
+     .then(resp=>resp.json())
+     .then(json => {
+         if (json.error){
+             alert(json.message)
+             } else {
+             localStorage.setItem('jwt', json.token)
+             dispatch(loginUser(json.user))
+             dispatch(fetchedUserUpvotes(json.upvotes))
+             }
+     })   
+ }}
+ 
+ function fetchedPosts(posts){
+     return{
+         type: "FETCHED_POSTS",
+         payload: posts
+     }
+ }
+ 
+ function fetchingPosts() {
+     return(dispatch) => {
+         fetch('http://localhost:3000/posts')
+         .then(resp => resp.json())
+         .then(posts => dispatch(fetchedPosts(posts.reverse())))
+     }
+ }
+ 
+ function fetchingUser() {
+     return(dispatch) => {
+         fetch("http://localhost:3000/profile", {
+         headers: {
+           "Authentication": localStorage.getItem('jwt')
+         }
+       }).then(resp => resp.json())
+       .then(json => {
+         dispatch(loginUser(json.user))
+         dispatch(fetchedUserUpvotes(json.upvotes))
+       })
+     }
+ }
+ 
+ function deleteUser(user){
+     return (dispatch, getState) => {
+         fetch(`http://localhost:3000/users/${user.id}`,{
+             method: "DELETE"
+         })
+         .then(resp => resp.json())
+         .then(() => {
+             dispatch(logoutUser())
+             const userPosts = getState().posts.filter(p => p.user_id === user.id)
+             userPosts.forEach(post => dispatch(deletedPost(post)))
+             const userReplies = [] 
+             getState().posts.forEach(post =>{
+                 post.replies.forEach(reply => {
+                     if(reply.replier_id === user.id) {
+                         userReplies.push(reply)
+                     }
+                 })
+             })
+             userReplies.forEach(reply => dispatch(deletedReply(reply)))
+         })
+     }
+ }
+ 
+ function editingUser(userInfo){
+     const {id, name, username, email, history} = userInfo
+     return(dispatch) => {
+         fetch(`http://localhost:3000/users/${userInfo.id}`, {
+             method: "PATCH",
+             headers: {
+                 'Content-Type': "application/json",
+                 "Accept": "application/json"
+             },
+             body: JSON.stringify({id, name, username, email})
+         })
+         .then(resp => resp.json())
+         .then(json => {
+             if (json.error){
+               alert(json.message)
+             } else {
+               dispatch(loginUser(json.user))
+               dispatch(fetchingPosts())
+               history.push('/profile')
+     }})
+ }}
+ 
+ function createUser(userInfo){
+     return(dispatch) => {
+         fetch("http://localhost:3000/users", {
+         method: "POST",
+         headers: {
+             'Content-Type': "application/json",
+             "Accept": "application/json"
+         },
+         body: JSON.stringify({name: userInfo.name, username: userInfo.username, email: userInfo.email, password: userInfo.password, password_confirmation: userInfo.password_confirmation})
+         })
+         .then(resp => resp.json())
+         .then(json => {
+             if (json.error){
+                 alert(json.message)
+                 } else {
+                 localStorage.setItem('jwt', json.token)
+                 dispatch(loginUser(json.user))
+                 dispatch(fetchedUserUpvotes(json.upvotes))
+                 }
+         })
+     }
+ }
+ 
+ 
+ export {uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}

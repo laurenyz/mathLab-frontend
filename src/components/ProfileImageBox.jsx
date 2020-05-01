@@ -6,9 +6,14 @@ import {withRouter} from 'react-router-dom'
 const ProfileImageBox = (props) => {
     return(<div>
         <div>IMAGE</div>
+        <button onClick = {handlePictureEditOnClick}>Edit Profile Picture</button>
         <button onClick = {handleEditOnClick}>Edit Profile</button>
         <button onClick = {handleDeleteOnClick}>Delete Profile</button>
     </div>)
+
+    function handlePictureEditOnClick(){
+        props.history.push("/profile/image/edit")
+    }
 
     function handleEditOnClick(){
         props.history.push("/profile/edit")
