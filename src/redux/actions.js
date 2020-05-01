@@ -161,6 +161,12 @@ function uploadingProfilePicture(formData, userId){
      type: "REMOVE_USER"
      }
  }
+
+ function removeProfilePicture() {
+     return{
+         type: "REMOVE_PROFILE_PICTURE"
+     }
+ }
  
  function logoutUser() {
     return (dispatch) => {
@@ -197,6 +203,8 @@ function uploadingProfilePicture(formData, userId){
              localStorage.setItem('jwt', json.token)
              dispatch(loginUser(json.user))
              dispatch(fetchedUserUpvotes(json.upvotes))
+             if(json.image_url){
+             dispatch(loadedProfilePicture(json.image_url))}
              }
      })   
  }}
@@ -226,6 +234,8 @@ function uploadingProfilePicture(formData, userId){
        .then(json => {
          dispatch(loginUser(json.user))
          dispatch(fetchedUserUpvotes(json.upvotes))
+         if(json.image_url){
+         dispatch(loadedProfilePicture(json.image_url))}
        })
      }
  }

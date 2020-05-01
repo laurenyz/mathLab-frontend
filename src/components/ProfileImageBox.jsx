@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 
 const ProfileImageBox = (props) => {
     return(<div>
-        <div>IMAGE</div>
+        {props.profilePicture? <img style = {{width: "20%", height: "20%"}}src = {props.profilePicture} alt = {props.user.name} /> : null}
         <button onClick = {handlePictureEditOnClick}>Edit Profile Picture</button>
         <button onClick = {handleEditOnClick}>Edit Profile</button>
         <button onClick = {handleDeleteOnClick}>Delete Profile</button>
@@ -27,7 +27,8 @@ const ProfileImageBox = (props) => {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        profilePicture: state.profilePicture
     }
 }
 

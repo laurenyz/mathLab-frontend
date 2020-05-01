@@ -72,10 +72,12 @@ const searchTermReducer = (state = "", action) => {
   }
 }
 
-const profilePictureReducer = (state = "", action) => {
+const profilePictureReducer = (state = null, action) => {
   switch(action.type){
     case "LOADED_PROFILE_PICTURE":
       return action.payload
+    case "REMOVE_PROFILE_PICTURE":
+      return null
     default: return state
   }
 }

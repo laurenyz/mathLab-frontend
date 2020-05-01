@@ -54,7 +54,7 @@ class ScratchPad extends React.Component {
             
              <EditableMathField
                 className = "mathquill-textbox mathquill-editable"
-                latex={this.state.latex} 
+                latex={this.state.text} 
                 style = {{width: "400px", height: "400px"}}
                 onChange={mathField => {
                 this.setState({ text: mathField.latex() })
