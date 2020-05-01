@@ -2,11 +2,16 @@ import React from 'react'
 import '../ScratchPad.css'
 import ActionCable from 'actioncable'
 import {withRouter} from 'react-router-dom'
+// import {MathFieldComponent} from 'react-mathlive'
+import { addStyles, EditableMathField } from 'react-mathquill'
+import EditableMathExample from './mathquillExample'
+
+addStyles()
 
 class ScratchPad extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             text: "",
             scratchpadId: null
@@ -36,16 +41,35 @@ class ScratchPad extends React.Component {
       this.setState({ text: event.target.value })
       this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
     }
+
+    onMathChange(mathText) {
+      console.log(mathText);
+    }
     
     render() {
       console.log(this.subscription)
           return (
-            <textarea
+            <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
+            {/* <textarea
               value={this.state.text}
               onChange={this.handleOnChange}
-
               // this.setState({ mathField.latex() }, () => {})
-            />
+            /> */}
+            <EditableMathExample />
+             <EditableMathField
+                className = "mathquill-textbox mathquill-editable"
+                latex={this.state.latex} // Initial latex value for the input field
+                style = {{width: "400px", height: "400px"}}
+                onChange={mathField => {
+          // Called everytime the input changes
+                this.setState({ text: mathField.latex() })
+        }}
+      />
+            {/* <MathFieldComponent 
+              latex="f(x)=\\log _10 x"
+              onChange={this.onMathChange} */}
+  {/* /> */}
+            </div>
           )
         }
 
