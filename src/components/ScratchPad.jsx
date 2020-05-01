@@ -37,10 +37,10 @@ class ScratchPad extends React.Component {
       }
     }
 
-    handleOnChange = event => {
-      this.setState({ text: event.target.value })
-      this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
-    }
+    // handleOnChange = event => {
+    //   this.setState({ text: event.target.value })
+    //   this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
+    // }
 
     onMathChange(mathText) {
       console.log(mathText);
@@ -49,26 +49,28 @@ class ScratchPad extends React.Component {
     render() {
       console.log(this.subscription)
           return (
-            <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
-            {/* <textarea
+            // <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
+            <div>
+            
+             <EditableMathField
+                className = "mathquill-textbox mathquill-editable"
+                latex={this.state.latex} 
+                style = {{width: "400px", height: "400px"}}
+                onChange={mathField => {
+                this.setState({ text: mathField.latex() })
+              }}/>
+
+              {/* <textarea
               value={this.state.text}
               onChange={this.handleOnChange}
               // this.setState({ mathField.latex() }, () => {})
             /> */}
-            <EditableMathExample />
-             <EditableMathField
-                className = "mathquill-textbox mathquill-editable"
-                latex={this.state.latex} // Initial latex value for the input field
-                style = {{width: "400px", height: "400px"}}
-                onChange={mathField => {
-          // Called everytime the input changes
-                this.setState({ text: mathField.latex() })
-        }}
-      />
+            {/* <EditableMathExample /> */}
+
             {/* <MathFieldComponent 
               latex="f(x)=\\log _10 x"
               onChange={this.onMathChange} */}
-  {/* /> */}
+            {/* /> */}
             </div>
           )
         }
