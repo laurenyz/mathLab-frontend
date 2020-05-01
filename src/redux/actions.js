@@ -1,3 +1,50 @@
+
+// export const uploadProfilePicture = (formData, userId) => {
+//     console.log("hit action creator", userId)
+//     return dispatch => {
+//       const configurationObject = {
+//         credentials: "include",
+//         method: "POST",
+//         body: formData
+//       }
+
+// return fetch(`${baseUrl}/api/v1/users/${userId}/upload_photo`, configurationObject)
+// .then(r => r.json())
+// .then(photo => {
+//   if (photo.error) {
+//     alert(photo.error)
+//   } else {
+//     dispatch(setProfilePicture(photo.profile_picture.image_url))
+//     dispatch(setFormStateToInactive())
+//   }
+// })
+// .catch(error => console.log(error))
+// }
+
+function uploadingProfilePicture(formData, userId){
+   return (dispatch) => {
+    fetch(`http://localhost:3000/users/${userId}/upload_image`, {
+    method: "POST",
+    // credentials: "include",
+    headers: {
+        "Accept": "application/json"
+    },
+    body: formData
+})
+.then(resp => resp.json())
+.then(photo => {
+      if (photo.error) {
+        alert(photo.error)
+      } else {
+          console.log(photo)}})}
+    //     dispatch(setProfilePicture(photo.profile_picture.image_url))
+    //     dispatch(setFormStateToInactive())
+    //   }
+    // })
+    // .catch(error => console.log(error))
+    // }
+}
+
 function fetchedUserUpvotes(upvotes){
     return{
         type: "FETCHED_USER_UPVOTES",
@@ -272,5 +319,5 @@ function createUser(userInfo){
 }
 
 
-export {updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
+export {uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
 
