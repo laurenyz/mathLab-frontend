@@ -72,6 +72,14 @@ const searchTermReducer = (state = "", action) => {
   }
 }
 
+const profilePictureReducer = (state = "", action) => {
+  switch(action.type){
+    case "LOADED_PROFILE_PICTURE":
+      return action.payload
+    default: return state
+  }
+}
+
 const filterSubjectReducer = (state = "", action) => {
   switch(action.type){
     case "UPDATE_FILTER_SUBJECT":
@@ -93,7 +101,8 @@ const rootReducer = combineReducers({
     posts: postsReducer,
     searchTerm: searchTermReducer,
     filterSubject: filterSubjectReducer,
-    userUpvotes: userUpvotesReducer
+    userUpvotes: userUpvotesReducer,
+    profilePicture: profilePictureReducer
   });
   
   export default rootReducer;

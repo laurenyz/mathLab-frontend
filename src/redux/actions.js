@@ -1,25 +1,9 @@
-
-// export const uploadProfilePicture = (formData, userId) => {
-//     console.log("hit action creator", userId)
-//     return dispatch => {
-//       const configurationObject = {
-//         credentials: "include",
-//         method: "POST",
-//         body: formData
-//       }
-
-// return fetch(`${baseUrl}/api/v1/users/${userId}/upload_photo`, configurationObject)
-// .then(r => r.json())
-// .then(photo => {
-//   if (photo.error) {
-//     alert(photo.error)
-//   } else {
-//     dispatch(setProfilePicture(photo.profile_picture.image_url))
-//     dispatch(setFormStateToInactive())
-//   }
-// })
-// .catch(error => console.log(error))
-// }
+function loadedProfilePicture(profilePictureData){
+    return{
+        type: "LOADED_PROFILE_PICTURE",
+        payload: profilePictureData
+    }
+}
 
 function uploadingProfilePicture(formData, userId){
     return (dispatch) => {
@@ -32,17 +16,13 @@ function uploadingProfilePicture(formData, userId){
      body: formData
  })
  .then(resp => resp.json())
- .then(photo => {
-       if (photo.error) {
-         alert(photo.error)
+ .then(profilePictureData => {
+       if (profilePictureData.error) {
+         alert(profilePictureData.error)
        } else {
-           console.log(photo)}})}
-     //     dispatch(setProfilePicture(photo.profile_picture.image_url))
-     //     dispatch(setFormStateToInactive())
-     //   }
-     // })
-     // .catch(error => console.log(error))
-     // }
+            console.log(profilePictureData)
+            dispatch(loadedProfilePicture(profilePictureData))
+        }})}
  }
  
  function fetchedUserUpvotes(upvotes){
