@@ -2,17 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
-
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import store from './redux/store'
+import { ThemeProvider } from '@material-ui/core/styles'
+import theme from './assets/material_ui_theme'
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
-      </Provider>
+      <ThemeProvider theme = {theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </BrowserRouter>,
   document.getElementById('root')
 );

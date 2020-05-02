@@ -1,121 +1,98 @@
-// import React from 'react'
-// import {connect} from 'react-redux'
-// import {logoutUser} from '../redux/actions'
-
-
-// class Navbar extends React.Component {
-
-// handleOnClickConnect = () => {
-//     window.location = 'http://localhost:3001/posts'
-// }
-
-// handleOnClickScratchPad = () => {
-//     window.location = `http://localhost:3001/scratchpads/new`
-// }
-
-// handleOnClickMathLab = () => {
-//     window.location = 'http://localhost:3001/'
-// }
-
-// handleOnClickLogin = () => {
-//     window.location = 'http://localhost:3001/login'
-// }
-
-// handleOnClickMyAccount = () => {
-//     window.location = 'http://localhost:3001/profile'
-// }
-
-// handleOnClickLogout = () => {
-//     window.location = 'http://localhost:3001/'
-//     this.props.logoutUser(this.props.user)
-// }
-
-// render() {
-//     return(
-//         <div>
-//             <button onClick = {this.handleOnClickConnect}>Connect()</button>
-//             <button onClick = {this.handleOnClickScratchPad}>ScratchPad</button>
-//             <button onClick = {this.handleOnClickMathLab}>ma+hLab</button>
-//             {this.props.user?  <button onClick = {this.handleOnClickMyAccount}>MyAccount</button> : null}
-//             {this.props.user?  <button onClick = {this.handleOnClickLogout}>Logout</button> : <button onClick = {this.handleOnClickLogin}>Login</button>}
-//         </div>
-// )}
-// }
-
-// const mapStateToProps = state => {
-//     return {
-//         user: state.user
-//     }
-// }
-
-// export default connect(mapStateToProps, {logoutUser})(Navbar)
-
 import React from 'react'
-import {connect} from 'react-redux'
-import {logoutUser, updateFilterSubject, updateSearchTerm} from '../redux/actions'
-import {Link, NavLink, withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logoutUser, updateFilterSubject, updateSearchTerm } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+});
 
 
 class Navbar extends React.Component {
 
-
-handleOnClickLogout = () => {
-    this.props.logoutUser()
-}
-
-handleOnClickConnect = () => {
-    this.props.updateFilterSubject("")
-    this.props.updateSearchTerm("")
-}
-
-handleOnClickScratchPad = () => {
-        fetch("http://localhost:3000/scratchpads", {
-        method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({scratchpad_text: "", url: Date.now().toString()})
-        })
-        .then(resp => resp.json())
-        .then(scratchpad => {
-            if (scratchpad.error){
-                alert(scratchpad.message)
-                } else {
-                console.log(scratchpad)
-                window.open(`/scratchpads/${scratchpad.url}`)
-                }
-        })
-    
-
-    // <NavLink exact to={`/scratchpads/${Date.now()}`}></NavLink>
-}
-      
-render() {
-    return(
-        <div>
-            <Link to="/"><h2>ma+hLab</h2></Link>
-
-            <NavLink to="/posts" onClick = {this.handleOnClickConnect}><h3 >Connect()</h3></NavLink>
-
-            <div onClick = {this.handleOnClickScratchPad}><h3>ScratchPad</h3></div>
-            <NavLink exact to="/calculator"><h3>Calculator</h3></NavLink>
-
-            {this.props.user? <NavLink exact to="/profile"><h3>MyAccount</h3></NavLink>: null}
-           
-            {this.props.user? <NavLink exact to="/" onClick = {this.handleOnClickLogout}><h3 className="ui header">Logout</h3></NavLink>: 
-            <NavLink exact to="/login" activeClassName="active item" className="item">
-            <h3 className="ui header">Login</h3>
-            </NavLink>}
-            
-        </div>
-    )}
-}
-
-const mapStateToProps = state => {
-    return {
-        user: state.user
+    handleOnClickLogin = () => {
+        this.props.history.push("/login")
     }
-}
 
-export default withRouter(connect(mapStateToProps,{logoutUser, updateFilterSubject, updateSearchTerm})(Navbar))
+    handleOnClickCalculator = () => {
+        this.props.history.push("/calculator")
+    }
+
+    handleOnClickMyAccount = () => {
+        this.props.history.push("/profile")
+    }
+
+    handleOnClickMathLab = () => {
+        this.props.history.push("/")
+    }
+
+    handleOnClickLogout = () => {
+        this.props.history.push("/")
+        this.props.logoutUser()
+    }
+    
+    handleOnClickConnect = () => {
+        this.props.history.push("/posts")
+        this.props.updateFilterSubject("")
+        this.props.updateSearchTerm("")
+    }
+    
+    handleOnClickScratchPad = () => {
+            fetch("http://localhost:3000/scratchpads", {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({scratchpad_text: "", url: Date.now().toString()})
+            })
+            .then(resp => resp.json())
+            .then(scratchpad => {
+                if (scratchpad.error){
+                    alert(scratchpad.message)
+                    } else {
+                    console.log(scratchpad)
+                    window.open(`/scratchpads/${scratchpad.url}`)
+                    }
+            })
+    }
+          
+    render() {
+        const { classes } = this.props
+        return(
+            <div className={classes.root}>
+                <AppBar position="static"> 
+                    <Toolbar>
+                        <Button onClick = {this.handleOnClickMathLab} color="inherit">ma+hLab</Button>
+                        <Button onClick = {this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
+                        <Button onClick = {this.handleOnClickCalculator} color="inherit">Calculator</Button>
+                        <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
+                        {this.props.user? <Button onClick = {this.handleOnClickMyAccount} color="inherit">MyAccount</Button>: null}
+                        {this.props.user? <Button onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
+                            <Button onClick = {this.handleOnClickLogin} color="inherit">Login</Button> }
+                    </Toolbar>
+                </AppBar>
+            </div>
+        )}
+    }
+    
+    const mapStateToProps = state => {
+        return {
+            user: state.user
+        }
+    }
+    
+    export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps,{logoutUser, updateFilterSubject, updateSearchTerm})(Navbar)))
+    
