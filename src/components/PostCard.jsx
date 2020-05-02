@@ -7,6 +7,7 @@ const PostCard = (props) => {
     const {post, deletingPost, user, history} = props
     return(
     <div className = "card" onClick = {handleOnClick}>
+        <img className = "post-user-profile-icon" src = {post.user.get_image_url} alt = {post.user.username} />
         <h4>{post.user.username}:</h4>
         <h5>{getCreatedDate()} {getCreatedTime()}</h5>
         <h4>Replies: {post.replies.length}</h4>

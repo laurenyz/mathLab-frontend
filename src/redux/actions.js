@@ -172,6 +172,7 @@ function uploadingProfilePicture(formData, userId){
     return (dispatch) => {
         localStorage.removeItem("jwt")
         dispatch(removeUser())
+        dispatch(removeProfilePicture())
     } 
  }
  

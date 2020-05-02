@@ -41,3 +41,24 @@
   border: solid 2px;
   margin: 2px;
 }
+
+.profile-picture{
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.post-user-profile-icon{
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.reply-user-profile-icon{
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
