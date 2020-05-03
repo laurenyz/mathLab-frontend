@@ -15,7 +15,7 @@ const PostsContainer = (props) => {
             <Grid item xs = {2} />
             <Grid item xs={8}>
                 {( props.user? 
-                <Grid container>
+                <Grid container >
                     <Grid item>
                         <Button onClick = {handleAddPostOnClick}>
                             Add Post +
@@ -24,7 +24,7 @@ const PostsContainer = (props) => {
                 </Grid>
                 : null
                 )}
-                 <Grid container>
+                 <Grid container justify="space-between" alignItems="flex-end">
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>

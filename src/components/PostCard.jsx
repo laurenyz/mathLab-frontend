@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
-  deleteBtn: {
-    float: 'right'
-  },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
@@ -59,7 +56,7 @@ const PostCard = (props) => {
             <CardActions disableSpacing>
                 <Button onClick = {handleSubjectOnClick}>{post.subject}</Button>
                 {(user && user.id === post.user.id?
-                    <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
+                    <IconButton aria-label="delete" onClick = {handleDeleteOnClick}>
                         <DeleteIcon />
                     </IconButton>
                     : null

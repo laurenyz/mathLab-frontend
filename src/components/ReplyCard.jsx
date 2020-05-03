@@ -1,17 +1,75 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deletingReply, addingUpvote} from '../redux/actions'
+import { Grid, makeStyles, Card, IconButton, CardHeader, CardContent, CardActions, Avatar, Typography } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      minWidth: 300
+    },
+    // expand: {
+    //   transform: 'rotate(0deg)',
+    //   marginLeft: 'auto',
+    //   transition: theme.transitions.create('transform', {
+    //     duration: theme.transitions.duration.shortest,
+    //   }),
+    // },
+    deleteBtn: {
+      marginLeft: 'auto'
+    },
+    // expandOpen: {
+    //   transform: 'rotate(180deg)',
+    // },
+  }));
 
 const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
-    return(<div >
-        <img className = "reply-user-profile-icon" src = {reply.replier.get_image_url} alt = {reply.replier.username} />
-        <h4>{reply.replier.username}:</h4>
-        <h5>{getCreatedDate()} {getCreatedTime()}</h5>
-        <h3>{reply.reply_text}</h3>
-        {(user && user.id === reply.replier.id? <button onClick = {handleOnClick}>Delete Reply</button>: null)}
-        <h4>Upvotes: {reply.upvotes.length}</h4>
-        <button onClick = {handleOnClickUpvote}>Upvote Icon</button>
-    </div>)
+    const classes = useStyles();
+    // const [expanded, setExpanded] = React.useState(false);
+    
+    // const handleExpandClick = () => {
+    //     setExpanded(!expanded);
+    // };
+
+    return( 
+        <Card className={classes.root} variant = "outlined" >
+            <Grid container justify="space-between">
+                <Grid item>
+                <CardHeader       
+                    avatar={
+                    <Avatar alt={reply.replier.username} src={reply.replier.get_image_url} />
+                    }
+                    title={reply.replier.username}
+                    subheader={`${getCreatedDate()} ${getCreatedTime()}`}
+                    
+                />
+                </Grid>
+                <Grid item>
+                <CardActions disableSpacing>
+            
+                <Typography>{reply.upvotes.length}</Typography>
+                <IconButton aria-label="upvote" onClick = {handleOnClickUpvote}>
+                    <ArrowUpwardIcon />
+                </IconButton>
+                </CardActions>
+                </Grid>
+            </Grid>
+        <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+                {reply.reply_text}
+            </Typography>
+        </CardContent>    
+    <CardActions disableSpacing>
+        {(user && user.id === reply.replier.id?
+            <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
+                <DeleteIcon />
+            </IconButton>
+            : null
+        )}
+    </CardActions>
+    </Card>
+    )
 
     function handleOnClickUpvote(){
         if (user){
@@ -62,7 +120,7 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
 
     }
 
-    function handleOnClick() {
+    function handleDeleteOnClick() {
         deletingReply(reply)
     }
 }
