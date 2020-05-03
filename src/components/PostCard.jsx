@@ -131,6 +131,7 @@ function getCreatedTime() {
     }
 
     function handleSubjectOnClick(){
+        history.push('/posts')
         props.updateFilterSubject(post.subject)
     }
 
