@@ -1,6 +1,15 @@
 import React from 'react'
-import {addingReply} from '../redux/actions'
-import {connect} from 'react-redux'
+import { addingReply } from '../redux/actions'
+import { connect } from 'react-redux'
+import { Typography, TextField, Button, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    replyForm: {
+        paddingTop: 20,
+        paddingBottom: 20
+      },
+  });
 
 class NewReplyForm extends React.Component {
 
@@ -22,19 +31,34 @@ class NewReplyForm extends React.Component {
             text: ""
         })
     }
+    
 
     render() {
+        const { classes } = this.props
         return(<div>
-            Add a Reply:
-            <form onSubmit = {this.handleOnSubmit}>
-                <textarea placeholder = "Reply..."
+            <form className = {classes.replyForm} onSubmit = {this.handleOnSubmit}>
+                <Grid container justify="flex-start" alignItems="flex-end">
+                    <Grid item xs={12} sm={10} md={8} >
+                    <TextField
+                    id="filled-multiline-static"
+                    label="Add Reply"
+                    fullWidth
+                    multiline
+                    rows={10}
+                    variant="filled"
+                    placeholder="Here comes an ingenius reply..."
                     value = {this.state.text}
                     name = "text"
-                    onChange = {this.handleOnChange}>
-                </textarea>
-                <input type = "submit" value = "Post Reply"></input>
+                    onChange = {this.handleOnChange}
+                />
+                    </Grid>
+                    <Grid item>
+                    <Button type="submit">Post Reply</Button>
+                    </Grid>
+                </Grid>
+                
+                
             </form>
-            
         </div>)
     }
 }
@@ -51,4 +75,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewReplyForm)
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(NewReplyForm))
