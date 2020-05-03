@@ -36,6 +36,22 @@ const postsReducer = (state = [], action) => {
         }
       })
       return posts
+    case "DELETED_UPVOTE":
+      posts = state.map(p=> {
+        if (p.replies.find(r => r.id === action.payload.reply_id)){
+          const replies = p.replies.map(r => {
+            if (r.id === action.payload.reply_id){
+              return {...r, upvotes: r.upvotes.filter(upvote => upvote.id !== action.payload.id)}
+            } else {
+              return r
+            }
+          })
+          return {...p, replies: replies}
+        } else {
+          return p
+        }
+      })
+      return posts
     case "DELETED_POST":
       posts = state.filter(p => p.id !== action.payload.id)
       return posts

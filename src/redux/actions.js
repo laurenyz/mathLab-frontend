@@ -134,13 +134,30 @@ function uploadingProfilePicture(formData, userId){
      }
  }
  
- function addedUpvote(upvote){
-     return {
-         type: "ADDED_UPVOTE",
-         payload: upvote
-     }
+function addedUpvote(upvote){
+    return {
+        type: "ADDED_UPVOTE",
+        payload: upvote
+    }
  }
+
+function deletedUpvote(upvote){
+    return{
+        type: "DELETED_UPVOTE",
+        payload: upvote
+    }
+}
  
+function deletingUpvote(upvote){
+    return (dispatch) => {
+        fetch(`http://localhost:3000/upvotes/${upvote.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(() => {dispatch(deletedUpvote(upvote))})
+    }
+}
+
  function addingUpvote(upvote){
      return(dispatch) => {
          fetch('http://localhost:3000/upvotes', {
@@ -310,4 +327,4 @@ function uploadingProfilePicture(formData, userId){
  }
  
  
- export {uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
+ export {uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}

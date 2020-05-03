@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const useStyles = makeStyles((theme) => ({
     title: {
-      paddingTop: 20,
+      paddingTop: 20
     },
   }));
 

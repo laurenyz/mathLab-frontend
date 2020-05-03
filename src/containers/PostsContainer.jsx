@@ -5,21 +5,31 @@ import SubjectFilter from '../components/SubjectFilter'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-import { Button } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
+
+const useStyles = makeStyles((theme) => ({
+    addButton: {
+        paddingTop: 20
+    },
+  }));
 
 const PostsContainer = (props) => {
-
+    const classes = useStyles();
     return(<div>
         <Grid container>
             <Grid item xs = {2} />
             <Grid item xs={8}>
                 {( props.user? 
-                <Grid container >
-                    <Grid item>
-                        <Button onClick = {handleAddPostOnClick}>
-                            Add Post +
-                        </Button>
+                <Grid container className={classes.addButton} justify="flex-end" >
+                    <Grid item >
+                    <Tooltip title="Add Post">
+                        <IconButton aria-label="add post" onClick = {handleAddPostOnClick}>
+                            <AddCircleIcon fontSize="large" />
+                        </IconButton>
+                    </Tooltip>
                     </Grid>
                 </Grid>
                 : null

@@ -1,7 +1,7 @@
 import React from 'react'
 import { addingReply } from '../redux/actions'
 import { connect } from 'react-redux'
-import { Typography, TextField, Button, Grid } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

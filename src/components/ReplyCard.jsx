@@ -1,13 +1,18 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {deletingReply, addingUpvote} from '../redux/actions'
+import { connect } from 'react-redux'
+import { deletingReply, addingUpvote, deletingUpvote } from '../redux/actions'
 import { Grid, makeStyles, Card, IconButton, CardHeader, CardContent, CardActions, Avatar, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import HUE from '@material-ui/core/colors/green';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
       minWidth: 300
+    },
+    greenUpvoteButton: {
+      color: HUE[400]
     },
     // expand: {
     //   transform: 'rotate(0deg)',
@@ -24,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     // },
   }));
 
-const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
+const ReplyCard = ({reply, deletingUpvote, deletingReply, user, addingUpvote}) => {
     const classes = useStyles();
     // const [expanded, setExpanded] = React.useState(false);
     
@@ -49,9 +54,14 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
                 <CardActions disableSpacing>
             
                 <Typography>{reply.upvotes.length}</Typography>
-                <IconButton aria-label="upvote" onClick = {handleOnClickUpvote}>
-                    <ArrowUpwardIcon />
-                </IconButton>
+                {(reply.upvotes.find(upvote => upvote.voter_id === user.id))?
+                    <IconButton aria-label="upvote" onClick = {handleOnClickUpvote}>
+                        <ArrowUpwardIcon className={classes.greenUpvoteButton}/>
+                    </IconButton>
+                :   <IconButton aria-label="upvote" onClick = {handleOnClickUpvote}>
+                        <ArrowUpwardIcon />
+                    </IconButton>
+                }
                 </CardActions>
                 </Grid>
             </Grid>
@@ -73,19 +83,16 @@ const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
 
     function handleOnClickUpvote(){
         if (user){
-            if(user.id === reply.replier.id){
-                alert("Hold on there partner, you can't upvote your own reply!")
-            } 
-            else if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
-                alert("Woah there, you've already liked this reply!")
+            if(reply.upvotes.find(upvote => upvote.voter_id === user.id)) {
+            const foundUpvote = reply.upvotes.find((upvote => upvote.voter_id === user.id))
+            deletingUpvote(foundUpvote)
             }
              else {
             addingUpvote({reply_id: reply.id, voter_id: user.id})
             }
         } else {
             alert("You must be signed in to upvote a reply!")
-        }
-        
+        }  
     }
 
     function getCreatedTime() {
@@ -134,7 +141,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         deletingReply: reply => dispatch(deletingReply(reply)),
-        addingUpvote: upvote => dispatch(addingUpvote(upvote))
+        addingUpvote: upvote => dispatch(addingUpvote(upvote)),
+        deletingUpvote: upvoteId => dispatch(deletingUpvote(upvoteId))
     }
 }
 
