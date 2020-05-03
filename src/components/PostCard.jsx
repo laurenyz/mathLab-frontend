@@ -82,7 +82,7 @@ const PostCard = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               {arrangeRepliesByUpvotes().map(reply => {
                 return(
-                    <CardContent>
+                    <CardContent key = {reply.id}>
                         <Divider  />
                         <Typography variant="body2" color="textSecondary" component="p">
                             {(reply.reply_text.length > 200 ? `${reply.reply_text.substring(0, 200)}...` : reply.reply_text)}  
