@@ -73,7 +73,7 @@ class Navbar extends React.Component {
         const { classes } = this.props
         return(
             <div className={classes.root}>
-                <AppBar position="static"> 
+                <AppBar position="static" > 
                     <Toolbar>
                         <Button onClick = {this.handleOnClickMathLab} color="inherit">ma+hLab</Button>
                         <Button onClick = {this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>

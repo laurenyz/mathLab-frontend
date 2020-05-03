@@ -12,11 +12,18 @@ const PostsContainer = (props) => {
     return(<div>
         <SearchBar />
         <SubjectFilter />
+
         
         {props.user? <Link to="/posts/new">Add Post+</Link> : null }
         <h1>Posts:</h1>
-        <Grid container direction="column" justify = "center" alignItems="stretch" spacing={2} maxWidth = "sm">
-            {filterFunction().map(post => <Grid item xs={8}><PostCard post={post} key={post.id}/></Grid>)}
+        <Grid container>
+            <Grid item xs = {2} />
+            <Grid item xs={8}>
+                <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
+                    {filterFunction().map(post => <Grid item><PostCard post={post} key={post.id}/></Grid>)}
+                </Grid>
+            </Grid>
+            <Grid item xs = {2}/>
         </Grid>
     </div>)
 

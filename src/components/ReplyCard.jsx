@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {deletingReply, addingUpvote} from '../redux/actions'
 
 const ReplyCard = ({reply, deletingReply, user, addingUpvote}) => {
-    return(<div className = "card">
+    return(<div >
         <img className = "reply-user-profile-icon" src = {reply.replier.get_image_url} alt = {reply.replier.username} />
         <h4>{reply.replier.username}:</h4>
         <h5>{getCreatedDate()} {getCreatedTime()}</h5>
