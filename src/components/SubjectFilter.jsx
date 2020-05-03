@@ -46,7 +46,7 @@ function SubjectFilter(props) {
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
-                {subjectsData.subjects.map(subject => <MenuItem key = {subject.id} value = {subject.name}>{subject.name}</MenuItem>)}
+                {alphabetizedSubjects(subjectsData).map(subject => <MenuItem key = {subject.id} value = {subject.name}>{subject.name}</MenuItem>)}
             </Select>
         </FormControl>
     </div>
@@ -55,6 +55,10 @@ function SubjectFilter(props) {
 function handleOnChange(event) {
         props.updateFilterSubject(event.target.value)
     }
+}
+
+function alphabetizedSubjects(subjectsData){
+  return subjectsData.subjects.sort((a,b) => (a.name>b.name)? 1: -1)
 }
 
 

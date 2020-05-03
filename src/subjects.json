@@ -22,6 +22,18 @@
         }, 
         {   "name": "Other", 
             "id": 6
+        },
+        {
+            "name": "Calculus",
+            "id": 7
+        },
+        {
+            "name": "Statistics",
+            "id": 8
+        },
+        {
+            "name": "Probability",
+            "id": 9
         }
     ]
 }

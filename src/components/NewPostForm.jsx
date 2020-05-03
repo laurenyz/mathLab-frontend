@@ -35,6 +35,10 @@ class NewPostForm extends React.Component {
         }
     }
 
+    alphabetizedSubjects = (subjectsData) => {
+        return subjectsData.subjects.sort((a,b) => (a.name>b.name)? 1: -1)
+    }
+
     render() {
         return(<div>
             NewPostForm:
@@ -47,7 +51,7 @@ class NewPostForm extends React.Component {
                 <input type = "text" name = "tags" placeholder = "add taglines with #" value = {this.state.tags} onChange = {this.handleOnChange}></input>
                 <select name="subject" value = {this.state.subject} onChange = {this.handleOnChange}>
                     <option value="">SUBJECT</option>
-                    {subjectsData.subjects.map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
+                    {this.alphabetizedSubjects(subjectsData).map(subject => <option key = {subject.id} value = {subject.name}>{subject.name}</option>)}
                 </select>
                 <input type = "submit">
                 </input>
