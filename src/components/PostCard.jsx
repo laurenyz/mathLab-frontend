@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deletingPost, updateFilterSubject } from '../redux/actions'
 import clsx from 'clsx';
-import { makeStyles, Card, IconButton, CardHeader, CardContent, CardActions, Collapse, Avatar, CardActionArea, Button, Divider, Typography } from '@material-ui/core';
+import { makeStyles, Card, Grid, IconButton, CardHeader, CardContent, Collapse, Avatar, CardActionArea, Button, Divider, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -53,10 +53,13 @@ const PostCard = (props) => {
                   {post.tags.length !==0 && post.tags[0].tagline!== "" ? <Typography variant="body2" color="textSecondary" component="p">{`#${post.tags[0].tagline}`}</Typography> : null}
                 </CardContent>    
             </CardActionArea>
-            <CardActions disableSpacing>
-                <Button onClick = {handleSubjectOnClick}>{post.subject}</Button>
-                {(user && user.id === post.user.id?
-                    <IconButton aria-label="delete" onClick = {handleDeleteOnClick}>
+                <Grid container justify="space-between" alignItems="center">
+                    <Grid item>
+                    <Button onClick = {handleSubjectOnClick}>{post.subject}</Button>
+                    </Grid>
+                    <Grid item>
+                    {(user && user.id === post.user.id?
+                        <IconButton aria-label="delete" onClick = {handleDeleteOnClick}>
                         <DeleteIcon />
                     </IconButton>
                     : null
@@ -74,8 +77,8 @@ const PostCard = (props) => {
                     </IconButton>
                     : null
                 )}
-                
-            </CardActions>
+                    </Grid>
+                </Grid>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 {post.replies.length>0?
                 arrangeRepliesByUpvotes().map(reply => {

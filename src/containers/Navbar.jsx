@@ -39,29 +39,11 @@ class Navbar extends React.Component {
         this.setState({open: false});
       };
 
-    // handleOnClickLogin = () => {
-    //     this.props.history.push("/login")
-    // }
-
-    handleOnClickCalculator = () => {
-        this.props.history.push("/calculator")
-    }
-
-    handleOnClickMyAccount = () => {
-        this.props.history.push("/profile")
-    }
-
-    handleOnClickMathLab = () => {
-        this.props.history.push("/")
-    }
-
     handleOnClickLogout = () => {
-        this.props.history.push("/")
         this.props.logoutUser()
     }
     
     handleOnClickConnect = () => {
-        this.props.history.push("/posts")
         this.props.updateFilterSubject("")
         this.props.updateSearchTerm("")
     }
@@ -95,12 +77,12 @@ class Navbar extends React.Component {
                 </Dialog>
                 <AppBar position="static" > 
                     <Toolbar>
-                        <Button onClick = {this.handleOnClickMathLab} color="inherit">ma+hLab</Button>
-                        <Button onClick = {this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-                        <Button onClick = {this.handleOnClickCalculator} color="inherit">Calculator</Button>
-                        <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
-                        {this.props.user? <Button onClick = {this.handleOnClickMyAccount} color="inherit">MyAccount</Button>: null}
-                        {this.props.user? <Button onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
+                        <Button href="/" color="inherit">ma+hLab</Button>
+                        <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
+                        <Button href="/calculator" color="inherit">Calculator</Button>
+                        <Button href="/posts" onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
+                        {this.props.user? <Button href="/profile" color="inherit">MyAccount</Button>: null}
+                        {this.props.user? <Button href="/" onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
                             <Button onClick={this.handleClickOpen} color="inherit">Login</Button> }
                     </Toolbar>
                 </AppBar>
