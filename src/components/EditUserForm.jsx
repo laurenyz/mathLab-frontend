@@ -5,7 +5,6 @@ import {withRouter} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -44,7 +43,8 @@ class EditUserForm extends React.Component {
         })
     }
 
-    handleOnSubmit = () => {
+    handleOnSubmit = (event) => {
+        event.preventDefault()
         this.props.editingUser({
             id: this.props.user.id,
             name: this.state.name, 
@@ -65,7 +65,7 @@ class EditUserForm extends React.Component {
         return(<div>
             <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
         <DialogContent>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={this.handleOnSubmit}>
           <TextField
             autoFocus
             margin="dense"
@@ -96,15 +96,17 @@ class EditUserForm extends React.Component {
             onChange = {this.handleOnChange} 
             value = {this.state.email}
           />
+          <Button
+             type="submit"
+             fullWidth
+             variant="contained"
+             color="primary"
+             className={classes.submit}
+           >
+             Update Profile
+           </Button>
           </form>
-          
         </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleOnSubmit} color="primary">
-            Update Profile
-          </Button>
-          
-        </DialogActions>
         </div>)
     }
 }
