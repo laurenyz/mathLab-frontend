@@ -46,7 +46,7 @@ class NewReplyForm extends React.Component {
                     multiline
                     rows={10}
                     variant="filled"
-                    placeholder="Here comes an ingenius reply..."
+                    placeholder="Here comes an ingenious reply..."
                     value = {this.state.text}
                     name = "text"
                     onChange = {this.handleOnChange}

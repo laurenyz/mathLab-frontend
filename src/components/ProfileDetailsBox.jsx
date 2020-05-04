@@ -1,18 +1,50 @@
 import React from 'react'
+import { makeStyles, Grid, CardContent, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles(() => ({
+    root: {
+      marginTop: 20,
+      minWidth: 300,
+    //   margin: 'auto',
+    },
+    content: {
+      marginTop: "30px",
+      paddingLeft: "2em",
+    },
+    headerImage: {
+        background: "#efd3dd"
+    },
+    avatar: {
+      width: 200,
+      height: 200,
+      border: '2px solid #fff',
+      margin: '-100px 625px 0 auto',
+      '& > img': {
+        margin: 0,
+      },
+    },
+  }));
 
 const ProfileDetailsBox = (props) => {
+    const classes = useStyles();
     if (props.user){
     return(<div>
-        <h1>Username: {props.user.username}</h1>
-        <h1>Total Upvotes: {props.userUpvotes}</h1>
-        <br>
-        </br>
-        <h3>Name: {props.user.name}</h3>
-        <h3>Email: {props.user.email}</h3>
-        <h3>Member Since: {calculateStartMonth()} {getStartYear()}</h3>
+          <CardContent className={classes.content}>
+              <Grid container direction="column">
+                 <Grid item>
+                     <Typography gutterBottom variant="h6">Name: {props.user.name}</Typography>
+                     <Typography gutterBottom variant="h6">Email: {props.user.email}</Typography>
+                 </Grid>
+                    <Grid item style={{marginTop: "30px"}}>
+                    <Typography gutterBottom variant="p">Member since {calculateStartMonth()} {getStartYear()} </Typography>
+                 </Grid>
+              </Grid>
+          </CardContent>
     </div>)
-    }else{return null}
-
+    }else{
+        return null
+    }
+    
     function getStartYear(){
         let date = new Date(props.user.created_at)
         return date.getFullYear()
@@ -65,5 +97,7 @@ const ProfileDetailsBox = (props) => {
         return month 
     }
 }
+    
+
 
 export default ProfileDetailsBox
