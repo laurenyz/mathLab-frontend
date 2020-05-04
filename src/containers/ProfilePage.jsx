@@ -8,7 +8,7 @@ import { makeStyles, Grid, Card } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
     root: {
       marginTop: 20,
-      minWidth: 300,
+      minWidth: 500,
     //   margin: 'auto',
     },
     content: {

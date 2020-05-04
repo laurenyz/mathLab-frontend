@@ -1,12 +1,10 @@
 import React from 'react'
-import { makeStyles, Grid, CardContent, Typography } from '@material-ui/core';
+import { makeStyles, Grid, CardContent, Typography, Button } from '@material-ui/core';
+import {deleteUser} from '../redux/actions'
+import {connect} from 'react-redux'
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(() => ({
-    root: {
-      marginTop: 20,
-      minWidth: 300,
-    //   margin: 'auto',
-    },
     content: {
       marginTop: "30px",
       paddingLeft: "2em",
@@ -39,10 +37,34 @@ const ProfileDetailsBox = (props) => {
                     <Typography gutterBottom variant="p">Member since {calculateStartMonth()} {getStartYear()} </Typography>
                  </Grid>
               </Grid>
+              <Grid container style={{marginTop: "20px", marginRight: "60px"}} spacing={1} justify="flex-end">
+              <Grid item>
+                <Button variant="contained" color="secondary" onClick = {handleEditOnClick} size="small">Edit Profile</Button>
+              </Grid>
+              <Grid item>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon />}
+                    onClick = {handleDeleteOnClick} size="small"
+                >
+                    Delete
+                </Button>
+              </Grid>
+          </Grid>
           </CardContent>
+          
     </div>)
     }else{
         return null
+    }
+
+    function handleDeleteOnClick(){
+        props.deleteUser(props.user)
+    }
+
+    function handleEditOnClick(){
+        props.history.push("/profile/edit")
     }
     
     function getStartYear(){
@@ -97,7 +119,7 @@ const ProfileDetailsBox = (props) => {
         return month 
     }
 }
-    
 
 
-export default ProfileDetailsBox
+
+export default connect(null, {deleteUser})(ProfileDetailsBox)
