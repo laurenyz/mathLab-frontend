@@ -54,7 +54,7 @@ const ReplyCard = ({reply, deletingUpvote, deletingReply, user, addingUpvote}) =
                 <CardActions disableSpacing>
             
                 <Typography>{reply.upvotes.length}</Typography>
-                {(reply.upvotes.find(upvote => upvote.voter_id === user.id))?
+                {(user && reply.upvotes.find(upvote => upvote.voter_id === user.id))?
                     <IconButton aria-label="upvote" onClick = {handleOnClickUpvote}>
                         <ArrowUpwardIcon className={classes.greenUpvoteButton}/>
                     </IconButton>
