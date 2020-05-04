@@ -61,7 +61,7 @@ const PostCard = (props) => {
                     </IconButton>
                     : null
                 )}
-                {(post.replies.length > 0 ?
+                {( props.showReplies ?
                     <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -77,16 +77,24 @@ const PostCard = (props) => {
                 
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-              {arrangeRepliesByUpvotes().map(reply => {
-                return(
-                    <CardContent key = {reply.id}>
-                        <Divider  />
+                {post.replies.length>0?
+                arrangeRepliesByUpvotes().map(reply => {
+                    return(
+                        <CardContent key = {reply.id}>
+                            <Divider  />
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {(reply.reply_text.length > 100 ? `${reply.reply_text.substring(0, 100)}...` : reply.reply_text)}  
+                            </Typography>
+                        </CardContent>
+                        )
+                    })
+                    :   <CardContent>
+                            <Divider  />
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {(reply.reply_text.length > 200 ? `${reply.reply_text.substring(0, 200)}...` : reply.reply_text)}  
-                        </Typography>
-                    </CardContent>
-                )
-            })}
+                            Be the first to leave a reply!  
+                            </Typography>
+                        </CardContent>
+                }
             </Collapse>
         </Card>
     )

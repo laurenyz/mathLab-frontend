@@ -39,7 +39,7 @@ const PostsContainer = (props) => {
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
-                    {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} /></Grid>)}
+                    {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true} /></Grid>)}
                 </Grid>
             </Grid>
             
