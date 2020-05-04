@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const PostsContainer = (props) => {
     const classes = useStyles();
     return(<div>
-        <Grid container>
+        <Grid container style={{marginBottom: "200px"}}>
             <Grid item xs = {2} />
             <Grid item xs={8}>
                 {( props.user? 

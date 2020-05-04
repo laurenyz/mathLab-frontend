@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import LoginForm from '../components/LoginForm'
 
 const styles = theme => ({
   root: {
@@ -22,9 +24,24 @@ const styles = theme => ({
 
 class Navbar extends React.Component {
 
-    handleOnClickLogin = () => {
-        this.props.history.push("/login")
+    constructor(){
+        super()
+        this.state = {
+            open: false
+        }
     }
+
+    handleClickOpen = () => {
+        this.setState({open: true});
+      };
+    
+    handleClose = () => {
+        this.setState({open: false});
+      };
+
+    // handleOnClickLogin = () => {
+    //     this.props.history.push("/login")
+    // }
 
     handleOnClickCalculator = () => {
         this.props.history.push("/calculator")
@@ -73,6 +90,9 @@ class Navbar extends React.Component {
         const { classes } = this.props
         return(
             <div className={classes.root}>
+                <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+                <LoginForm handleClose={this.handleClose}/>
+                </Dialog>
                 <AppBar position="static" > 
                     <Toolbar>
                         <Button onClick = {this.handleOnClickMathLab} color="inherit">ma+hLab</Button>
@@ -81,7 +101,7 @@ class Navbar extends React.Component {
                         <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
                         {this.props.user? <Button onClick = {this.handleOnClickMyAccount} color="inherit">MyAccount</Button>: null}
                         {this.props.user? <Button onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
-                            <Button onClick = {this.handleOnClickLogin} color="inherit">Login</Button> }
+                            <Button onClick={this.handleClickOpen} color="inherit">Login</Button> }
                     </Toolbar>
                 </AppBar>
             </div>

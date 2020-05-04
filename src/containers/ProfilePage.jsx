@@ -1,6 +1,6 @@
 import React from 'react'
 import ProfileImageBox from '../components/ProfileImageBox'
-import ProfileDetailsBox from '../components/ProfileDetailsBox'
+import ProfileDetailsBox from '../containers/ProfileDetailsBox'
 import ProfilePostsBox from './ProfilePostsBox'
 import {connect} from 'react-redux'
 import { makeStyles, Grid, Card } from '@material-ui/core';
@@ -33,7 +33,7 @@ const ProfilePage = (props) => {
     if(props.user){
     return(
         <div>
-            <Grid container>
+            <Grid container style={{marginBottom: "200px"}}>
             <Grid item xs = {2} />
             <Grid item xs={8} > 
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { deleteUser } from '../redux/actions'
 import { connect } from 'react-redux'
-import EditUserForm from './EditUserForm'
+import EditUserForm from '../components/EditUserForm'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
