@@ -49,7 +49,6 @@ class App extends React.Component {
             } else {
               return null}
           }} />
-          <Route exact path = "/profile/edit" render = { () => (this.props.user ?  <EditUserForm /> : null) }/>
           <Route exact path = "/profile" render= {() => (localStorage.getItem('jwt') ? <ProfilePage /> :<Redirect to="/" /> )}/>
           <Route exact path = "/users/new" render= {() => (this.props.user ? <Redirect to="/profile"/> : <NewUserForm /> )}/>
           <Route exact path = "/login" render= {() => (this.props.user ? <Redirect to="/profile"/> : <LoginForm /> )}/>

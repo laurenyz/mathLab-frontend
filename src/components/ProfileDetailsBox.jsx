@@ -1,10 +1,16 @@
 import React from 'react'
-import { makeStyles, Grid, CardContent, Typography, Button } from '@material-ui/core';
-import {deleteUser} from '../redux/actions'
-import {connect} from 'react-redux'
+import { deleteUser } from '../redux/actions'
+import { connect } from 'react-redux'
+import EditUserForm from './EditUserForm'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import CardContent from '@material-ui/core/CardContent'
+import Grid from '@material-ui/core/Grid'
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     content: {
       marginTop: "30px",
       paddingLeft: "2em",
@@ -20,51 +26,60 @@ const useStyles = makeStyles(() => ({
       '& > img': {
         margin: 0,
       },
-    },
-  }));
+     
+}}));
 
 const ProfileDetailsBox = (props) => {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
     if (props.user){
-    return(<div>
-          <CardContent className={classes.content}>
-              <Grid container direction="column">
-                 <Grid item>
-                     <Typography gutterBottom variant="h6">Name: {props.user.name}</Typography>
-                     <Typography gutterBottom variant="h6">Email: {props.user.email}</Typography>
-                 </Grid>
-                    <Grid item style={{marginTop: "30px"}}>
-                    <Typography gutterBottom variant="p">Member since {calculateStartMonth()} {getStartYear()} </Typography>
-                 </Grid>
-              </Grid>
-              <Grid container style={{marginTop: "20px", marginRight: "60px"}} spacing={1} justify="flex-end">
-              <Grid item>
-                <Button variant="contained" color="secondary" onClick = {handleEditOnClick} size="small">Edit Profile</Button>
-              </Grid>
-              <Grid item>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<DeleteIcon />}
-                    onClick = {handleDeleteOnClick} size="small"
-                >
-                    Delete
-                </Button>
-              </Grid>
-          </Grid>
-          </CardContent>
-          
-    </div>)
-    }else{
+    return(
+        <div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <EditUserForm handleClose={handleClose} />
+            </Dialog>
+            <CardContent className={classes.content}>
+                <Grid container direction="column">
+                    <Grid item>
+                        <Typography gutterBottom variant="h6">Name: {props.user.name}</Typography>
+                        <Typography gutterBottom variant="h6">Email: {props.user.email}</Typography>
+                    </Grid>
+                        <Grid item style={{marginTop: "30px"}}>
+                        <Typography gutterBottom variant="subtitle1">Member since {calculateStartMonth()} {getStartYear()} </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container style={{marginTop: "20px", marginRight: "60px"}} spacing={1} justify="flex-end">
+                <Grid item>
+                    <Button variant="contained" color="secondary" onClick={handleClickOpen} size="small">Edit Profile</Button>
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<DeleteIcon />}
+                        onClick = {handleDeleteOnClick} size="small"
+                    >
+                        Delete
+                    </Button>
+                </Grid>
+            </Grid>
+            </CardContent>
+        </div>
+    )}else{
         return null
     }
 
     function handleDeleteOnClick(){
         props.deleteUser(props.user)
-    }
-
-    function handleEditOnClick(){
-        props.history.push("/profile/edit")
     }
     
     function getStartYear(){
@@ -119,7 +134,5 @@ const ProfileDetailsBox = (props) => {
         return month 
     }
 }
-
-
 
 export default connect(null, {deleteUser})(ProfileDetailsBox)

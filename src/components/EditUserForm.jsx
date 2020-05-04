@@ -2,6 +2,32 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {editingUser} from '../redux/actions'
 import {withRouter} from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+const styles = theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',     
+    flexDirection: 'column',
+    alignItems: 'center',
+    },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+    },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1)
+    },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 class EditUserForm extends React.Component {
 
@@ -28,8 +54,7 @@ class EditUserForm extends React.Component {
         })
     }
 
-    handleOnSubmit = (event) => {
-        event.preventDefault()
+    handleOnSubmit = () => {
         this.props.editingUser({
             id: this.props.user.id,
             name: this.state.name, 
@@ -37,6 +62,7 @@ class EditUserForm extends React.Component {
             username: this.state.username, 
             history: this.props.history
             })
+        this.props.handleClose()
         this.setState({
             name: "",
             username: "",
@@ -45,17 +71,50 @@ class EditUserForm extends React.Component {
     }
 
     render(){
+        const { classes } = this.props
         return(<div>
-            <h2>Edit Profile</h2>
-            <form onSubmit = {this.handleOnSubmit}>
-                <label>Name:</label>
-                <input name = "name" type = "text" onChange = {this.handleOnChange} value = {this.state.name}></input>
-                <label>Username:</label>
-                <input name = "username" type = "text" onChange = {this.handleOnChange} value = {this.state.username}></input>
-                <label>Email:</label>
-                <input name = "email" type = "text" onChange = {this.handleOnChange} value = {this.state.email}></input>
-                <input type = "submit" value = "Update Account"></input>
-            </form>
+            <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
+        <DialogContent>
+          <form className={classes.form}>
+          <TextField
+            autoFocus
+            margin="dense"
+            name="name"
+            label="Name"
+            type="name"
+            fullWidth
+            onChange = {this.handleOnChange} 
+            value = {this.state.name}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="username"
+            label="Username"
+            type="username"
+            fullWidth
+            onChange = {this.handleOnChange} 
+            value = {this.state.username}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="email"
+            label="Email Address"
+            type="email"
+            fullWidth
+            onChange = {this.handleOnChange} 
+            value = {this.state.email}
+          />
+          </form>
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleOnSubmit} color="primary">
+            Update Profile
+          </Button>
+          
+        </DialogActions>
         </div>)
     }
 }
@@ -72,4 +131,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditUserForm))
+export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(EditUserForm)))

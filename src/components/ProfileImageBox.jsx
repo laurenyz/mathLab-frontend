@@ -1,9 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { makeStyles, Grid, Card, IconButton, CardHeader, CardContent, CardActions, Collapse, Avatar, CardActionArea, Button, Divider, Typography } from '@material-ui/core';
-// import cx from 'clsx';
-import Box from '@material-ui/core/Box';
+import { makeStyles, Grid, Avatar, Button, Typography } from '@material-ui/core';
 import CardMedia from '@material-ui/core/CardMedia';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
@@ -11,7 +9,6 @@ const useStyles = makeStyles(() => ({
     root: {
       marginTop: 20,
       minWidth: 400,
-    //   margin: 'auto',
     },
     content: {
       padding: 24,
@@ -45,12 +42,12 @@ const ProfileImageBox = (props) => {
             <CardMedia
                 className = {classes.headerImage}
                 component="img"
-                alt="Contemplative Reptile"
+                alt="Equation Background"
                 height="240"
                 image = {require(`../assets/images/profile_background.png`)}
-                title="Contemplative Reptile"
+                title="Equation Background"
                 />
-                <Grid container direction="coloumn">
+                <Grid container direction="column">
                     <Grid container>
                         <Grid item>
                         <Avatar className={classes.avatar} src={props.profilePicture} />
@@ -63,10 +60,10 @@ const ProfileImageBox = (props) => {
                                 <Grid item>
                                     <Grid container>
                                         <Grid item>
-                                            <Typography variant = "p">Total Upvotes: </Typography>
+                                            <Typography variant = "subtitle1">Total Upvotes: </Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant = "p" style={{fontWeight: "bold", marginLeft: "4px"}}>{props.userUpvotes}</Typography>
+                                            <Typography variant = "subtitle1" style={{fontWeight: "bold", marginLeft: "4px"}}>{props.userUpvotes}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -99,14 +96,3 @@ const mapStateToProps = state => {
 }
 
 export default withRouter(connect(mapStateToProps)(ProfileImageBox))
-
-
-
- {/* <Box px={2} pb={2} mt={-1}>
-                <IconButton>
-                <Share />
-                </IconButton>
-                <IconButton>
-                <FavoriteBorderRounded />
-                </IconButton>
-            </Box> */}
