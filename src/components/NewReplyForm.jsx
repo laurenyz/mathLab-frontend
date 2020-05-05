@@ -58,8 +58,6 @@ class NewReplyForm extends React.Component {
                     <Button type="submit">Post Reply</Button>
                     </Grid>
                 </Grid>
-                
-                
             </form>
         </div>)
     }

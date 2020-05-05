@@ -36,10 +36,10 @@ function SubjectFilter(props) {
         <div>
             
        <FormControl className={classes.formControl}>
-            <InputLabel id="demo-controlled-open-select-label">Subject</InputLabel>
+            <InputLabel id="filterSubject">Subject</InputLabel>
             <Select
-            labelId="filter-select-label"
-            id="filter-select"
+            labelId="filter-subject"
+            id="filter-subject"
             open={open}
             onClose={handleClose}
             onOpen={handleOpen}
