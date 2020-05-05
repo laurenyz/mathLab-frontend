@@ -2,7 +2,7 @@ import React from 'react'
 import { addingReply } from '../redux/actions'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
-import Textfield from '@material-ui/core/Textfield'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 

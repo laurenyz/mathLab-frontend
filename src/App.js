@@ -7,7 +7,6 @@ import ScratchPadContainer from './containers/ScratchPadContainer'
 import PostsContainer from './containers/PostsContainer'
 import PostShowPage from './containers/PostShowPage'
 import ProfilePage from './containers/ProfilePage'
-import NewUserForm from './components/NewUserForm'
 import NewPostForm from './components/NewPostForm'
 import {connect} from 'react-redux'
 import {fetchingPosts, fetchingUser} from './redux/actions'
@@ -48,7 +47,6 @@ class App extends React.Component {
               return null}
           }} />
           <Route exact path = "/profile" render= {() => (localStorage.getItem('jwt') ? <ProfilePage /> :<Redirect to="/" /> )}/>
-          <Route exact path = "/users/new" render= {() => (this.props.user ? <Redirect to="/profile"/> : <NewUserForm /> )}/>
         </Switch>
       </div>
   )}
