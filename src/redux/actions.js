@@ -293,9 +293,9 @@ function deletingUpvote(upvote){
        .then(json => {
          dispatch(loginUser(json.user))
          dispatch(fetchedUserUpvotes(json.upvotes))
-         if(json.image_url){
+         dispatch(fetchedUserScratchPads(json.scratchpads))
          dispatch(loadedProfilePicture(json.image_url))}
-       })
+       )
      }
  }
  
