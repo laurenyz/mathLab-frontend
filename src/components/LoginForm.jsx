@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { loggingIn } from '../redux/actions'
-import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -15,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: 'flex',     
     flexDirection: 'column',
     alignItems: 'center',
@@ -49,8 +47,8 @@ class LoginForm extends React.Component {
 
     handleOnSubmit = (event) =>{
         event.preventDefault()
-        this.props.loggingIn({email: this.state.email, password: this.state.password})
-        this.props.handleClose()
+        this.props.loggingIn({email: this.state.email, password: this.state.password, handleClose: this.props.handleClose})
+        // this.props.handleClose()
         this.setState({email: "", password: ""})
     }
 
@@ -106,9 +104,10 @@ class LoginForm extends React.Component {
                         <Grid item xs>
                         </Grid>
                         <Grid item style={{marginBottom: "20px"}}>
-                          <Link href="/users/new" variant="body2">
-                            {"Don't have an account? Sign Up"}
-                          </Link>
+                          <Typography style={{cursor: "pointer"}} onClick={this.props.handleNewUserClickOpen}>
+                          Don't have an account? Sign Up
+                            </Typography> 
+                           
                         </Grid>
                       </Grid>
                     </form>
@@ -124,7 +123,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default  withStyles(styles, { withTheme: true })(withRouter(connect(null, mapDispatchToProps)(LoginForm)))
+export default withStyles(styles, { withTheme: true })(connect(null, mapDispatchToProps)(LoginForm))
 
 
           

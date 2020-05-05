@@ -218,6 +218,7 @@ function deletingUpvote(upvote){
          if (json.error){
              alert(json.message)
              } else {
+             credentials.handleClose()
              localStorage.setItem('jwt', json.token)
              dispatch(loginUser(json.user))
              dispatch(fetchedUserUpvotes(json.upvotes))
@@ -318,6 +319,7 @@ function deletingUpvote(upvote){
              if (json.error){
                  alert(json.message)
                  } else {
+                 userInfo.handleNewUserClose()
                  localStorage.setItem('jwt', json.token)
                  dispatch(loginUser(json.user))
                  dispatch(fetchedUserUpvotes(json.upvotes))

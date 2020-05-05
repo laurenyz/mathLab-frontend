@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import LoginForm from '../components/LoginForm'
+import NewUserForm from '../components/NewUserForm'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   root: {
@@ -27,7 +29,8 @@ class Navbar extends React.Component {
     constructor(){
         super()
         this.state = {
-            open: false
+            open: false,
+            newUserOpen: false
         }
     }
 
@@ -38,6 +41,16 @@ class Navbar extends React.Component {
     handleClose = () => {
         this.setState({open: false});
       };
+
+    handleNewUserClickOpen = () => {
+        this.setState({
+            open: false,
+            newUserOpen: true})
+    }
+
+    handleNewUserClose = () => {
+        this.setState({newUserOpen: false})
+    }
 
     handleOnClickLogout = () => {
         this.props.logoutUser()
@@ -72,18 +85,27 @@ class Navbar extends React.Component {
         const { classes } = this.props
         return(
             <div className={classes.root}>
-                <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-                <LoginForm handleClose={this.handleClose}/>
+                <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title" >
+                <LoginForm handleClose={this.handleClose} handleNewUserClickOpen={this.handleNewUserClickOpen}/>
                 </Dialog>
-                <AppBar position="static" > 
+                <Dialog open={this.state.newUserOpen} onClose={this.handleNewUserClose} aria-labelledby="form-dialog-title">
+                <NewUserForm handleNewUserClose={this.handleNewUserClose}/>
+                </Dialog>
+                <AppBar position="static"> 
                     <Toolbar>
-                        <Button href="/" color="inherit">ma+hLab</Button>
-                        <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-                        <Button href="/calculator" color="inherit">Calculator</Button>
-                        <Button href="/posts" onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
-                        {this.props.user? <Button href="/profile" color="inherit">MyAccount</Button>: null}
-                        {this.props.user? <Button href="/" onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
-                            <Button onClick={this.handleClickOpen} color="inherit">Login</Button> }
+                        <Grid container justify="space-between">
+                            <Grid item>
+                                <Button href="/" color="inherit">ma+hLab</Button>
+                                <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
+                                <Button href="/calculator" color="inherit">Calculator</Button>
+                                <Button href="/posts" onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
+                            </Grid>
+                            <Grid item>
+                                {this.props.user? <Button href="/profile" color="inherit">MyAccount</Button>: null}
+                                {this.props.user? <Button href="/" onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
+                                <Button onClick={this.handleClickOpen} color="inherit">Login</Button> }
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </AppBar>
             </div>
