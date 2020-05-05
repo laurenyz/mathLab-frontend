@@ -26,13 +26,16 @@ const useStyles = makeStyles((theme) => ({
 
 const ScratchPadCard = (props) => {
     const classes = useStyles();
-
+    console.log (props)
     return( 
         <div>
-            <Typography></Typography>
+            <Card>
+            <Typography>{props.scratchpad.name}</Typography>
             <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
                 <DeleteIcon />
             </IconButton>
+            </Card>
+            
         </div>
             
    
