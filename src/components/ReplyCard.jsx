@@ -22,28 +22,13 @@ const useStyles = makeStyles((theme) => ({
     greenUpvoteButton: {
       color: HUE[400]
     },
-    // expand: {
-    //   transform: 'rotate(0deg)',
-    //   marginLeft: 'auto',
-    //   transition: theme.transitions.create('transform', {
-    //     duration: theme.transitions.duration.shortest,
-    //   }),
-    // },
     deleteBtn: {
       marginLeft: 'auto'
     },
-    // expandOpen: {
-    //   transform: 'rotate(180deg)',
-    // },
   }));
 
 const ReplyCard = ({reply, deletingUpvote, deletingReply, user, addingUpvote}) => {
     const classes = useStyles();
-    // const [expanded, setExpanded] = React.useState(false);
-    
-    // const handleExpandClick = () => {
-    //     setExpanded(!expanded);
-    // };
 
     return( 
         <Card className={classes.root} variant = "outlined" >

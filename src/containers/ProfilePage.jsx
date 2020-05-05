@@ -1,6 +1,7 @@
 import React from 'react'
 import ProfileImageBox from '../components/ProfileImageBox'
 import ProfileDetailsBox from '../containers/ProfileDetailsBox'
+import ProfileScratchPadsBox from './ProfileScratchPadsBox'
 import ProfilePostsBox from './ProfilePostsBox'
 import {connect} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
@@ -44,8 +45,8 @@ const ProfilePage = (props) => {
                         <ProfileImageBox userUpvotes = {props.userUpvotes}/>
                         <ProfileDetailsBox user = {props.user} />
                 </Card>
+                        <ProfileScratchPadsBox userScratchpads = {props.userScratchpads}/> 
                         <ProfilePostsBox userPosts = {props.posts.filter(post => post.user.id === props.user.id)}/>
-                
                 </Grid>
 
             </Grid>
@@ -60,7 +61,8 @@ const mapStateToProps = state => {
     return {
         posts: state.posts,
         user: state.user,
-        userUpvotes: state.userUpvotes
+        userUpvotes: state.userUpvotes,
+        userScratchpads: state.userScratchpads
     }
 }
 
