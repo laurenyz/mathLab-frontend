@@ -54,11 +54,25 @@ class Navbar extends React.Component {
 
     handleOnClickLogout = () => {
         this.props.logoutUser()
+        this.props.history.push('/')
     }
-    
+
+    handleClickMathlab = () => {
+        this.props.history.push('/')
+    }
+
+    handleOnClickCalculator = () => {
+        this.props.history.push('/calculator')
+    }
+
     handleOnClickConnect = () => {
+        this.props.history.push('/posts')
         this.props.updateFilterSubject("")
-        this.props.updateSearchTerm("")
+        this.props.updateSearchTerm("")   
+    }
+
+    handleOnClickMyAccount = () => {
+        this.props.history.push('/profile')
     }
     
     handleOnClickScratchPad = () => {
@@ -95,14 +109,14 @@ class Navbar extends React.Component {
                     <Toolbar>
                         <Grid container justify="space-between">
                             <Grid item>
-                                <Button href="/" color="inherit">ma+hLab</Button>
+                                <Button onClick={this.handleClickMathlab} color="inherit">ma+hLab</Button>
                                 <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-                                <Button href="/calculator" color="inherit">Calculator</Button>
-                                <Button href="/posts" onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
+                                <Button onClick={this.handleOnClickCalculator} color="inherit">Calculator</Button>
+                                <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
                             </Grid>
                             <Grid item>
-                                {this.props.user? <Button href="/profile" color="inherit">MyAccount</Button>: null}
-                                {this.props.user? <Button href="/" onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
+                                {this.props.user? <Button onClick = {this.handleOnClickMyAccount} color="inherit">MyAccount</Button>: null}
+                                {this.props.user? <Button onClick = {this.handleOnClickLogout} color="inherit">Logout</Button> : 
                                 <Button onClick={this.handleClickOpen} color="inherit">Login</Button> }
                             </Grid>
                         </Grid>
