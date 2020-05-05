@@ -107,7 +107,7 @@ function uploadingProfilePicture(formData, userId){
          alert(post.message)
          } else {
              dispatch(addedPost(post))
-         info.history.push(`/posts/${post.id}`)
+            info.history.push(`/posts/${post.id}`)
          }})
      }
  }
@@ -239,7 +239,10 @@ function deletingUpvote(upvote){
      return(dispatch) => {
          fetch('http://localhost:3000/posts')
          .then(resp => resp.json())
-         .then(posts => dispatch(fetchedPosts(posts.reverse())))
+         .then(posts => {
+             const postArray = posts.sort((a,b)=>(a.id<b.id? 1 : -1))
+             console.log(postArray)
+             dispatch(fetchedPosts(postArray))})
      }
  }
  
