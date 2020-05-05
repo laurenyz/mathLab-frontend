@@ -1,3 +1,10 @@
+function addedScratchPad(scratchpad) {
+    return {
+        type: "ADDED_SCRATCHPAD",
+        payload: scratchpad
+    }
+}
+
 function savingScratchPad(saveData) {
     return (dispatch) => {
         fetch('http://localhost:3000/user_scratchpads', {
@@ -13,8 +20,15 @@ function savingScratchPad(saveData) {
         if (savedScratchpad.error){
         alert(savedScratchpad.message)
         } else {
-           console.log(savedScratchpad)
+            dispatch(addedScratchPad(savedScratchpad))
         }})
+    }
+}
+
+function fetchedUserScratchPads(scratchpads) {
+    return{
+        type: "FETCHED_USER_SCRATCHPADS",
+        payload: scratchpads
     }
 }
 
@@ -242,9 +256,11 @@ function deletingUpvote(upvote){
              localStorage.setItem('jwt', json.token)
              dispatch(loginUser(json.user))
              dispatch(fetchedUserUpvotes(json.upvotes))
-             if(json.image_url){
              dispatch(loadedProfilePicture(json.image_url))}
+             if(json.scratchpads){
+                dispatch(fetchedUserScratchPads(json.scratchpads))
              }
+             
      })   
  }}
  

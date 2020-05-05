@@ -114,13 +114,24 @@ const userUpvotesReducer = (state = null, action) => {
   }
 }
 
+const userScratchpadsReducer = (state = [], action) => {
+  switch(action.type){
+    case "FETCHED_USER_SCRATCHPADS":
+      return action.payload
+    case "ADDED_SCRATCHPAD":
+      return [...state, action.payload]
+    default: return state
+  }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,  
     posts: postsReducer,
     searchTerm: searchTermReducer,
     filterSubject: filterSubjectReducer,
     userUpvotes: userUpvotesReducer,
-    profilePicture: profilePictureReducer
+    profilePicture: profilePictureReducer,
+    userScratchpads: userScratchpadsReducer
   });
   
   export default rootReducer;
