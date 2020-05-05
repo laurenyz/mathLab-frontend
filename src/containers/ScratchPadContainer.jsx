@@ -5,7 +5,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-// import { savingScratchPad } from '../redux/actions'
+import { savingScratchPad } from '../redux/actions'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        // savingScratchPad: savedData => dispatch(savingScratchPad(savedData))
+        savingScratchPad: savedData => dispatch(savingScratchPad(savedData))
     }
 }
 

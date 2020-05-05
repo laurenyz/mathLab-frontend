@@ -1,3 +1,23 @@
+function savingScratchPad(saveData) {
+    return (dispatch) => {
+        fetch('http://localhost:3000/user_scratchpads', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(saveData)
+    })
+    .then(resp => resp.json())
+    .then(savedScratchpad => {
+        if (savedScratchpad.error){
+        alert(savedScratchpad.message)
+        } else {
+           console.log(savedScratchpad)
+        }})
+    }
+}
+
 function loadedProfilePicture(profilePictureData){
     return{
         type: "LOADED_PROFILE_PICTURE",
@@ -234,6 +254,7 @@ function deletingUpvote(upvote){
          payload: posts
      }
  }
+
  
  function fetchingPosts() {
      return(dispatch) => {
@@ -332,4 +353,4 @@ function deletingUpvote(upvote){
  }
  
  
- export {uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
+ export {savingScratchPad, uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
