@@ -61,9 +61,9 @@ class Navbar extends React.Component {
         this.props.history.push('/')
     }
 
-    handleOnClickCalculator = () => {
-        this.props.history.push('/calculator')
-    }
+    // handleOnClickCalculator = () => {
+    //     this.props.history.push('/calculator')
+    // }
 
     handleOnClickConnect = () => {
         this.props.history.push('/posts')
@@ -111,7 +111,7 @@ class Navbar extends React.Component {
                             <Grid item>
                                 <Button onClick={this.handleClickMathlab} color="inherit">ma+hLab</Button>
                                 <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-                                <Button onClick={this.handleOnClickCalculator} color="inherit">Calculator</Button>
+                                {/* <Button onClick={this.handleOnClickCalculator} color="inherit">Calculator</Button> */}
                                 <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
                             </Grid>
                             <Grid item>
