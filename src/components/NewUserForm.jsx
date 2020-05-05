@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
@@ -59,9 +58,9 @@ class NewUserForm extends React.Component{
             handleNewUserClose: this.props.handleNewUserClose
         })
         this.setState({
-            name: "",
-            username: "",
-            email: "",
+            // name: "",
+            // username: "",
+            // email: "",
             password: "",
             passwordConfirmation: ""
         })

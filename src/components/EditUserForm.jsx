@@ -52,11 +52,10 @@ class EditUserForm extends React.Component {
             username: this.state.username, 
             history: this.props.history
             })
-        this.props.handleClose()
         this.setState({
             name: "",
             username: "",
-            email: "",
+            email: ""
         })
     }
 
