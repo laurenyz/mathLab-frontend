@@ -2,13 +2,14 @@ import React from 'react'
 import PostCard from '../components/PostCard'
 import SearchBar from '../components/SearchBar'
 import SubjectFilter from '../components/SubjectFilter'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-import { IconButton, makeStyles } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
     addButton: {

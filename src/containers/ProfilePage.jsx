@@ -3,7 +3,9 @@ import ProfileImageBox from '../components/ProfileImageBox'
 import ProfileDetailsBox from '../containers/ProfileDetailsBox'
 import ProfilePostsBox from './ProfilePostsBox'
 import {connect} from 'react-redux'
-import { makeStyles, Grid, Card } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
 
 const useStyles = makeStyles(() => ({
     root: {

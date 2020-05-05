@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {uploadingProfilePicture} from '../redux/actions'
-import {withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { uploadingProfilePicture } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
 
 
 class EditProfilePicture extends React.Component {

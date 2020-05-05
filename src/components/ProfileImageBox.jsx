@@ -1,9 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { makeStyles, Grid, Avatar, Button, Typography } from '@material-ui/core';
 import CardMedia from '@material-ui/core/CardMedia';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(() => ({
     root: {

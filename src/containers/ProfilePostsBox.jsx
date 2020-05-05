@@ -1,7 +1,9 @@
 import React from 'react'
 import PostCard from '../components/PostCard'
-import { Typography, makeStyles, Grid } from '@material-ui/core'
 import { v4 as uuidv4 } from 'uuid'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
     title: {

@@ -2,7 +2,11 @@ import React from 'react'
 import subjectsData from '../subjects.json'
 import {connect} from 'react-redux'
 import {updateFilterSubject} from '../redux/actions'
-import { makeStyles, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
 
 const useStyles = makeStyles((theme) => ({
       button: {

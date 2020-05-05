@@ -3,7 +3,9 @@ import PostShowRepliesBox from './PostShowRepliesBox'
 import NewReplyForm from '../components/NewReplyForm'
 import PostCard from '../components/PostCard'
 import {connect} from 'react-redux'
-import { makeStyles, Grid, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     title: {

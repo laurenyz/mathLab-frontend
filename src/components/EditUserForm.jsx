@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {editingUser} from '../redux/actions'
-import {withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { editingUser } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';

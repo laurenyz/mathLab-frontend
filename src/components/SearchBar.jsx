@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateSearchTerm} from '../redux/actions'
-import { fade, makeStyles, InputBase } from '@material-ui/core';
+import { fade } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles'
+import InputBase from '@material-ui/core/InputBase'
 
 
 const useStyles = makeStyles((theme) => ({

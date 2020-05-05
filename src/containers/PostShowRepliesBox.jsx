@@ -1,7 +1,12 @@
 import React from 'react'
 import ReplyCard from '../components/ReplyCard'
-import { Grid, Divider, Typography, makeStyles } from '@material-ui/core'
 import { v4 as uuidv4 } from 'uuid'
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
+
 
 const useStyles = makeStyles((theme) => ({
     title: {
