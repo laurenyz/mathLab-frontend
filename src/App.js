@@ -13,7 +13,6 @@ import {fetchingPosts, fetchingUser} from './redux/actions'
 import CalculatorContainer from './containers/CalculatorContainer'
 import EditProfilePicture from './components/EditProfilePicture'
 
-
 class App extends React.Component {
 
   componentDidMount() {
