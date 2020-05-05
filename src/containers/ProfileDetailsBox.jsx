@@ -80,6 +80,7 @@ const ProfileDetailsBox = (props) => {
 
     function handleDeleteOnClick(){
         props.deleteUser(props.user)
+        alert("Deleting account...")
     }
     
     function getStartYear(){

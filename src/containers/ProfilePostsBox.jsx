@@ -15,10 +15,17 @@ const ProfilePostsBox = (props) => {
     const classes = useStyles();
     return(
         <div>
-            <Typography className={classes.title} >My Posts</Typography>
-            <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
-                {props.userPosts.map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true}/></Grid>)}
-            </Grid>
+            {props.userPosts.length>0? 
+            <div>
+                <Typography className={classes.title} >My Posts</Typography>
+                <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
+                    {props.userPosts.map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true}/></Grid>)}
+                </Grid>
+            </div>
+            :
+            null
+        }
+            
         </div>)
     }
 
