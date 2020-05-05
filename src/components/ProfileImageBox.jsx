@@ -1,13 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import CardMedia from '@material-ui/core/CardMedia';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import CardMedia from '@material-ui/core/CardMedia'
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import { uploadingProfilePicture } from '../redux/actions'
+import Input from '@material-ui/core/Input'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import CancelIcon from '@material-ui/icons/Cancel'
+import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -35,11 +40,23 @@ const useStyles = makeStyles(() => ({
       '& > img': {
         margin: 0,
       },
-    },
+    input: {
+        display: 'none',
+    }
+    }
   }));
 
 const ProfileImageBox = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
     return(
     <div>
         
@@ -75,21 +92,47 @@ const ProfileImageBox = (props) => {
                         </Grid> 
                     </Grid>   
                     <Grid item style={{marginLeft:"45px", marginTop:"20px"}}>
-                            <Button
+                            {open ? 
+                            <form onSubmit={handleSubmit}>
+                                <Input id="profile-photo-input" type="file" accept="image/png, image/jpeg" name = "image"></Input>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    type="submit"
+                                    className={classes.button}
+                                    startIcon={<CloudUploadIcon />}
+                                >
+                                    Upload
+                                </Button>
+                                <IconButton aria-label="delete" onClick = {handleClose}>
+                                    <CancelIcon />
+                                </IconButton>
+                            </form>
+                            :<Button
                                 variant="contained"
                                 color="secondary"
                                 startIcon={<AddAPhotoIcon />}
-                                onClick = {handlePictureEditOnClick} size="small"
+                                onClick = {handleClickOpen} size="small"
                             >
                                 Update Photo
-                            </Button>     
+                            </Button>    
+                        } 
                     </Grid>
                 </Grid>
     </div>)
     
-
-    function handlePictureEditOnClick(){
-        props.history.push("/profile/image/edit")
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log("submitting", event)
+        
+        const formData = new FormData(event.target)
+        if (formData.get("image").name !== "") {
+            props.uploadingProfilePicture(formData, props.user.id) 
+            handleClose()
+        } else {
+            alert("Please select a photo")
+        }
     }
 }
 const mapStateToProps = state => {
@@ -99,4 +142,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(ProfileImageBox))
+const mapDispatchToProps = dispatch => {
+    return {
+        uploadingProfilePicture: (formData, userId) => dispatch(uploadingProfilePicture(formData, userId))
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileImageBox))

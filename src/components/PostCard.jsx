@@ -71,8 +71,8 @@ const PostCard = (props) => {
                     <Grid item>
                     {(user && user.id === post.user.id?
                         <IconButton aria-label="delete" onClick = {handleDeleteOnClick}>
-                        <DeleteIcon />
-                    </IconButton>
+                            <DeleteIcon />
+                        </IconButton>
                     : null
                 )}
                 {( props.showReplies ?

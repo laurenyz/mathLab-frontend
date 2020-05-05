@@ -21,7 +21,7 @@ function uploadingProfilePicture(formData, userId){
          alert(profilePictureData.error)
        } else {
             console.log(profilePictureData)
-            dispatch(loadedProfilePicture(profilePictureData))
+            dispatch(loadedProfilePicture(profilePictureData.image_url))
         }})}
  }
  
