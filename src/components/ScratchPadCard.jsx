@@ -10,8 +10,8 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CloseIcon from '@material-ui/icons/Close';
 import {deletingSavedScratchPad} from '../redux/actions'
 import EditIcon from '@material-ui/icons/Edit';
-import EditScratchPadForm from '../components/EditScratchPadForm'
-import Dialog from '@material-ui/core/Dialog';
+// import EditScratchPadForm from '../components/EditScratchPadForm'
+// import Dialog from '@material-ui/core/Dialog';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,21 +25,21 @@ const useStyles = makeStyles((theme) => ({
 
 const ScratchPadCard = (props) => {
       const classes = useStyles();
-      const [open, setOpen] = React.useState(false);
+    //   const [open, setOpen] = React.useState(false);
     
-      const handleClickOpen = () => {
-        setOpen(true);
-      };
+    //   const handleClickOpen = () => {
+    //     setOpen(true);
+    //   };
     
-      const handleClose = () => {
-        setOpen(false);
-      };
+    //   const handleClose = () => {
+    //     setOpen(false);
+    //   };
 
     return( 
         <div>
-             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+             {/* <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <EditScratchPadForm scratchpad={props.scratchpad} handleClose={handleClose} />
-            </Dialog>
+            </Dialog> */}
             <Card style={{backgroundColor: "#efd3dd"}}>
             <Grid container alignItems="center" justify="space-between" style={{padding: "10px"}}>
             <Grid item>
@@ -49,7 +49,7 @@ const ScratchPadCard = (props) => {
                 </Grid>
                 <Grid item>
                 <CardActions style={{padding: "0px"}}>
-                    <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleClickOpen}>
+                    <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleEditOnClick}>
                         <EditIcon />
                     </IconButton>  
                     <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
@@ -62,6 +62,10 @@ const ScratchPadCard = (props) => {
         </div>
     )
 
+function handleEditOnClick() {
+    window.open(`/scratchpads/${props.scratchpad.url}`)
+}
+
 function handleScratchpadOnClick() {
     window.open(`/scratchpads/${props.scratchpad.url}`)
 }
@@ -71,16 +75,10 @@ function handleDeleteOnClick() {
     }
 }
 
-const mapStateToProps = state => {
-    return{
-      
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         deletingSavedScratchPad: user_scratchpad => dispatch(deletingSavedScratchPad(user_scratchpad))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScratchPadCard)
+export default connect(null, mapDispatchToProps)(ScratchPadCard)
