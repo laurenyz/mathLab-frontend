@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import ScratchPad from '../components/ScratchPad'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog';
 import NewScratchPadForm from '../components/NewScratchPadForm'
+import ReactToPrint from "react-to-print";
+import PrintIcon from '@material-ui/icons/Print';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const ScratchPadContainer = (props) => {
+  const componentRef = useRef();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     
@@ -55,7 +59,13 @@ const ScratchPadContainer = (props) => {
             Save
           </Button> 
       }
+     <ReactToPrint
+        trigger={() => <Button variant="contained" color="primary" size="small" startIcon={<PrintIcon />}>Print</Button>}
+        content={() => componentRef.current}
+      />
+      <div ref={componentRef}>
           <ScratchPad />
+          </div>
       </div>)   
 
    function handleSaveOnClick(){
