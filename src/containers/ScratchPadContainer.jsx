@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
     },
+    background: {
+      backgroundColor: theme.palette.secondary.main
+  }
   }));
 
 const ScratchPadContainer = (props) => {
@@ -48,7 +51,7 @@ const ScratchPadContainer = (props) => {
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
               <NewScratchPadForm url={props.match.params.url} handleClose={handleClose} />
         </Dialog>
-        <Grid container>
+        <Grid container >
             <Grid item xs={3} />
             <Grid item xs={6}>
               <Grid container justify="center">
@@ -65,6 +68,10 @@ const ScratchPadContainer = (props) => {
                     content={() => componentRef.current}
                   />
                 </Grid>
+                {/* <Grid item>
+                <textarea cols="20" rows="20" style={{display: "none"}} id="url">{window.location.href}</textarea>
+                <button onClick={copy} >Copy TEXT 1</button>
+                </Grid> */}
                 <Grid item style={{marginLeft: "10px"}}>
                 {scratchpad?
                     <TextField autoFocus variant="outlined" margin="dense" name="name" label="Document Title" type="name" onChange = {handleOnChange} value = {name}/>:null}
@@ -79,7 +86,13 @@ const ScratchPadContainer = (props) => {
             <Grid item xs={3} />
         </Grid>
           
-      </div>)   
+      </div>) 
+
+    // function copy() {
+    //   const copyText = document.querySelector("#url");
+    //   copyText.value.select();
+    //   document.execCommand("copy");
+    // }
 
     function handleOnChange(event){
         // setName(event.target.value)

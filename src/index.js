@@ -8,11 +8,14 @@ import * as serviceWorker from './serviceWorker'
 import store from './redux/store'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './assets/material_ui_theme'
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <ThemeProvider theme = {theme}>
+        <CssBaseline />
         <App />
       </ThemeProvider>
     </Provider>
