@@ -52,9 +52,15 @@ const PostsContainer = (props) => {
         props.history.push('/posts/new')
     }
 
+    function getTagString(post){
+        let tagArray = []
+        post.tags.forEach(tag => tagArray.push(tag.tagline))
+        return tagArray.join(" ")
+    }
+
     function filterFunction(){
         let filteredPosts = 
-            (props.posts.filter(post => post.post_text.toLowerCase().includes(props.searchTerm)))
+            (props.posts.filter(post => post.post_text.toLowerCase().includes(props.searchTerm)||getTagString(post).includes(props.searchTerm)))
             .filter(post => (props.filterSubject !== "" ? post.subject === props.filterSubject: post))
         return filteredPosts
     }
