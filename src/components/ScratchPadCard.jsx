@@ -1,28 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deletingReply, addingUpvote, deletingUpvote } from '../redux/actions'
-import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import HUE from '@material-ui/core/colors/green';
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import IconButton from '@material-ui/core/IconButton'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import CardActionArea from '@material-ui/core/CardActionArea'
+import CloseIcon from '@material-ui/icons/Close';
+import {deletingSavedScratchPad} from '../redux/actions'
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      minWidth: 300
-    },
-    deleteBtn: {
-      marginLeft: 'auto'
-    },
+    // root: {
+    //   minWidth: 300
+    // },
+    // deleteBtn: {
+    //   marginLeft: 'auto'
+    // },
   }));
 
 const ScratchPadCard = (props) => {
@@ -30,24 +25,23 @@ const ScratchPadCard = (props) => {
     console.log (props)
     return( 
         <div>
-            <Card>
-                <CardActionArea onClick={handleScratchpadOnClick}>
-                    <Grid container alignItems="center" style={{padding: "10px"}}>
-                        <Grid item>
-                        <Typography>{props.scratchpad.name}.pad</Typography>
-                        </Grid>
-                        <Grid item>
-                        <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
-                        <DeleteIcon />
-                    </IconButton>
-                        </Grid>
-                    </Grid>
+            <Card style={{backgroundColor: "#efd3dd"}}>
+            <Grid container alignItems="center" justify="space-between" style={{padding: "10px"}}>
+            <Grid item>
+                <CardActionArea onClick={handleScratchpadOnClick}>        
+                    <Typography>{props.scratchpad.name}.pad</Typography> 
                 </CardActionArea>
-            </Card>
-            
+                </Grid>
+                <Grid item>
+                <CardActions>
+                    <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
+                        <CloseIcon />
+                    </IconButton>  
+                </CardActions>
+                </Grid>
+                </Grid>
+            </Card> 
         </div>
-            
-   
     )
 
 function handleScratchpadOnClick() {
@@ -55,7 +49,7 @@ function handleScratchpadOnClick() {
 }
 
 function handleDeleteOnClick() {
-    console.log("need to delete scratchpad")
+    props.deletingSavedScratchPad(props.scratchpad)
     }
 }
 
@@ -67,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        deletingSavedScratchPad: user_scratchpad => dispatch(deletingSavedScratchPad(user_scratchpad))
     }
 }
 

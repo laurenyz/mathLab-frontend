@@ -18,8 +18,8 @@ const ProfileScratchPadsBox = (props) => {
             {props.userScratchpads.length>0? 
             <div>
                 <Typography className={classes.title} >Saved ScrachPads</Typography>
-                <Grid container direction="row" justify = "center" xs={3} spacing = {2}>
-                    {props.userScratchpads.map(scratchpad => <Grid item key={uuidv4()}><ScratchPadCard scratchpad={scratchpad} key={scratchpad.id}/></Grid>)}
+                <Grid container direction="row" justify = "flex-start" alignItems="flex-start" spacing= {2}>
+                    {props.userScratchpads.map(scratchpad => <Grid item xs={4} xl={3} key={uuidv4()}><ScratchPadCard scratchpad={scratchpad} key={scratchpad.id}/></Grid>)}
                 </Grid>
             </div>
             :

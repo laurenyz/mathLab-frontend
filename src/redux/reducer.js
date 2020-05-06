@@ -120,6 +120,9 @@ const userScratchpadsReducer = (state = [], action) => {
       return action.payload
     case "ADDED_SCRATCHPAD":
       return [...state, action.payload]
+    case "DELETED_SAVED_SCRATCHPAD":
+      const pads = state.filter(p => p.id !== action.payload.id)
+      return pads
     default: return state
   }
 }

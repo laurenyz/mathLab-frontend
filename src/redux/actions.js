@@ -100,6 +100,25 @@ function uploadingProfilePicture(formData, userId){
          })
      }
  }
+
+ function deletedSavedScratchPad(user_scratchpad){
+     return{
+         type: "DELETED_SAVED_SCRATCHPAD",
+         payload: user_scratchpad
+     }
+ }
+
+ function deletingSavedScratchPad(user_scratchpad){
+     return(dispatch) => {
+        fetch(`http://localhost:3000/user_scratchpads/${user_scratchpad.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(() => {
+            dispatch(deletedSavedScratchPad(user_scratchpad))
+        })
+     }
+ }
  
  function deletedReply(reply){
      return {
@@ -371,4 +390,4 @@ function deletingUpvote(upvote){
  }
  
  
- export {savingScratchPad, uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
+ export {deletingSavedScratchPad, savingScratchPad, uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
