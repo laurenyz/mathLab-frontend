@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CloseIcon from '@material-ui/icons/Close';
 import {deletingSavedScratchPad} from '../redux/actions'
+import EditIcon from '@material-ui/icons/Edit';
+import EditScratchPadForm from '../components/EditScratchPadForm'
+import Dialog from '@material-ui/core/Dialog';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,10 +24,22 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const ScratchPadCard = (props) => {
-    const classes = useStyles();
+      const classes = useStyles();
+      const [open, setOpen] = React.useState(false);
+    
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
     console.log (props)
     return( 
         <div>
+             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <EditScratchPadForm scratchpad={props.scratchpad} handleClose={handleClose} />
+            </Dialog>
             <Card style={{backgroundColor: "#efd3dd"}}>
             <Grid container alignItems="center" justify="space-between" style={{padding: "10px"}}>
             <Grid item>
@@ -33,7 +48,10 @@ const ScratchPadCard = (props) => {
                 </CardActionArea>
                 </Grid>
                 <Grid item>
-                <CardActions>
+                <CardActions style={{padding: "0px"}}>
+                    <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleClickOpen}>
+                        <EditIcon />
+                    </IconButton>  
                     <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
                         <CloseIcon />
                     </IconButton>  

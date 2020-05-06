@@ -1,7 +1,7 @@
-function addedScratchPad(scratchpad) {
+function addedScratchPad(user_scratchpad) {
     return {
         type: "ADDED_SCRATCHPAD",
-        payload: scratchpad
+        payload: user_scratchpad
     }
 }
 
@@ -16,11 +16,11 @@ function savingScratchPad(saveData) {
         body: JSON.stringify(saveData)
     })
     .then(resp => resp.json())
-    .then(savedScratchpad => {
-        if (savedScratchpad.error){
-        alert(savedScratchpad.message)
+    .then(json => {
+        if (json.error){
+        alert(json.message)
         } else {
-            dispatch(addedScratchPad(savedScratchpad))
+            dispatch(addedScratchPad(json.user_scratchpad))
         }})
     }
 }
@@ -277,7 +277,8 @@ function deletingUpvote(upvote){
              dispatch(fetchedUserUpvotes(json.upvotes))
              dispatch(loadedProfilePicture(json.image_url))}
              if(json.scratchpads){
-                dispatch(fetchedUserScratchPads(json.scratchpads))
+                const scratchpadsArray = json.scratchpads.sort((a,b)=>(a.id>b.id? 1 : -1))
+                dispatch(fetchedUserScratchPads(scratchpadsArray))
              }
              
      })   
@@ -314,7 +315,8 @@ function deletingUpvote(upvote){
          dispatch(fetchedUserUpvotes(json.upvotes))
          dispatch(loadedProfilePicture(json.image_url))
          if(json.scratchpads){
-         dispatch(fetchedUserScratchPads(json.scratchpads))
+            const scratchpadsArray = json.scratchpads.sort((a,b)=>(a.id>b.id? 1 : -1))
+            dispatch(fetchedUserScratchPads(scratchpadsArray))
          }
        })
      }
@@ -341,6 +343,32 @@ function deletingUpvote(upvote){
              userReplies.forEach(reply => dispatch(deletedReply(reply)))
          })
      }
+ }
+ function updatedSavedScratchpad(user_scratchpad){
+    return{
+        type: "UPDATED_SAVED_SCRATCHPAD",
+        payload: user_scratchpad
+    }
+ }
+
+ function editingSavedScratchpad(user_scratchpad){
+    return(dispatch) => {
+        fetch(`http://localhost:3000/user_scratchpads/${user_scratchpad.id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(user_scratchpad)
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.error){
+              alert(json.message)
+            } else {
+              dispatch(updatedSavedScratchpad(json.user_scratchpad))
+    }})
+}
  }
  
  function editingUser(userInfo){
@@ -390,4 +418,4 @@ function deletingUpvote(upvote){
  }
  
  
- export {deletingSavedScratchPad, savingScratchPad, uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}
+ export {editingSavedScratchpad, deletingSavedScratchPad, savingScratchPad, uploadingProfilePicture, updateFilterSubject, updateSearchTerm, deletingReply, deletingPost, addingPost, addingReply, deletingUpvote, addingUpvote, fetchingPosts, loggingIn, logoutUser, fetchingUser, createUser, editingUser, deleteUser}

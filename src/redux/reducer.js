@@ -115,13 +115,23 @@ const userUpvotesReducer = (state = null, action) => {
 }
 
 const userScratchpadsReducer = (state = [], action) => {
+  let pads
   switch(action.type){
     case "FETCHED_USER_SCRATCHPADS":
       return action.payload
     case "ADDED_SCRATCHPAD":
       return [...state, action.payload]
     case "DELETED_SAVED_SCRATCHPAD":
-      const pads = state.filter(p => p.id !== action.payload.id)
+      pads = state.filter(p => p.id !== action.payload.id)
+      return pads
+    case "UPDATED_SAVED_SCRATCHPAD":
+      pads = state.map(p => {
+          if(p.id === action.payload.id){
+            return {...p, name: action.payload.name}
+          } else{
+            return p
+          }
+        })
       return pads
     default: return state
   }

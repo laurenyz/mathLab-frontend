@@ -6,9 +6,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import Grid from '@material-ui/core/Grid'
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
+import DeleteIcon from '@material-ui/icons/Delete'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
 
 const useStyles = makeStyles((theme) => ({
     content: {
