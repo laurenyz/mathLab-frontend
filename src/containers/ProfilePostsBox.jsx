@@ -17,7 +17,7 @@ const ProfilePostsBox = (props) => {
         <div>
             {props.userPosts.length>0? 
             <div>
-                <Typography className={classes.title} >Published Posts</Typography>
+                <Typography variant={"h5"} className={classes.title} >Published Posts</Typography>
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
                     {props.userPosts.map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true}/></Grid>)}
                 </Grid>

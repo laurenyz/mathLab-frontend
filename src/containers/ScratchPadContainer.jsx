@@ -18,7 +18,20 @@ const ScratchPadContainer = (props) => {
     const classes = useStyles();
     return(
       <div>
-          <Button
+        {props.userScratchpads.find(pad => pad.url===props.match.params.url)?
+         <Button
+         variant="contained"
+         disabled={true}
+         color="primary"
+         size="small"
+         className={classes.button}
+         startIcon={<SaveIcon />}
+         onClick = {handleSaveOnClick}
+         >
+           Save
+         </Button>    
+        :
+        <Button
           variant="contained"
           color="primary"
           size="small"
@@ -27,17 +40,15 @@ const ScratchPadContainer = (props) => {
           onClick = {handleSaveOnClick}
           >
             Save
-          </Button>    
+          </Button> 
+      }
+             
           <ScratchPad />
       </div>)
 
     function handleSaveOnClick(){
         if (props.user){
-            if(props.userScratchpads.find(pad => pad.url===props.match.params.url)){
-              alert("You've already saved this ScratchPad!")
-            }else{
             props.savingScratchPad({user_id: props.user.id, name: props.match.params.url, url: props.match.params.url})
-            }
         } else {
             alert("Must be logged in to save scratchpad.")
         }
