@@ -31,20 +31,20 @@ class ScratchPad extends React.Component {
         })
     }
 
-    handleReceiveNewText = ({ text }) => {
+    handleReceiveNewText = ({text}) => {
       if (text !== this.state.text) {
         this.setState({ text })
       }
     }
 
-    // handleOnChange = event => {
-    //   this.setState({ text: event.target.value })
-    //   this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
-    // }
-
-    onMathChange(mathText) {
-      console.log(mathText);
+    handleOnChange = event => {
+      this.setState({ text: event.target.value })
+      this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
     }
+
+    // onMathChange(mathText) {
+    //   console.log(mathText);
+    // }
     
     render() {
       console.log(this.subscription)
@@ -52,13 +52,13 @@ class ScratchPad extends React.Component {
             // <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
             <div>
             
-             <EditableMathField
+             {/* <EditableMathField
                 className = "mathquill-textbox mathquill-editable"
                 latex={this.state.text} 
                 style = {{width: "400px", height: "400px"}}
                 onChange={mathField => {
                 this.setState({ text: mathField.latex() })
-              }}/>
+              }}/> */}
 
               {/* <textarea
               value={this.state.text}
@@ -71,6 +71,13 @@ class ScratchPad extends React.Component {
               latex="f(x)=\\log _10 x"
               onChange={this.onMathChange} */}
             {/* /> */}
+
+            <textarea
+              value={this.state.text}
+              onChange={this.handleOnChange}
+              style = {{width: "400px", height: "400px"}}
+              >
+              </textarea>
             </div>
           )
         }

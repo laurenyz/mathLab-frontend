@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
+import CardActionArea from '@material-ui/core/CardActionArea'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,10 +31,18 @@ const ScratchPadCard = (props) => {
     return( 
         <div>
             <Card>
-            <Typography>{props.scratchpad.name}</Typography>
-            <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
-                <DeleteIcon />
-            </IconButton>
+                <CardActionArea onClick={handleScratchpadOnClick}>
+                    <Grid container alignItems="center" style={{padding: "10px"}}>
+                        <Grid item>
+                        <Typography>{props.scratchpad.name}.pad</Typography>
+                        </Grid>
+                        <Grid item>
+                        <IconButton className={classes.deleteBtn} aria-label="delete" onClick = {handleDeleteOnClick}>
+                        <DeleteIcon />
+                    </IconButton>
+                        </Grid>
+                    </Grid>
+                </CardActionArea>
             </Card>
             
         </div>
@@ -41,10 +50,12 @@ const ScratchPadCard = (props) => {
    
     )
 
-
+function handleScratchpadOnClick() {
+    window.open(`/scratchpads/${props.scratchpad.url}`)
+}
 
 function handleDeleteOnClick() {
-       
+    console.log("need to delete scratchpad")
     }
 }
 
