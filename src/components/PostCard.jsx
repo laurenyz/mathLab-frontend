@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deletingPost, updateFilterSubject } from '../redux/actions'
+import { deletingPost, updateFilterSubject, updateSearchTerm } from '../redux/actions'
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -17,14 +17,12 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import Typography from '@material-ui/core/Typography'
+import { v4 as uuidv4 } from 'uuid'
+import Link from '@material-ui/core/Link'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 300,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -60,10 +58,27 @@ const PostCard = (props) => {
                 <CardContent>
                   <Typography variant="body2" color="textSecondary" component="p">
                     {post.post_text}
-                  </Typography>
-                  {post.tags.length !==0 && post.tags[0].tagline!== "" ? <Typography variant="body2" color="textSecondary" component="p">{`#${post.tags[0].tagline}`}</Typography> : null}
+                    </Typography>
                 </CardContent>    
             </CardActionArea>
+                <CardContent>
+                <Grid container>
+                    {post.tags.length !==0 && post.tags[0].tagline!== "" ? 
+                  post.tags.map(tag => <Grid key={uuidv4()} style={{marginRight: "5px"}} item>
+                      <Link 
+                        key={tag.id}
+                        component="button"
+                        variant="body2"
+                        value={tag.tagline}
+                        onClick={(event) => {
+                            handleTagOnClick(event)
+                        }}
+                        >
+                        {tag.tagline}
+                        </Link>  </Grid>)
+                  : null}
+                </Grid>
+                </CardContent>
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item>
                     <Button onClick = {handleSubjectOnClick}>{post.subject}</Button>
@@ -149,6 +164,12 @@ function getCreatedTime() {
 
     }
 
+    function handleTagOnClick(event){
+        history.push('/posts')
+        props.updateSearchTerm(event.target.value)
+        
+    }
+
     function handleSubjectOnClick(){
         history.push('/posts')
         props.updateFilterSubject(post.subject)
@@ -172,7 +193,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         deletingPost: info => dispatch(deletingPost(info)),
-        updateFilterSubject: subject => dispatch(updateFilterSubject(subject))
+        updateFilterSubject: subject => dispatch(updateFilterSubject(subject)),
+        updateSearchTerm: tag => dispatch(updateSearchTerm(tag))
     }
 }
 

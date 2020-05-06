@@ -61,7 +61,8 @@ class NewPostForm extends React.Component {
         this.props.addingPost({history: this.props.history, post: {user_id: this.props.user.id, 
             post_text: this.state.text, 
             subject: this.state.subject,
-            tags: this.state.tags}})
+            tags: this.state.tags.split(" ")
+        }})
         this.setState(
             {text: "", 
             subject: "",

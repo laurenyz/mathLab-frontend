@@ -298,7 +298,6 @@ function deletingUpvote(upvote){
          .then(resp => resp.json())
          .then(posts => {
              const postArray = posts.sort((a,b)=>(a.id<b.id? 1 : -1))
-             console.log(postArray)
              dispatch(fetchedPosts(postArray))})
      }
  }
