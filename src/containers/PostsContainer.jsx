@@ -35,7 +35,7 @@ const PostsContainer = (props) => {
                 </Grid>
                 : null
                 )}
-                 <Grid container justify="space-between" alignItems="flex-end">
+                 <Grid container justify="space-between" alignItems="flex-end" style={{marginBottom: "10px"}}>
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
