@@ -427,6 +427,7 @@ function deletingUpvote(upvote){
                  localStorage.setItem('jwt', json.token)
                  dispatch(loginUser(json.user))
                  dispatch(fetchedUserUpvotes(json.upvotes))
+                 dispatch(loadedProfilePicture(json.image_url))
                  }
          })
      }

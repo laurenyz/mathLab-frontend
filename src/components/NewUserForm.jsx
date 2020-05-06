@@ -114,7 +114,7 @@ class NewUserForm extends React.Component{
                         name="email"
                         autoComplete="email"
                         autoFocus
-                        type = "text" 
+                        type = "email" 
                         onChange = {this.handleOnChange} 
                         value = {this.state.email}
                       />
