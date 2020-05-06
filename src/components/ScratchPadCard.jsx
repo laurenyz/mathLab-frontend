@@ -34,7 +34,7 @@ const ScratchPadCard = (props) => {
       const handleClose = () => {
         setOpen(false);
       };
-    console.log (props)
+
     return( 
         <div>
              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

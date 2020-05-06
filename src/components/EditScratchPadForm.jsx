@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -95,4 +94,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(EditScratchPadForm)))
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(EditScratchPadForm))

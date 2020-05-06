@@ -1,45 +1,35 @@
 import React from 'react'
-import {createUser} from '../redux/actions'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Avatar from '@material-ui/core/Avatar';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SaveIcon from '@material-ui/icons/Save';
+import { savingScratchPad } from '../redux/actions'
 
 const styles = theme => ({
-    paper: {
-      marginTop: theme.spacing(2),
-      display: 'flex',     
-      flexDirection: 'column',
-      alignItems: 'center',
-      },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-      },
-    form: {
-      width: '100%',
-      marginTop: theme.spacing(1)
-      },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
+  form: {
+    width: '100%',
     },
-  });
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
-class NewScratchPadForm extends React.Component{
+class NewScratchPadForm extends React.Component {
 
     constructor(){
         super()
         this.state = {
-            name: "",
-            username: "",
-            email: "",
-            password: "",
-            passwordConfirmation: ""
+            name: ""
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            name: this.props.url,
+        })
     }
 
     handleOnChange = (event) => {
@@ -50,115 +40,56 @@ class NewScratchPadForm extends React.Component{
 
     handleOnSubmit = (event) => {
         event.preventDefault()
-        this.props.createUser({name: this.state.name, 
-            email: this.state.email, 
-            username: this.state.username, 
-            password: this.state.password, 
-            password_confirmation: this.state.passwordConfirmation,
-            handleNewUserClose: this.props.handleNewUserClose
-        })
-        this.setState({
-            // name: "",
-            // username: "",
-            // email: "",
-            password: "",
-            passwordConfirmation: ""
-        })
+        this.props.savingScratchPad({user_id: this.props.user.id, name: this.state.name, url: this.props.url})
+        this.props.handleClose()
     }
+
     render(){
+        
         const { classes } = this.props
         return(<div>
-            <Container component="main" maxWidth="xs">
-                  <CssBaseline />
-                  <div className={classes.paper}>
-                    <Avatar className={classes.avatar} alt="mathlab logo" src={require(`../assets/images/mathlab_logo.png`)}/>
-                    <Typography component="h1" variant="h5">
-                        Create an Account
-                    </Typography>
-                    <form className={classes.form} onSubmit = {this.handleOnSubmit}>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                            type = "text" 
-                            onChange = {this.handleOnChange} 
-                            value = {this.state.name}
-                        />
-                       <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
-                            autoComplete="username"
-                            autoFocus
-                            type = "text" 
-                            onChange = {this.handleOnChange} 
-                            value = {this.state.username}
-                        />
-                       <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        type = "text" 
-                        onChange = {this.handleOnChange} 
-                        value = {this.state.email}
-                      />
-                      <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange = {this.handleOnChange} 
-                        value = {this.state.password}
-                      />
-                      <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="passwordConfirmation"
-                        label="Re-enter Password"
-                        type="password"
-                        id="passwordConfirmation"
-                        autoComplete="current-password"
-                        onChange = {this.handleOnChange} 
-                        value = {this.state.passwordConfirmation}
-                      />
-                      <Button
-                        style={{marginBottom: "20px"}}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                      >
-                        Register
-                      </Button>
-                    </form>
-                  </div>
-              </Container> 
+            <DialogTitle style={{marginBottom: "0px"}}id="edit-scratchpad-title">New ScratchPad</DialogTitle>
+                <DialogContent>
+            <form className={classes.form} onSubmit={this.handleOnSubmit}>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    name="name"
+                    label="Document Name"
+                    type="name"
+                    fullWidth
+                    onChange = {this.handleOnChange} 
+                    value = {this.state.name}
+                />
+                <Button
+                    variant="contained"
+                    fullWidth
+                    style={{marginTop:"20px"}}
+                    color="primary"
+                    size="small"
+                    className={classes.button}
+                    type="submit"
+                    startIcon={<SaveIcon />}
+                    >
+                    Save
+                </Button>
+            </form>
+            </DialogContent>
         </div>)
+    }
+  }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+        userScratchpads: state.userScratchpads
     }
 }
 
-export default withStyles(styles, { withTheme: true })(connect(null, {createUser})(NewScratchPadForm))
+const mapDispatchToProps = dispatch => {
+  return{
+      savingScratchPad: savedData => dispatch(savingScratchPad(savedData))
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(NewScratchPadForm))
