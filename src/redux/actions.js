@@ -40,7 +40,7 @@ function loadedProfilePicture(profilePictureData){
 }
 
 function uploadingProfilePicture(formData, userId){
-    return (dispatch) => {
+    return (dispatch, getState) => {
      fetch(`http://localhost:3000/users/${userId}/upload_image`, {
      method: "POST",
      // credentials: "include",
@@ -56,8 +56,24 @@ function uploadingProfilePicture(formData, userId){
        } else {
             console.log(profilePictureData)
             dispatch(loadedProfilePicture(profilePictureData.image_url))
+            dispatch(updatedPostsProfilePicture({image: profilePictureData.image_url, user: getState().user}))
+            dispatch(updatedRepliesProfilePicture({image: profilePictureData.image_url, user: getState().user}))
         }})}
  }
+
+ function updatedPostsProfilePicture(data){
+     return{
+         type: "UPDATED_POSTS_PROFILE_PICTURE",
+         payload: data
+     }
+ }
+
+ function updatedRepliesProfilePicture(data){
+    return{
+        type: "UPDATED_REPLIES_PROFILE_PICTURE",
+        payload: data
+    }
+}
  
  function fetchedUserUpvotes(upvotes){
      return{

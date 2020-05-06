@@ -20,10 +20,35 @@ const postsReducer = (state = [], action) => {
           }
       }})
       return posts
+    case "UPDATED_REPLIES_PROFILE_PICTURE":
+      posts = state.map(p=> {
+        if (p.replies.find(r => r.replier.id === action.payload.user.id)){
+          let replies = p.replies.map(r => {
+            if (r.replier.id === action.payload.user.id){
+              return {...r, replier: {...r.replier, get_image_url: action.payload.image}}
+            } else {
+              return r
+            }
+          })
+          return {...p, replies: replies}
+        } else {
+          return p
+        }
+      })
+      return posts
+    case "UPDATED_POSTS_PROFILE_PICTURE":
+      posts = state.map(p =>{
+        if(p.user.id === action.payload.user.id){
+          return {...p, user: {...p.user, get_image_url: action.payload.image}}
+        } else{
+          return p
+        }
+      })
+      return posts
     case "ADDED_UPVOTE":
       posts = state.map(p=> {
         if (p.replies.find(r => r.id === action.payload.reply_id)){
-          const replies = p.replies.map(r => {
+          let replies = p.replies.map(r => {
             if (r.id === action.payload.reply_id){
               return {...r, upvotes: [...r.upvotes, action.payload]}
             } else {
