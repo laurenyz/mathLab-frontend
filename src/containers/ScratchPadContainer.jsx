@@ -12,6 +12,9 @@ import PrintIcon from '@material-ui/icons/Print';
 import TextField from '@material-ui/core/TextField';
 import { editingSavedScratchpad } from '../redux/actions'
 import Grid from '@material-ui/core/Grid'
+import CopyModal from '../components/CopyModal'
+import ShareIcon from '@material-ui/icons/Share';
+import IconButton from '@material-ui/core/IconButton'
 
 
 
@@ -19,15 +22,13 @@ const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
     },
-    background: {
-      backgroundColor: theme.palette.secondary.main
-  }
   }));
 
 const ScratchPadContainer = (props) => {
   const componentRef = useRef();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const [openCopy, setOpenCopy] = useState(false);
     const [name, setName] = useState("")
     const [scratchpad, setScratchpad] = useState(null)
 
@@ -46,16 +47,31 @@ const ScratchPadContainer = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleClickOpenShare = () => {
+        setOpenCopy(true)
+    }
+
+    const handleCloseShare = () => {
+        setOpenCopy(false)
+    }
     return(
       <div>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="save-scratchpad-dialog">
               <NewScratchPadForm url={props.match.params.url} handleClose={handleClose} />
+        </Dialog>
+        <Dialog open={openCopy} onClose={handleCloseShare} aria-labelledby="make-copy-dialog">
+              <CopyModal url={props.match.params.url} handleCloseShare={handleCloseShare} />
         </Dialog>
         <Grid container >
             <Grid item xs={3} />
             <Grid item xs={6}>
               <Grid container justify="center">
               <Grid container justify="center" alignItems="center" style={{marginTop: "20px"}}>
+                <Grid item style={{marginLeft: "10px"}}>
+                {scratchpad?
+                    <TextField autoFocus variant="outlined" margin="dense" name="name" label="Document Title" type="name" onChange = {handleOnChange} value = {name}/>:null}
+                </Grid>
                 <Grid item>
                 {scratchpad?
                   <Button variant="contained" disabled={true} color="primary" size="small" className={classes.button} startIcon={<SaveIcon />} onClick = {handleClickOpen}> Save </Button>    
@@ -68,13 +84,10 @@ const ScratchPadContainer = (props) => {
                     content={() => componentRef.current}
                   />
                 </Grid>
-                {/* <Grid item>
-                <textarea cols="20" rows="20" style={{display: "none"}} id="url">{window.location.href}</textarea>
-                <button onClick={copy} >Copy TEXT 1</button>
-                </Grid> */}
-                <Grid item style={{marginLeft: "10px"}}>
-                {scratchpad?
-                    <TextField autoFocus variant="outlined" margin="dense" name="name" label="Document Title" type="name" onChange = {handleOnChange} value = {name}/>:null}
+                <Grid item>
+                    <IconButton className={classes.shareBtn} aria-label="share" onClick = {handleClickOpenShare}>
+                        <ShareIcon />
+                    </IconButton>  
                 </Grid>
               </Grid>
               <Grid item></Grid>
@@ -88,14 +101,7 @@ const ScratchPadContainer = (props) => {
           
       </div>) 
 
-    // function copy() {
-    //   const copyText = document.querySelector("#url");
-    //   copyText.value.select();
-    //   document.execCommand("copy");
-    // }
-
     function handleOnChange(event){
-        // setName(event.target.value)
         props.editingSavedScratchpad({id: scratchpad.id, name: event.target.value})
     }
 

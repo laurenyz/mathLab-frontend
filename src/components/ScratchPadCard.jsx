@@ -10,36 +10,17 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CloseIcon from '@material-ui/icons/Close';
 import {deletingSavedScratchPad} from '../redux/actions'
 import EditIcon from '@material-ui/icons/Edit';
-// import EditScratchPadForm from '../components/EditScratchPadForm'
-// import Dialog from '@material-ui/core/Dialog';
 
 
 const useStyles = makeStyles((theme) => ({
-    // root: {
-    //   minWidth: 300
-    // },
-    // deleteBtn: {
-    //   marginLeft: 'auto'
-    // },
+
   }));
 
 const ScratchPadCard = (props) => {
       const classes = useStyles();
-    //   const [open, setOpen] = React.useState(false);
-    
-    //   const handleClickOpen = () => {
-    //     setOpen(true);
-    //   };
-    
-    //   const handleClose = () => {
-    //     setOpen(false);
-    //   };
 
     return( 
         <div>
-             {/* <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <EditScratchPadForm scratchpad={props.scratchpad} handleClose={handleClose} />
-            </Dialog> */}
             <Card style={{backgroundColor: "#efd3dd"}}>
             <Grid container alignItems="center" justify="space-between" style={{padding: "10px"}}>
             <Grid item>
