@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import LoginForm from '../components/LoginForm'
 import NewUserForm from '../components/NewUserForm'
 import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
   root: {
@@ -109,10 +110,22 @@ class Navbar extends React.Component {
                     <Toolbar>
                         <Grid container justify="space-between">
                             <Grid item>
-                                <Button onClick={this.handleClickMathlab} color="inherit">ma+hLab</Button>
-                                <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
-                                {/* <Button onClick={this.handleOnClickCalculator} color="inherit">Calculator</Button> */}
+                                <Grid container alignItems="center">
+                                    <Grid item>
+                                    <Avatar style = {{cursor: "pointer", marginRight: "15px"}} onClick={this.handleClickMathlab} className={classes.avatar} alt="mathlab logo" src={require(`../assets/images/mathlab_logo.png`)}/>
+                                    </Grid>
+                                    <Grid item>
+                                    <Button onClick={this.handleOnClickScratchPad} color="inherit">ScratchPad</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        {/* <Button onClick={this.handleOnClickCalculator} color="inherit">Calculator</Button> */}
                                 <Button onClick = {this.handleOnClickConnect} color="inherit">Connect()</Button>
+                                    </Grid>
+                                </Grid>
+                                
+                               
+                                
+                                
                             </Grid>
                             <Grid item>
                                 {this.props.user? <Button onClick = {this.handleOnClickMyAccount} color="inherit">MyAccount</Button>: null}

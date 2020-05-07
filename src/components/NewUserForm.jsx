@@ -58,9 +58,6 @@ class NewUserForm extends React.Component{
             handleNewUserClose: this.props.handleNewUserClose
         })
         this.setState({
-            // name: "",
-            // username: "",
-            // email: "",
             password: "",
             passwordConfirmation: ""
         })
