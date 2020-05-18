@@ -17,7 +17,7 @@ const ProfileScratchPadsBox = (props) => {
         <div>
             {props.userScratchpads.length>0? 
             <div>
-                <Typography variant={"h5"} className={classes.title} >Saved ScrachPads</Typography>
+                <Typography variant={"h5"} className={classes.title} >Saved ScratchPads</Typography>
                 <Grid container direction="row" justify = "flex-start" alignItems="flex-start" spacing= {2}>
                     {props.userScratchpads.map(scratchpad => <Grid item xs={6} xl={4} key={uuidv4()}><ScratchPadCard scratchpad={scratchpad} key={scratchpad.id}/></Grid>)}
                 </Grid>
