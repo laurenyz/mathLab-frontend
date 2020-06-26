@@ -41,51 +41,64 @@ class ScratchPad extends React.Component {
       this.setState({ text: event.target.value })
       this.subscription.send({ text: event.target.value, id: this.state.scratchpadId })
     }
-
-    // onMathChange(mathText) {
-    //   console.log(mathText);
-    // }
     
     render() {
       console.log(this.subscription)
           return (
-            // <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
             <div>
-            
-             {/* <EditableMathField
-                className = "mathquill-textbox mathquill-editable"
-                latex={this.state.text} 
+              <textarea
+                value={this.state.text}
+                onChange={this.handleOnChange}
                 style = {{width: "400px", height: "400px"}}
-                onChange={mathField => {
-                this.setState({ text: mathField.latex() })
-              }}/> */}
-
-              {/* <textarea
-              value={this.state.text}
-              onChange={this.handleOnChange}
-              // this.setState({ mathField.latex() }, () => {})
-            /> */}
-            {/* <EditableMathExample /> */}
-
-            {/* <MathFieldComponent 
-              latex="f(x)=\\log _10 x"
-              onChange={this.onMathChange} */}
-            {/* /> */}
-
-            <textarea
-              value={this.state.text}
-              onChange={this.handleOnChange}
-              style = {{width: "400px", height: "400px"}}
-              >
-              </textarea>
+                >
+                </textarea>
             </div>
           )
         }
-
-    componentWillUnmount(){
-      // this.subscription.unsubscribe()
-    }
-
 }
 
 export default withRouter(ScratchPad)
+
+
+
+
+// onMathChange(mathText) {
+//   console.log(mathText);
+// }
+
+//return (
+  // <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
+  //<div>
+  
+   {/* <EditableMathField
+      className = "mathquill-textbox mathquill-editable"
+      latex={this.state.text} 
+      style = {{width: "400px", height: "400px"}}
+      onChange={mathField => {
+      this.setState({ text: mathField.latex() })
+    }}/> */}
+
+    {/* <textarea
+    value={this.state.text}
+    onChange={this.handleOnChange}
+    // this.setState({ mathField.latex() }, () => {})
+  /> */}
+  {/* <EditableMathExample /> */}
+
+  {/* <MathFieldComponent 
+    latex="f(x)=\\log _10 x"
+    onChange={this.onMathChange} */}
+  {/* /> */}
+
+  {/* <textarea
+    value={this.state.text}
+    onChange={this.handleOnChange}
+    style = {{width: "400px", height: "400px"}}
+    >
+    </textarea>
+  </div>
+) */}
+
+//componentWillUnmount(){
+  // this.subscription.unsubscribe()
+//}
