@@ -77,7 +77,7 @@ class Navbar extends React.Component {
     }
     
     handleOnClickScratchPad = () => {
-            fetch("http://localhost:3000/scratchpads", {
+            fetch("https://laurenyz-mathlab.herokuapp.com/scratchpads", {
             method: "POST",
             headers: {
                 'Content-Type': "application/json",

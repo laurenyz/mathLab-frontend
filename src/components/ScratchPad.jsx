@@ -19,12 +19,12 @@ class ScratchPad extends React.Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3000/scratchpads/${this.props.match.params.url}`)
+        fetch(`https://laurenyz-mathlab.herokuapp.com/scratchpads/${this.props.match.params.url}`)
         .then(resp => resp.json())
         .then(scratchpad => {
           console.log("hitting component did mount")
           this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})
-          const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+          const cable = ActionCable.createConsumer('ws://laurenyz-mathlab.herokuapp.com/cable')
           this.subscription = cable.subscriptions.create({ channel: 'ScratchpadsChannel', room: scratchpad.id }, {
             received: this.handleReceiveNewText
           })
