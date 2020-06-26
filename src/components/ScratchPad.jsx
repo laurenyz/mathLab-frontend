@@ -70,34 +70,33 @@ export default withRouter(ScratchPad)
   // <div style = {{width: "400px", height: "400px", border: "solid 2px", margin: "0% 30%"}}>
   //<div>
   
-   {/* <EditableMathField
-      className = "mathquill-textbox mathquill-editable"
-      latex={this.state.text} 
-      style = {{width: "400px", height: "400px"}}
-      onChange={mathField => {
-      this.setState({ text: mathField.latex() })
-    }}/> */}
+  //<EditableMathField
+  //className = "mathquill-textbox mathquill-editable"
+  //    latex={this.state.text} 
+  //    style = {{width: "400px", height: "400px"}}
+  //    onChange={mathField => {
+  //    this.setState({ text: mathField.latex() })
+  //  }}/>
 
-    {/* <textarea
-    value={this.state.text}
-    onChange={this.handleOnChange}
+//<textarea
+ //   value={this.state.text}
+   // onChange={this.handleOnChange}
     // this.setState({ mathField.latex() }, () => {})
-  /> */}
-  {/* <EditableMathExample /> */}
+  ///> 
+//<EditableMathExample /> 
 
-  {/* <MathFieldComponent 
-    latex="f(x)=\\log _10 x"
-    onChange={this.onMathChange} */}
-  {/* /> */}
-
-  {/* <textarea
-    value={this.state.text}
-    onChange={this.handleOnChange}
-    style = {{width: "400px", height: "400px"}}
-    >
-    </textarea>
-  </div>
-) */}
+//<MathFieldComponent 
+  //  latex="f(x)=\\log _10 x"
+    //onChange={this.onMathChange}
+///>
+//<textarea
+  //  value={this.state.text}
+   // onChange={this.handleOnChange}
+  //  style = {{width: "400px", height: "400px"}}
+  //  >
+  //  </textarea>
+ // </div>
+//) 
 
 //componentWillUnmount(){
   // this.subscription.unsubscribe()
