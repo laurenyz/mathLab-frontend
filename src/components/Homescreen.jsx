@@ -5,10 +5,10 @@ const Homescreen = () => {
     return(<div>
         <Grid container justify="center" alignItems="flex-end" spacing={1} style={{marginTop: "20px"}}> 
             <Grid item style={{marginBottom: "60px"}}>
-            <img src={require(`../assets/images/homescreen_m_logo.png`)}></img>
+            <img src={require(`../assets/images/homescreen_m_logo.png`)} alt="sigma-logo"></img>
             </Grid>
             <Grid item>
-            <img src={require(`../assets/images/homescreen_athlab_logo.png`)}></img>
+            <img src={require(`../assets/images/homescreen_athlab_logo.png`)} alt="logo"></img>
             </Grid>
         </Grid>
         

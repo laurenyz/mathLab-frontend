@@ -3,10 +3,10 @@ import '../ScratchPad.css'
 import ActionCable from 'actioncable'
 import {withRouter} from 'react-router-dom'
 // import {MathFieldComponent} from 'react-mathlive'
-import { addStyles, EditableMathField } from 'react-mathquill'
+// import { addStyles, EditableMathField } from 'react-mathquill'
 // import EditableMathExample from './mathquillExample'
 
-addStyles()
+// addStyles()
 
 class ScratchPad extends React.Component {
 

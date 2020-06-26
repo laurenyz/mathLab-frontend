@@ -3,18 +3,18 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-const useStyles = makeStyles((theme) => ({
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+// const useStyles = makeStyles((theme) => ({
+//   submit: {
+//     margin: theme.spacing(3, 0, 2),
+//   },
   
-}))
+// }))
 
 const CopyModal = props => {   
-    const classes = useStyles();
+    // const classes = useStyles();
         return(<div>
             <DialogTitle style={{marginBottom: "0px"}}id="edit-scratchpad-title">Share ScratchPad</DialogTitle>
                 <DialogContent>
