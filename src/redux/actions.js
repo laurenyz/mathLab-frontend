@@ -7,7 +7,7 @@ function addedScratchPad(user_scratchpad) {
 
 function savingScratchPad(saveData) {
     return (dispatch) => {
-        fetch('http://localhost:3000/user_scratchpads', {
+        fetch('https://laurenyz-mathlab.herokuapp.com/user_scratchpads', {
         method: "POST",
         headers: {
             'Content-Type': "application/json",
@@ -41,7 +41,7 @@ function loadedProfilePicture(profilePictureData){
 
 function uploadingProfilePicture(formData, userId){
     return (dispatch, getState) => {
-     fetch(`http://localhost:3000/users/${userId}/upload_image`, {
+     fetch(`https://laurenyz-mathlab.herokuapp.com/users/${userId}/upload_image`, {
      method: "POST",
      // credentials: "include",
      headers: {
@@ -105,7 +105,7 @@ function uploadingProfilePicture(formData, userId){
  
  function deletingPost({post, history}){
      return (dispatch) => {
-         fetch(`http://localhost:3000/posts/${post.id}`,{
+         fetch(`https://laurenyz-mathlab.herokuapp.com/posts/${post.id}`,{
              method: "DELETE"
          })
          .then(resp => resp.json())
@@ -126,7 +126,7 @@ function uploadingProfilePicture(formData, userId){
 
  function deletingSavedScratchPad(user_scratchpad){
      return(dispatch) => {
-        fetch(`http://localhost:3000/user_scratchpads/${user_scratchpad.id}`,{
+        fetch(`https://laurenyz-mathlab.herokuapp.com/user_scratchpads/${user_scratchpad.id}`,{
             method: "DELETE"
         })
         .then(resp => resp.json())
@@ -145,7 +145,7 @@ function uploadingProfilePicture(formData, userId){
  
  function deletingReply(reply){
      return (dispatch) => {
-         fetch(`http://localhost:3000/replies/${reply.id}`,{
+         fetch(`https://laurenyz-mathlab.herokuapp.com/replies/${reply.id}`,{
              method: "DELETE"
          })
          .then(resp => resp.json())
@@ -162,7 +162,7 @@ function uploadingProfilePicture(formData, userId){
  
  function addingPost(info) {
      return (dispatch) => {
-         fetch('http://localhost:3000/posts', {
+         fetch('https://laurenyz-mathlab.herokuapp.com/posts', {
          method: "POST",
          headers: {
              'Content-Type': "application/json",
@@ -190,7 +190,7 @@ function uploadingProfilePicture(formData, userId){
  
  function addingReply(reply){
      return(dispatch) => {
-         fetch('http://localhost:3000/replies', {
+         fetch('https://laurenyz-mathlab.herokuapp.com/replies', {
          method: "POST",
          headers: {
              'Content-Type': "application/json",
@@ -219,7 +219,7 @@ function deletedUpvote(upvote){
  
 function deletingUpvote(upvote){
     return (dispatch) => {
-        fetch(`http://localhost:3000/upvotes/${upvote.id}`,{
+        fetch(`https://laurenyz-mathlab.herokuapp.com/upvotes/${upvote.id}`,{
             method: "DELETE"
         })
         .then(resp => resp.json())
@@ -229,7 +229,7 @@ function deletingUpvote(upvote){
 
  function addingUpvote(upvote){
      return(dispatch) => {
-         fetch('http://localhost:3000/upvotes', {
+         fetch('https://laurenyz-mathlab.herokuapp.com/upvotes', {
              method: "POST",
              headers: {
                  'Content-Type': "application/json",
@@ -271,7 +271,7 @@ function deletingUpvote(upvote){
  
  function loggingIn(credentials){
      return (dispatch) => {
-     fetch('http://localhost:3000/login', {
+     fetch('https://laurenyz-mathlab.herokuapp.com/login', {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
@@ -310,7 +310,7 @@ function deletingUpvote(upvote){
  
  function fetchingPosts() {
      return(dispatch) => {
-         fetch('http://localhost:3000/posts')
+         fetch('https://laurenyz-mathlab.herokuapp.com/posts')
          .then(resp => resp.json())
          .then(posts => {
              const postArray = posts.sort((a,b)=>(a.id<b.id? 1 : -1))
@@ -320,7 +320,7 @@ function deletingUpvote(upvote){
  
  function fetchingUser() {
      return(dispatch) => {
-         fetch("http://localhost:3000/profile", {
+         fetch("https://laurenyz-mathlab.herokuapp.com/profile", {
          headers: {
            "Authentication": localStorage.getItem('jwt')
          }
@@ -339,7 +339,7 @@ function deletingUpvote(upvote){
  
  function deleteUser(user){
      return (dispatch, getState) => {
-         fetch(`http://localhost:3000/users/${user.id}`,{
+         fetch(`https://laurenyz-mathlab.herokuapp.com/users/${user.id}`,{
              method: "DELETE"
          })
          .then(resp => resp.json())
@@ -368,7 +368,7 @@ function deletingUpvote(upvote){
 
  function editingSavedScratchpad(user_scratchpad){
     return(dispatch) => {
-        fetch(`http://localhost:3000/user_scratchpads/${user_scratchpad.id}`, {
+        fetch(`https://laurenyz-mathlab.herokuapp.com/user_scratchpads/${user_scratchpad.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': "application/json",
@@ -389,7 +389,7 @@ function deletingUpvote(upvote){
  function editingUser(userInfo){
      const {id, name, username, email, history} = userInfo
      return(dispatch) => {
-         fetch(`http://localhost:3000/users/${userInfo.id}`, {
+         fetch(`https://laurenyz-mathlab.herokuapp.com/users/${userInfo.id}`, {
              method: "PATCH",
              headers: {
                  'Content-Type': "application/json",
@@ -410,7 +410,7 @@ function deletingUpvote(upvote){
  
  function createUser(userInfo){
      return(dispatch) => {
-         fetch("http://localhost:3000/users", {
+         fetch("https://laurenyz-mathlab.herokuapp.com/users", {
          method: "POST",
          headers: {
              'Content-Type': "application/json",
