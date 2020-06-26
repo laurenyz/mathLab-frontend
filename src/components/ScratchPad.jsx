@@ -24,7 +24,7 @@ class ScratchPad extends React.Component {
         .then(scratchpad => {
           console.log("hitting component did mount")
           this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})
-          const cable = ActionCable.createConsumer('ws://laurenyz-mathlab.herokuapp.com/cable')
+          const cable = ActionCable.createConsumer('wss://laurenyz-mathlab.herokuapp.com/cable')
           this.subscription = cable.subscriptions.create({ channel: 'ScratchpadsChannel', room: scratchpad.id }, {
             received: this.handleReceiveNewText
           })
