@@ -14,7 +14,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 // }))
 
 const CopyModal = props => {   
-    // const classes = useStyles();
         return(<div>
             <DialogTitle style={{marginBottom: "0px"}}id="edit-scratchpad-title">Share ScratchPad</DialogTitle>
                 <DialogContent>
