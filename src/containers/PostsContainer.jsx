@@ -39,6 +39,7 @@ const PostsContainer = (props) => {
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
+                {props.receivedFetch?null:<Typography>LOADING... This may take a moment as the backend is hosted on Heroku, which can have a slow startup time.</Typography>}
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
                     {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true} /></Grid>)}
                 </Grid>
@@ -71,7 +72,8 @@ const mapStateToProps = state => {
         user: state.user,
         posts: state.posts,
         searchTerm: state.searchTerm,
-        filterSubject: state.filterSubject
+        filterSubject: state.filterSubject,
+        receivedFetch: state.receivedFetch
     }
 }
 
