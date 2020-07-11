@@ -162,6 +162,15 @@ const userScratchpadsReducer = (state = [], action) => {
   }
 }
 
+const receivedFetchReducer = (state = false, action) => {
+  switch(action.type){
+    case "RECEIVED_FETCH":
+      return true
+    
+    default: return state
+  }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,  
     posts: postsReducer,
@@ -169,7 +178,8 @@ const rootReducer = combineReducers({
     filterSubject: filterSubjectReducer,
     userUpvotes: userUpvotesReducer,
     profilePicture: profilePictureReducer,
-    userScratchpads: userScratchpadsReducer
+    userScratchpads: userScratchpadsReducer,
+    receivedFetch: receivedFetchReducer
   });
   
   export default rootReducer;

@@ -313,7 +313,9 @@ function deletingUpvote(upvote){
          .then(resp => resp.json())
          .then(posts => {
              const postArray = posts.sort((a,b)=>(a.id<b.id? 1 : -1))
-             dispatch(fetchedPosts(postArray))})
+             dispatch(fetchedPosts(postArray))
+             dispatch(receivedFetch())
+            })
      }
  }
  
@@ -430,6 +432,12 @@ function deletingUpvote(upvote){
                  }
          })
      }
+ }
+
+ function receivedFetch(){
+    return {
+        type: "RECEIVED_FETCH"
+    }
  }
  
  
