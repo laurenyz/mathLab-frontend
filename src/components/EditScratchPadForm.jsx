@@ -48,7 +48,6 @@ class EditScratchPadForm extends React.Component {
     }
 
     render(){
-        console.log(this.props)
         const { classes } = this.props
         return(<div>
             <DialogTitle style={{marginBottom: "0px"}}id="edit-scratchpad-title">Edit ScratchPad</DialogTitle>

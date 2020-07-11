@@ -32,8 +32,8 @@ class EditableMathExample extends React.Component {
           onChange={mathField => {
             const latex = mathField.latex()
             const text = mathField.text()
-            console.log('latex changed:', latex)
-            console.log('text changed:', text)
+            // console.log('latex changed:', latex)
+            // console.log('text changed:', text)
             this.setState({ latex, text })
           }}
           mathquillDidMount={el => {

@@ -22,7 +22,6 @@ class ScratchPad extends React.Component {
         fetch(`https://laurenyz-mathlab.herokuapp.com/scratchpads/${this.props.match.params.url}`)
         .then(resp => resp.json())
         .then(scratchpad => {
-          console.log("hitting component did mount")
           this.setState({text: scratchpad.scratchpad_text, scratchpadId: scratchpad.id})
           const cable = ActionCable.createConsumer('wss://laurenyz-mathlab.herokuapp.com/cable')
           this.subscription = cable.subscriptions.create({ channel: 'ScratchpadsChannel', room: scratchpad.id }, {
@@ -43,7 +42,7 @@ class ScratchPad extends React.Component {
     }
     
     render() {
-      console.log(this.subscription)
+      // console.log(this.subscription)
           return (
             <div>
               <textarea

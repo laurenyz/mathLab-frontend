@@ -54,7 +54,6 @@ function uploadingProfilePicture(formData, userId){
        if (profilePictureData.error) {
          alert(profilePictureData.error)
        } else {
-            console.log(profilePictureData)
             dispatch(loadedProfilePicture(profilePictureData.image_url))
             dispatch(updatedPostsProfilePicture({image: profilePictureData.image_url, user: getState().user}))
             dispatch(updatedRepliesProfilePicture({image: profilePictureData.image_url, user: getState().user}))

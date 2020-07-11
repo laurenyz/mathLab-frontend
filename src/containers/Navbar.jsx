@@ -90,7 +90,7 @@ class Navbar extends React.Component {
                 if (scratchpad.error){
                     alert(scratchpad.message)
                     } else {
-                    console.log(scratchpad)
+
                     window.open(`/scratchpads/${scratchpad.url}`)
                     }
             })

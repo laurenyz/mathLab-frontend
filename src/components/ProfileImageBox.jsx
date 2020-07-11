@@ -124,7 +124,6 @@ const ProfileImageBox = (props) => {
     
     function handleSubmit(event) {
         event.preventDefault()
-        console.log("submitting", event)
         
         const formData = new FormData(event.target)
         if (formData.get("image").name !== "") {
