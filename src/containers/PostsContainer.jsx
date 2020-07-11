@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles((theme) => ({
     addButton: {
@@ -40,7 +41,7 @@ const PostsContainer = (props) => {
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
-                {props.receivedFetch?null:<Typography>LOADING... This may take a moment as the backend is hosted on Heroku, which can have a slow startup time.</Typography>}
+                {props.receivedFetch?null:<Typography><CircularProgress color="secondary" /></Typography>}
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
                     {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true} /></Grid>)}
                 </Grid>
