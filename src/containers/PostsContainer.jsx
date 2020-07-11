@@ -41,7 +41,7 @@ const PostsContainer = (props) => {
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
-                {props.receivedFetch?null:<Typography><CircularProgress color="secondary" /></Typography>}
+                {props.receivedFetch?null:<Typography><CircularProgress color="primary" /></Typography>}
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
                     {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true} /></Grid>)}
                 </Grid>
