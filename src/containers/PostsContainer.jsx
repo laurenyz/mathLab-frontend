@@ -41,7 +41,16 @@ const PostsContainer = (props) => {
                     <Grid item><SearchBar /></Grid>
                     <Grid item><SubjectFilter /></Grid>
                 </Grid>
-                {props.receivedFetch?null:<Typography><CircularProgress color="primary" /></Typography>}
+                {props.receivedFetch?null:
+                <Grid container direction="column" justify = "center" alignItems="center" spacing = {2}>
+                    <Grid item>
+                        <CircularProgress color="primary" />
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="subtitle">This may take a moment, as the backend is hosted on Heroku</Typography>
+                    </Grid>
+                </Grid>
+                    }
                 <Grid container direction="column" justify = "center" alignItems="stretch" spacing = {2}>
                     {filterFunction().map(post => <Grid item key={uuidv4()}><PostCard post={post} key={post.id} showReplies={true} /></Grid>)}
                 </Grid>
